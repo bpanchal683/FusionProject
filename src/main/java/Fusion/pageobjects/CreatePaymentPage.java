@@ -1,6 +1,7 @@
 package Fusion.pageobjects;
 
 import Fusion.AbstractComponents.AbstractComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -81,6 +82,9 @@ public class CreatePaymentPage extends AbstractComponent {
     @FindBy(xpath = "//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:dialog1::ok']")
     WebElement okButton;
 
+    By saveAndCloseWait=By.xpath("//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:AP1:cb5']");
+    By confirmationMsgWait=By.xpath("//button[@id='_FOd1::msgDlg::cancel']");
+
 
 
     public void setPaymentDetails(String bussiUnit, String supp, String pymtDate, String desc, String bankAcc, String pymtMeth, String pymtProfileProc) throws InterruptedException {
@@ -112,12 +116,14 @@ public class CreatePaymentPage extends AbstractComponent {
 
     public void saveClose() throws InterruptedException
     {
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
+        waitForElementToBeClickable(saveAndCloseWait);
         saveAndClose.click();
     }
 
     public void confirmationMsgPopup() throws InterruptedException{
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
+        waitForElementToBeClickable(confirmationMsgWait);
         confirmationMsg.click();
     }
 
