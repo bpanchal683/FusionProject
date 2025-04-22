@@ -46,11 +46,13 @@ public class NavigatorPage extends AbstractComponent {
         showMore.click();
     }
 
-    public void clickInvoice()
+    public InvoicesPage clickInvoice()
     {
         //waitForElement(inv);
         scrollIntoView(invWait);
         invoices.click();
+        InvoicesPage invoicesPage= new InvoicesPage(driver);
+        return invoicesPage;
     }
 
     public RequsitionPage clickPurchaseRequisition() {
@@ -79,9 +81,11 @@ public class NavigatorPage extends AbstractComponent {
         payments.click();
     }
 
-    public void clickScheduleProcesses(){
+    public ScheduleProcessDetailsPage clickScheduleProcesses(){
         scrollIntoView(schProcessWait);
         scheduledProcesses.click();
+        ScheduleProcessDetailsPage scheduleProcessDetailsPage=new ScheduleProcessDetailsPage(driver);
+        return scheduleProcessDetailsPage;
 
     }
 

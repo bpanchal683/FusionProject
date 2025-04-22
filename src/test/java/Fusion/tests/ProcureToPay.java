@@ -86,38 +86,36 @@ public class ProcureToPay {
         CreateReceiptPage createReceiptPage=receiveLinesPage.performReceiveLinesOperation(quantity,subinventory);
         createReceiptPage.createReceiptAndSubmit(shipment,waybill,packingSlip,billOfLading);
         String recNum=createReceiptPage.getReceiptId();
+
         //Create Invoice
         homePage.clickHome();
         homePage.clickNavigator();
         navigatorPage.setShowMore();
-        navigatorPage.clickInvoice();
-        InvoicesPage invoicesPage= new InvoicesPage(driver);
-        invoicesPage.goToCreateInvoice();
-        CreateInvoicePage createInvoicePage=new CreateInvoicePage(driver);
+        InvoicesPage invoicesPage=navigatorPage.clickInvoice();
+        CreateInvoicePage createInvoicePage=invoicesPage.goToCreateInvoice();
         createInvoicePage.setInvoiceFieldsWithPO(poNum,invoiceNumber,InvAmount,desc,invDate,pymtTerms,termDate);
         String invoiceNum= createInvoicePage.getInvoiceNumber();
         createInvoicePage.setLineDetails(linesAmount,distributionCombination);
         createInvoicePage.invoiceActions();
         createInvoicePage.accountingConfirmation();
+
         //create payment
         homePage.clickHome();
         homePage.clickNavigator();
         navigatorPage.clickPayments();
-        invoicesPage.goToCreatePayment();
-        CreatePaymentPage createPaymentPage=new CreatePaymentPage(driver);
+        CreatePaymentPage createPaymentPage=invoicesPage.goToCreatePayment();
         createPaymentPage.setPaymentDetails(businessUnit,supplier,paymentDate,description,bankAccount,paymentMethod,paymentProcessProfile);
         createPaymentPage.enterInvoiceDetails(invoiceNum);
         createPaymentPage.saveClose();
         String pymNumber=createPaymentPage.getPaymentNumber();
         createPaymentPage.confirmationMsgPopup();
-        invoicesPage.goTOManagePayment();
-        ManagePaymentPage managePaymentPage=new ManagePaymentPage(driver);
+        ManagePaymentPage managePaymentPage=invoicesPage.goTOManagePayment();
         managePaymentPage.setPaymentFields(paymentDate,pymNumber);
+
         //Invoice pdf viewer
         homePage.clickHome();
         homePage.clickNavigator();
-        navigatorPage.clickScheduleProcesses();
-        ScheduleProcessDetailsPage scheduleProcessDetailsPage=new ScheduleProcessDetailsPage(driver);
+        ScheduleProcessDetailsPage scheduleProcessDetailsPage=navigatorPage.clickScheduleProcesses();
         scheduleProcessDetailsPage.setScheduleProcesses(scheduleProcessName);
         scheduleProcessDetailsPage.setScheduleDetails(businessUnit,supplier,fromEnteredDate,toEnteredDate);
         String processNum=scheduleProcessDetailsPage.getProcessId();

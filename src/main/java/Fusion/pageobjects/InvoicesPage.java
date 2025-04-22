@@ -28,10 +28,12 @@ public class InvoicesPage extends AbstractComponent {
     @FindBy(linkText = "Manage Payments")
     WebElement managePayments;
 
-    public void goToCreateInvoice()
+    public CreateInvoicePage goToCreateInvoice()
     {
         taskButton.click();
         createInvoice.click();
+        CreateInvoicePage createInvoicePage=new CreateInvoicePage(driver);
+        return createInvoicePage;
     }
 
     public void goToCreateAccounting()
@@ -40,14 +42,18 @@ public class InvoicesPage extends AbstractComponent {
         createAccounting.click();
     }
 
-    public void goToCreatePayment(){
+    public CreatePaymentPage goToCreatePayment(){
         taskButton.click();
         createPayment.click();
+        CreatePaymentPage createPaymentPage=new CreatePaymentPage(driver);
+        return createPaymentPage;
     }
 
-    public void goTOManagePayment(){
+    public ManagePaymentPage goTOManagePayment(){
         taskButton.click();
         managePayments.click();
+        ManagePaymentPage managePaymentPage=new ManagePaymentPage(driver);
+        return managePaymentPage;
     }
 
 
