@@ -89,6 +89,7 @@ public class CreateInvoicePage extends AbstractComponent {
     By forceApprovalWait=By.xpath("//tr[contains(@id,'MAnt2:1:pm1:r1:0:ap1:cm11')]");
     By invoiceActionsWait=By.xpath("//a[contains(text(),'Invoice Actions')]");
     By identifyPoWait=By.xpath("//*[contains(@id,'ic1::content')]");
+    By confirmationWait=By.xpath("//*[contains(@id, 'ap1:cb43')]");
 
     public void setInvoiceFields(String bUnit,String spl,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate)
     {
@@ -145,6 +146,7 @@ public class CreateInvoicePage extends AbstractComponent {
 
     public void accountingConfirmation()
     {
+        waitForElement(confirmationWait);
         confirmation.click();
         saveAndClose.click();
     }

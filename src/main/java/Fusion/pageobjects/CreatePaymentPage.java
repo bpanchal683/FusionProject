@@ -64,8 +64,10 @@ public class CreatePaymentPage extends AbstractComponent {
 
     By saveAndCloseWait=By.xpath("//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:AP1:cb5']");
     By confirmationMsgWait=By.xpath("//button[@id='_FOd1::msgDlg::cancel']");
-
-
+    By bankAccountWait=By.xpath("//*[contains(@id,'AP1:bankAccountNameId::content')]");
+    By standardWait=By.xpath("//*[contains(text(),'Standard')]");
+    By selectInvoiceWait=By.xpath("//*[contains(@id,'MAnt2:1:combinedVOCriteriaQueryResultId:_ATp:t1::db')]");
+    By paymentNumberWait=By.xpath("//div[@class='x1ph']");
 
     public void setPaymentDetails(String bussiUnit, String supp, String pymtDate, String desc, String bankAcc, String pymtMeth, String pymtProfileProc) throws InterruptedException {
         businessUnit.sendKeys(bussiUnit);
@@ -79,6 +81,7 @@ public class CreatePaymentPage extends AbstractComponent {
         paymentType.click();
         description.sendKeys(desc);
         Thread.sleep(2000);
+        waitForElement(bankAccountWait);
         bankAccount.sendKeys(bankAcc);
         bankAccount.sendKeys(Keys.TAB);
         Thread.sleep(2000);
@@ -110,6 +113,7 @@ public class CreatePaymentPage extends AbstractComponent {
 
     public String getPaymentNumber() throws InterruptedException {
         Thread.sleep(3000);
+        waitForElement(paymentNumberWait);
         String paymentNo=paymentNumber.getText();
         String[] text1=paymentNo.split("for");
         String[] pm=text1[0].split(" ");
@@ -124,7 +128,9 @@ public class CreatePaymentPage extends AbstractComponent {
         Thread.sleep(1000);
         clickSearch.click();
         Thread.sleep(1000);
+        waitForElement(standardWait);
         standard.click();
+        waitForElementToBeClickable(selectInvoiceWait);
         selectInvoice.click();
         applyButton.click();
         okButton.click();

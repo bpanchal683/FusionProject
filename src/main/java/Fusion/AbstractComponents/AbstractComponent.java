@@ -68,40 +68,6 @@ public class AbstractComponent {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-//    // ✅ Robust click method
-//    public void click(By locator) {
-//       // waitForADFToBeIdle(); // Optional: only if you're working with Oracle Fusion
-//
-//        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
-//        int retries = 3;
-//        for (int i = 0; i < retries; i++) {
-//            try {
-//                WebElement element = driver.findElement(locator);
-//
-//                // Scroll to center of viewport
-//                ((JavascriptExecutor) driver).executeScript(
-//                        "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", element);
-//
-//                wait.until(ExpectedConditions.elementToBeClickable(locator));
-//
-//                sleep(300); // Short wait after scrolling
-//                element.click();
-//                return;
-//
-//            } catch (ElementClickInterceptedException e) {
-//                System.out.println("Click intercepted. Retrying: " + (i + 1));
-//                //sleep(1000);
-//            } catch (StaleElementReferenceException e) {
-//                System.out.println("Stale element. Retrying: " + (i + 1));
-//            } catch (Exception e) {
-//                System.out.println("Click failed. Using JS click as fallback: " + e.getMessage());
-//                //jsClick(locator);
-//                return;
-//            }
-//        }
-//    }
-
-
     public static String fnRandomNum() {
         Random rand = new Random();
         // Generates a number between 1000 and 9999 (inclusive)

@@ -49,8 +49,8 @@ public class CreateReceiptPage extends AbstractComponent {
     }
 
     public String getReceiptId() throws InterruptedException {
-        waitForElement(reqIdWait);
         Thread.sleep(2000);
+        waitForElement(reqIdWait);
         String receipt=reqId.getText();
         String[] receipt1=receipt.split("created");
         String[] receipt2=receipt1[0].split("Receipt");

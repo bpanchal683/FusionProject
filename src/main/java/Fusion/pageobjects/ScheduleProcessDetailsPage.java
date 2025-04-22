@@ -86,6 +86,8 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     By processNameWait=By.xpath("//table[@summary='List of Processes Meeting Search Criteria']");
     By scheduleProcessesWait=By.xpath("//*[contains(@id,'pt1:panel:scheduleProcess')]");
     By businessUnitWait=By.xpath("//*[contains(@id,'basicReqBody:paramDynForm_BusinessUnit::content')]");
+    By okButtonWait=By.xpath("//*[contains(@id,'FOTsr1:0:pt1:snpokbtnid')]");
+    By republishWait=By.cssSelector(".hdDeliveryInfo2 span[class='icon_cell']");
 
 
     public void setScheduleDetails(String buUnit, String supp, String fromDate, String toDate) throws InterruptedException {
@@ -153,6 +155,7 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
         scheduleProcessName.sendKeys(scheProcessName);
         scheduleProcessName.sendKeys(Keys.TAB);
         Thread.sleep(2000);
+        waitForElementToBeClickable(okButtonWait);
         okButton.click();
     }
 
@@ -161,6 +164,7 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
         processName.click();
         WebElement webFrame= driver.findElement( By.id ("_FOpt1:_FOr1:0:_FONSr2:0:_FOTsr1:0:pt1:processDetails:processDetails:r61:0:if1"));
         driver.switchTo().frame(webFrame);
+        waitForElementToBeClickable(republishWait);
         republish.click();
 
     }

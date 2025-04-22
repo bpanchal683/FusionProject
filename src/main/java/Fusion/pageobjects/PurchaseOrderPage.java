@@ -1,6 +1,7 @@
 package Fusion.pageobjects;
 
 import Fusion.AbstractComponents.AbstractComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,9 +23,14 @@ public class PurchaseOrderPage extends AbstractComponent {
     @FindBy(linkText = "Process Requisitions")
     WebElement processRequsition;
 
+    By taskButtonWait=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
+    By processRequisitionWait=By.linkText("Process Requisitions");
+
     public ProcessRequisitionsPage goToProcessRequsition()
     {
+        waitForElementToBeClickable(taskButtonWait);
         taskButton.click();
+        waitForElementToBeClickable(processRequisitionWait);
         processRequsition.click();
         ProcessRequisitionsPage processRequisitionsPage=new ProcessRequisitionsPage(driver);
         return processRequisitionsPage;
