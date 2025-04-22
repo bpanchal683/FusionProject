@@ -21,64 +21,44 @@ public class CreatePaymentPage extends AbstractComponent {
 
     @FindBy(xpath = "//*[contains(@id,'AP1:OrgUiId::content')]")
     WebElement businessUnit;
-
     @FindBy(xpath = "//*[contains(@id,'AP1:payeeNameId::content')]")
     WebElement supplier;
-
     @FindBy(xpath = "//*[contains(@id,'AP1:checkDate::content')]")
     WebElement paymentDate;
-
     @FindBy(xpath = "//*[contains(@id,'AP1:paymentTypeFlagUi::content')]")
     WebElement type;
-
     @FindBy(xpath = "//option[contains(text(),'Quick')]")
     WebElement paymentType;
-
     @FindBy(xpath = "//*[contains(@id,'AP1:inputText4::content')]")
     WebElement description;
-
     @FindBy(xpath = "//*[contains(@id,'AP1:bankAccountNameId::content')]")
     WebElement bankAccount;
-
     @FindBy(xpath = "//*[contains(@id,'paymentMethodNameUiId::content')]")
     WebElement paymentMethod;
-
     @FindBy(className = "AFAutoSuggestItem")
     WebElement paymentMethodAutoSuggestion;
-
     @FindBy(xpath = "//*[contains(@id,'AP1:paymentProfileUICompId::content')]")
     WebElement paymentProfileProcess;
-
     @FindBy(css = ".AFAutoSuggestItemsContainer .AFAutoSuggestItem")
     WebElement paymentProfileAutoSuggestion;
-
     @FindBy(xpath = "//img[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:AP1:AT1:_ATp:commandToolbarButton1::icon']")
     WebElement selectAddButton;
-
     @FindBy(xpath = "//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:AP1:cb5']")
     WebElement saveAndClose;
-
     @FindBy(xpath = "//button[@id='_FOd1::msgDlg::cancel']")
     WebElement confirmationMsg;
-
     @FindBy(xpath = "//div[@class='x1ph']")
     WebElement paymentNumber;
-
     @FindBy(xpath = "//input[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:coVOId:value00::content']")
     WebElement invoiceNum;
-
     @FindBy(xpath = "//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:coVOId::search']")
     WebElement clickSearch;
-
     @FindBy(xpath = "//*[contains(text(),'Standard')]")
     WebElement standard;
-
     @FindBy(xpath = "//*[contains(@id,'MAnt2:1:combinedVOCriteriaQueryResultId:_ATp:t1::db')]")
     WebElement selectInvoice;
-
     @FindBy(xpath = "//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:cb1']")
     WebElement applyButton;
-
     @FindBy(xpath = "//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:dialog1::ok']")
     WebElement okButton;
 
@@ -122,8 +102,8 @@ public class CreatePaymentPage extends AbstractComponent {
     }
 
     public void confirmationMsgPopup() throws InterruptedException{
-        //Thread.sleep(3000);
-        waitForElementToBeClickable(confirmationMsgWait);
+        Thread.sleep(3000);
+        //waitForElementToBeClickable(confirmationMsgWait);
         confirmationMsg.click();
     }
 

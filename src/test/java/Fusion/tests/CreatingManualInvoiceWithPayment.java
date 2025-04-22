@@ -1,5 +1,6 @@
 package Fusion.tests;
 
+import Fusion.TestComponent.BaseTest;
 import Fusion.pageobjects.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ import java.time.Duration;
 import static Fusion.AbstractComponents.AbstractComponent.fnRandomNum;
 import static Fusion.AbstractComponents.AbstractComponent.getCurrentDateFormatted;
 
-public class CreatingManualInvoiceWithPayment {
+public class CreatingManualInvoiceWithPayment extends BaseTest {
 
     public static void main(String[] args) throws Exception {
 

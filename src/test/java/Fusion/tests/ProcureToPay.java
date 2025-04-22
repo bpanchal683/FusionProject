@@ -1,18 +1,24 @@
 package Fusion.tests;
 
+import Fusion.TestComponent.BaseTest;
 import Fusion.pageobjects.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
+
 
 import static Fusion.AbstractComponents.AbstractComponent.fnRandomNum;
 import static Fusion.AbstractComponents.AbstractComponent.getCurrentDateFormatted;
 
-public class ProcureToPay {
+public class ProcureToPay extends BaseTest {
 
-    public static void main(String[] args) throws Exception {
+
+
+    @Test
+    public void ProcureToPay() throws Exception {
 
         String itemName="TL02";
         String quantity="2";
@@ -44,16 +50,9 @@ public class ProcureToPay {
         String fromEnteredDate=getCurrentDateFormatted();
         String toEnteredDate=getCurrentDateFormatted();
 
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver=new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        //Start Test
+        //Start Testhn
         //Creating Requsitions
-        LandingPage lp=new LandingPage(driver);
-        lp.goTo();
-        lp.login("Llongxi","Oracle123");
-        HomePage homePage=new HomePage(driver);
+        HomePage homePage=lp.login("Llongxi","Oracle123");
         NavigatorPage navigatorPage=homePage.clickNavigator();
         navigatorPage.setShowMore();
         RequsitionPage requsitionPage=navigatorPage.clickPurchaseRequisition();
@@ -86,7 +85,6 @@ public class ProcureToPay {
         CreateReceiptPage createReceiptPage=receiveLinesPage.performReceiveLinesOperation(quantity,subinventory);
         createReceiptPage.createReceiptAndSubmit(shipment,waybill,packingSlip,billOfLading);
         String recNum=createReceiptPage.getReceiptId();
-
         //Create Invoice
         homePage.clickHome();
         homePage.clickNavigator();
@@ -98,7 +96,6 @@ public class ProcureToPay {
         createInvoicePage.setLineDetails(linesAmount,distributionCombination);
         createInvoicePage.invoiceActions();
         createInvoicePage.accountingConfirmation();
-
         //create payment
         homePage.clickHome();
         homePage.clickNavigator();
@@ -111,7 +108,6 @@ public class ProcureToPay {
         createPaymentPage.confirmationMsgPopup();
         ManagePaymentPage managePaymentPage=invoicesPage.goTOManagePayment();
         managePaymentPage.setPaymentFields(paymentDate,pymNumber);
-
         //Invoice pdf viewer
         homePage.clickHome();
         homePage.clickNavigator();

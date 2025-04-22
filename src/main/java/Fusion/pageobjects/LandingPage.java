@@ -26,11 +26,13 @@ public class LandingPage extends AbstractComponent {
     @FindBy(id = "btnActive")
     WebElement button;
 
-    public void login(String username,String password1)
+    public HomePage login(String username, String password1)
     {
         email.sendKeys(username);
         password.sendKeys(password1);
         button.click();
+        HomePage homePage=new HomePage(driver);
+        return homePage;
     }
 
 }
