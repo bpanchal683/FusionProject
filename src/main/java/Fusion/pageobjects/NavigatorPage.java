@@ -53,10 +53,11 @@ public class NavigatorPage extends AbstractComponent {
         invoices.click();
     }
 
-    public void clickPurchaseRequisition() {
+    public RequsitionPage clickPurchaseRequisition() {
         scrollIntoView(purchase);
-        //click(purchase);
         purchaseRequisition.click();
+        RequsitionPage requsitionPage=new RequsitionPage(driver);
+        return requsitionPage;
     }
 
     public void clickPO() throws InterruptedException {

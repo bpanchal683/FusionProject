@@ -54,20 +54,14 @@ public class ProcureToPay {
         lp.goTo();
         lp.login("Llongxi","Oracle123");
         HomePage homePage=new HomePage(driver);
-        homePage.clickNavigator();
-        NavigatorPage navigatorPage=new NavigatorPage(driver);
+        NavigatorPage navigatorPage=homePage.clickNavigator();
         navigatorPage.setShowMore();
-        navigatorPage.clickPurchaseRequisition();
-        RequsitionPage requsitionPage=new RequsitionPage(driver);
-        requsitionPage.clickRequsition();
-        EnterRequisitionPage enterRequisitionPage=new EnterRequisitionPage(driver);
-        enterRequisitionPage.addItemsToCart(itemName,quantity,price,deliveryDate,deliveryLocation);
-        EditRequisitionPage editRequisitionPage=new EditRequisitionPage(driver);
-        editRequisitionPage.clickSubmit();
-        RequisitionsPage requisitionsPage=new RequisitionsPage(driver);
+        RequsitionPage requsitionPage=navigatorPage.clickPurchaseRequisition();
+        EnterRequisitionPage enterRequisitionPage=requsitionPage.clickRequsition();
+        EditRequisitionPage editRequisitionPage=enterRequisitionPage.addItemsToCart(itemName,quantity,price,deliveryDate,deliveryLocation);
+        RequisitionsPage requisitionsPage=editRequisitionPage.clickSubmit();
         String reqNum=requisitionsPage.getRequsitionId();
-        requisitionsPage.clickViewMore();
-        ManageRequisitionsPage manageRequisitionsPage=new ManageRequisitionsPage(driver);
+        ManageRequisitionsPage manageRequisitionsPage=requisitionsPage.clickViewMore();
         manageRequisitionsPage.verifyAndApproveRequisition(reqNum);
         //Creating PO
         homePage.clickHome();

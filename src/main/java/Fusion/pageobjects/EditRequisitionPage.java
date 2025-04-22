@@ -23,9 +23,11 @@ public class EditRequisitionPage extends AbstractComponent {
 
     By submitWait=By.xpath("//*[contains(@id,'_FONSr2:0:_FOTsr1:2:AP1:SPsb2')]");
 
-    public void clickSubmit()
+    public RequisitionsPage clickSubmit()
     {
         waitForElementToBeClickable(submitWait);
         submit.click();
+        RequisitionsPage requisitionsPage=new RequisitionsPage(driver);
+        return requisitionsPage;
     }
 }

@@ -42,7 +42,7 @@ public class EnterRequisitionPage extends AbstractComponent {
 
     By deloc=By.xpath("//*[contains(@id,'Deliv1:0:deliverToLocationId::su0')]");
 
-    public void addItemsToCart(String item,String qty,String prc,String delDate,String delLoc) throws InterruptedException {
+    public EditRequisitionPage addItemsToCart(String item, String qty, String prc, String delDate, String delLoc) throws InterruptedException {
         itemName.sendKeys(item);
         itemNameKey.sendKeys(Keys.TAB);
         quantity.clear();
@@ -58,6 +58,8 @@ public class EnterRequisitionPage extends AbstractComponent {
         addToCart.click();
         cart.click();
         reviewCart.click();
+        EditRequisitionPage editRequisitionPage=new EditRequisitionPage(driver);
+        return editRequisitionPage;
     }
 
 }

@@ -25,10 +25,13 @@ public class RequsitionPage extends AbstractComponent {
 
     By moreT= By.cssSelector(".xmo");
 
-    public void clickRequsition() throws InterruptedException {
+    public EnterRequisitionPage clickRequsition() throws InterruptedException {
         Thread.sleep(2000);
         moreTask.click();
         enterRequisition.click();
+        EnterRequisitionPage enterRequisitionPage=new EnterRequisitionPage(driver);
+        return enterRequisitionPage;
+
     }
 
 }

@@ -25,12 +25,11 @@ public class HomePage extends AbstractComponent {
 
     By nav=By.id("pt1:_UISmmLink::icon");
 
-    public void clickNavigator() throws InterruptedException {
-        //Thread.sleep(10000);
+    public NavigatorPage clickNavigator() throws InterruptedException {
         waitForElementToBeClickable(nav);
         navigator.click();
-//        NavigatorPage navigatorPage=new NavigatorPage(driver);
-//        return navigatorPage;
+        NavigatorPage navigatorPage=new NavigatorPage(driver);
+        return navigatorPage;
     }
 
     public void clickHome()

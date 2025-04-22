@@ -41,9 +41,11 @@ public class RequisitionsPage extends AbstractComponent {
             return ReqNum;
         }
 
-        public void clickViewMore()
+        public ManageRequisitionsPage clickViewMore()
         {
             waitForElementToBeClickable(viewMoreWait);
             viewMore.click();
+            ManageRequisitionsPage manageRequisitionsPage=new ManageRequisitionsPage(driver);
+            return manageRequisitionsPage;
         }
 }
