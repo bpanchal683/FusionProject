@@ -29,7 +29,7 @@ public class ReceiveLinesPage extends AbstractComponent {
 
     By quanityWait=By.xpath("//*[contains(@id,'AT1:_ATp:table1:0:Quantityid::content')]");
 
-    public void performReceiveLinesOperation(String qty,String subInv)
+    public CreateReceiptPage performReceiveLinesOperation(String qty, String subInv)
     {
         waitForElement(quanityWait);
         quantity.sendKeys(qty);
@@ -37,6 +37,8 @@ public class ReceiveLinesPage extends AbstractComponent {
         submit.click();
         warning.click();
         submit.click();
+        CreateReceiptPage createReceiptPage=new CreateReceiptPage(driver);
+        return createReceiptPage;
     }
 
 }

@@ -22,9 +22,11 @@ public class PurchaseOrderPage extends AbstractComponent {
     @FindBy(linkText = "Process Requisitions")
     WebElement processRequsition;
 
-    public void goToProcessRequsition()
+    public ProcessRequisitionsPage goToProcessRequsition()
     {
         taskButton.click();
         processRequsition.click();
+        ProcessRequisitionsPage processRequisitionsPage=new ProcessRequisitionsPage(driver);
+        return processRequisitionsPage;
     }
 }

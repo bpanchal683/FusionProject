@@ -5,11 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import javax.swing.*;
 
 public class ProcessRequisitionsPage extends AbstractComponent {
 
@@ -92,14 +89,22 @@ public class ProcessRequisitionsPage extends AbstractComponent {
         String[] purchase3=purchase2[1].split(" ");
         String poNum=purchase3[1];
         System.out.println(poNum);
-        okk.click();
         return poNum;
     }
 
-    public void goToManageOrders()
+    public EditPurchaseOrderPage clickOk()
+    {
+        okk.click();
+        EditPurchaseOrderPage editPurchaseOrderPage=new EditPurchaseOrderPage(driver);
+        return editPurchaseOrderPage;
+    }
+
+    public ManageOrdersPage goToManageOrders()
     {
         waitForElementToBeClickable(taskButtonWait);
         taskButton.click();
         manageOrders.click();
+        ManageOrdersPage manageOrdersPage=new ManageOrdersPage(driver);
+        return manageOrdersPage;
     }
 }

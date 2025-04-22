@@ -23,9 +23,11 @@ public class EditPurchaseOrderPage extends AbstractComponent {
 
     By editWait=By.xpath("//*[contains(@id,'MAt3:0:AP1:AT1:_ATp:edit::icon')]");
 
-    public void clickEdit()
+    public PoEditLinePage clickEdit()
     {
         waitForElementToBeClickable(editWait);
         edit.click();
+        PoEditLinePage poEditLinePage=new PoEditLinePage(driver);
+        return poEditLinePage;
     }
 }

@@ -116,8 +116,8 @@ public class CreatePaymentPage extends AbstractComponent {
 
     public void saveClose() throws InterruptedException
     {
-        //Thread.sleep(2000);
-        waitForElementToBeClickable(saveAndCloseWait);
+        Thread.sleep(3000);
+//        waitForElementToBeClickable(saveAndCloseWait);
         saveAndClose.click();
     }
 

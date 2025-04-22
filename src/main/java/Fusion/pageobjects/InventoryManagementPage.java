@@ -31,7 +31,7 @@ public class InventoryManagementPage extends AbstractComponent {
     By showTaskWait=By.xpath("//*[contains(@id,':_FOTRaT:0:soc1::content')]");
     By receiveExpectedShipmentsWait=By.linkText("Receive Expected Shipments");
 
-    public void goToReceiveExpectedShipments()
+    public ReceiveExpectedShipmentsPage goToReceiveExpectedShipments()
     {
         waitForElementToBeClickable(taskButtonWait);
         taskButton.click();
@@ -39,5 +39,7 @@ public class InventoryManagementPage extends AbstractComponent {
         selectReceipt.click();
         waitForElementToBeClickable(receiveExpectedShipmentsWait);
         receiveExpectedShipments.click();
+        ReceiveExpectedShipmentsPage receiveExpectedShipmentsPage=new ReceiveExpectedShipmentsPage(driver);
+        return receiveExpectedShipmentsPage;
     }
 }

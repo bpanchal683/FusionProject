@@ -60,28 +60,26 @@ public class NavigatorPage extends AbstractComponent {
         return requsitionPage;
     }
 
-    public void clickPO() throws InterruptedException {
-        //Thread.sleep(3000);
-        //waitForElementToBeClickable(po);
+    public PurchaseOrderPage clickPO() throws InterruptedException {
         scrollIntoView(poWait);
         purchaseOrder.click();
+        PurchaseOrderPage purchaseOrderPage=new PurchaseOrderPage(driver);
+        return purchaseOrderPage;
     }
 
-    public void clickInventoryManagement() throws InterruptedException {
-        //Thread.sleep(1000);
-        //waitForElementToBeClickable(iM);
+    public InventoryManagementPage clickInventoryManagement() throws InterruptedException {
         scrollIntoView(iMWait);
         inventoryManagement.click();
+        InventoryManagementPage inventoryManagementPage=new InventoryManagementPage(driver);
+        return inventoryManagementPage;
     }
 
     public void clickPayments() {
-        //waitForElement(pay);
         scrollIntoView(payWait);
         payments.click();
     }
 
     public void clickScheduleProcesses(){
-        //waitForElement(schProcess);
         scrollIntoView(schProcessWait);
         scheduledProcesses.click();
 

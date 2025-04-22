@@ -32,7 +32,7 @@ public class ReceiveExpectedShipmentsPage extends AbstractComponent {
     By poLineWait=By.cssSelector(".xen:first-child");
     By receiveWait=By.xpath("//*[contains(@id,'1:pt1:ap1:AT1:_ATp:receive')]");
 
-    public void searchAndGoToReceiveLines(String poNum)
+    public ReceiveLinesPage searchAndGoToReceiveLines(String poNum)
     {
          waitForElement(purchaseOrderWait);
          purchaseOrder.sendKeys(poNum);
@@ -42,5 +42,7 @@ public class ReceiveExpectedShipmentsPage extends AbstractComponent {
          poLine.click();
          waitForElementToBeClickable(receiveWait);
          receive.click();
+        ReceiveLinesPage receiveLinesPage=new ReceiveLinesPage(driver);
+        return receiveLinesPage;
     }
 }
