@@ -41,8 +41,11 @@ public class EnterRequisitionPage extends AbstractComponent {
     WebElement reviewCart;
 
     By deloc=By.xpath("//*[contains(@id,'Deliv1:0:deliverToLocationId::su0')]");
+    By itemNameWait=By.xpath("//*[contains(@id,'itemNumberId::content')]");
+    By deliveryLocWait=By.xpath("//*[contains(@id,'Deliv1:0:deliverToLocationId::content')]");
 
     public EditRequisitionPage addItemsToCart(String item, String qty, String prc, String delDate, String delLoc) throws InterruptedException {
+        waitForFieldToBeReady(itemNameWait);
         itemName.sendKeys(item);
         itemNameKey.sendKeys(Keys.TAB);
         quantity.clear();
@@ -53,8 +56,10 @@ public class EnterRequisitionPage extends AbstractComponent {
         Thread.sleep(3000);
         deliveryLocation.clear();
         deliveryLocation.sendKeys(delLoc);
-        Thread.sleep(1000);
-        selectLoc.click();
+        //Thread.sleep(1000);
+        //waitForElementPresence(deliveryLocWait);
+        //selectLoc.click();
+        jsClick(deliveryLocWait);
         addToCart.click();
         cart.click();
         reviewCart.click();

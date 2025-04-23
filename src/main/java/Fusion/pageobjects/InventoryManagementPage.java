@@ -33,11 +33,12 @@ public class InventoryManagementPage extends AbstractComponent {
 
     public ReceiveExpectedShipmentsPage goToReceiveExpectedShipments()
     {
-        waitForElementToBeClickable(taskButtonWait);
+        waitForElementPresence(taskButtonWait);
         taskButton.click();
+        waitForElementPresence(showTaskWait);
         showTask.click();
         selectReceipt.click();
-        waitForElementToBeClickable(receiveExpectedShipmentsWait);
+        waitForElementPresence(receiveExpectedShipmentsWait);
         receiveExpectedShipments.click();
         ReceiveExpectedShipmentsPage receiveExpectedShipmentsPage=new ReceiveExpectedShipmentsPage(driver);
         return receiveExpectedShipmentsPage;

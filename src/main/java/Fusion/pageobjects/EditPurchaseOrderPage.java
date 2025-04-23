@@ -25,7 +25,7 @@ public class EditPurchaseOrderPage extends AbstractComponent {
 
     public PoEditLinePage clickEdit()
     {
-        waitForElementToBeClickable(editWait);
+        waitForElementPresence(editWait);
         edit.click();
         PoEditLinePage poEditLinePage=new PoEditLinePage(driver);
         return poEditLinePage;

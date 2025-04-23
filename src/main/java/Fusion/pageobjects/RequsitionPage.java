@@ -23,12 +23,17 @@ public class RequsitionPage extends AbstractComponent {
     @FindBy(xpath = "//td[contains(text(),'Enter Requisition Line')]")
     WebElement enterRequisition;
 
-    By moreT= By.cssSelector(".xmo");
+    By moreTaskWait= By.cssSelector(".xmo");
+    By enterRequisitionLoc=By.xpath("//td[contains(text(),'Enter Requisition Line')]");
+
 
     public EnterRequisitionPage clickRequsition() throws InterruptedException {
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
+        waitForElementPresence(moreTaskWait);
         moreTask.click();
-        enterRequisition.click();
+        //Thread.sleep(1000);
+        jsClick(enterRequisitionLoc);
+        //enterRequisition.click();
         EnterRequisitionPage enterRequisitionPage=new EnterRequisitionPage(driver);
         return enterRequisitionPage;
 

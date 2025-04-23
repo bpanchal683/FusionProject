@@ -52,37 +52,40 @@ public class ProcessRequisitionsPage extends AbstractComponent {
 
     By reqLineWait=By.xpath("(//td[@class='xen'])[4]");
     By documentBuilderWait=By.xpath("(//button[normalize-space()='Add to Document Builder'])[1]");
-    By createWait=By.xpath("//*[contains(@id,'MAt2:0:pt1:DocBF1:0:cb2')]");
+    By createLoc=By.xpath("//*[contains(@id,'MAt2:0:pt1:DocBF1:0:cb2')]");
     By poIdWait=By.cssSelector(".x1n3 .x1mw");
     By taskButtonWait=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
     By searchWait=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1::search')]");
     By requisitionsBuWait=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1:value00::content')]");
+    By manageOrdersWait=By.linkText("Manage Orders");
+    By supplierWait=By.xpath("//*[contains(@id,'r1:0:AP1:AT5:supplier1Id::content')]");
 
 
     public void searchRequisitionAndAddToDocumentBuilder(String req,String supl) throws InterruptedException {
-        waitForElementToBeClickable(requisitionsBuWait);
+        waitForElementPresence(requisitionsBuWait);
         requsitionBu.click();
         requsitionBuSelect.click();
         requsition.sendKeys(req);
         buyer.clear();
-        Thread.sleep(3000);
-        waitForElementToBeClickable(searchWait);
+        //Thread.sleep(3000);
+        waitForElementPresence(searchWait);
         search.click();
-        waitForElementToBeClickable(reqLineWait);
+        waitForElementPresence(reqLineWait);
         reqLine.click();
         Thread.sleep(2000);
-        waitForElementToBeClickable(documentBuilderWait);
+        waitForElementVisible(documentBuilderWait);
         documentBuilder.click();
+        waitForElementPresence(supplierWait);
         supplier.sendKeys(supl);
         supplierTab.sendKeys(Keys.TAB);
         ok.click();
-        waitForElementToBeClickable(createWait);
-        create.click();
+        clickElement(createLoc);
     }
 
     public String getPurchaseOrderId() throws InterruptedException {
-        waitForElement(poIdWait);
-        Thread.sleep(2000);
+        //waitForElementPresence(poIdWait);
+        waitForElementVisible(poIdWait);
+        //Thread.sleep(2000);
         String purchase=poId.getText();
         String[] purchase1=purchase.split("was");
         String[] purchase2=purchase1[0].split("(Purchase Order)");
@@ -101,8 +104,9 @@ public class ProcessRequisitionsPage extends AbstractComponent {
 
     public ManageOrdersPage goToManageOrders()
     {
-        waitForElementToBeClickable(taskButtonWait);
+        waitForElementPresence(taskButtonWait);
         taskButton.click();
+        waitForElementPresence(manageOrdersWait);
         manageOrders.click();
         ManageOrdersPage manageOrdersPage=new ManageOrdersPage(driver);
         return manageOrdersPage;

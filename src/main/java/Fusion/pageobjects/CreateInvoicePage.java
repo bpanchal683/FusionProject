@@ -113,7 +113,7 @@ public class CreateInvoicePage extends AbstractComponent {
 
     public void setAccounting(String accDate,String labilityDistribution)
     {
-        waitForElementToBeClickable(show_more);
+        waitForElementPresence(show_more);
         showMore.click();
         accounting.click();
         accountingDate.clear();
@@ -147,15 +147,15 @@ public class CreateInvoicePage extends AbstractComponent {
 
     public void accountingConfirmation()
     {
-        waitForElementToBeClickable(confirmationWait);
+        waitForElementPresence(confirmationWait);
         confirmation.click();
-        waitForElementToBeClickable(saveAndCloseWait);
+        waitForElementPresence(saveAndCloseWait);
         saveAndClose.click();
     }
 
     public void setInvoiceFieldsWithPO(String po,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate)
     {
-        waitForElement(identifyPoWait);
+        waitForElementPresence(identifyPoWait);
         identifyingPO.sendKeys(po);
         invoiceNumber.sendKeys(invoiceNum);
         invoiceNumberKey.sendKeys(Keys.TAB);

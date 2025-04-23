@@ -40,9 +40,11 @@ public class NavigatorPage extends AbstractComponent {
     By iMWait=By.linkText("Inventory Management");
     By payWait = By.linkText("Payments");
     By schProcessWait = By.xpath("//span[contains(text(),'Scheduled Processes')]");
+    By showMoreWait=By.linkText("Show More");
 
     public void setShowMore()
     {
+        waitForElementClick(showMoreWait);
         showMore.click();
     }
 

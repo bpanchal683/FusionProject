@@ -28,9 +28,9 @@ public class PurchaseOrderPage extends AbstractComponent {
 
     public ProcessRequisitionsPage goToProcessRequsition()
     {
-        waitForElementToBeClickable(taskButtonWait);
+        waitForElementPresence(taskButtonWait);
         taskButton.click();
-        waitForElementToBeClickable(processRequisitionWait);
+        waitForElementPresence(processRequisitionWait);
         processRequsition.click();
         ProcessRequisitionsPage processRequisitionsPage=new ProcessRequisitionsPage(driver);
         return processRequisitionsPage;

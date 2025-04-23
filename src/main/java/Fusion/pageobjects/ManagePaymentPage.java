@@ -42,7 +42,8 @@ public class ManagePaymentPage extends AbstractComponent {
         paymentDate.sendKeys(pymtDate);
         paymentNumber.sendKeys(payNumber);
         search.click();
-        waitForElementToBeClickable(selectPaymentWait);
+        waitForElementPresence(selectPaymentWait);
+        //waitForTableToLoad(selectPaymentWait);
         selectPayment.click();
         Thread.sleep(2000);
         actions.click();
@@ -50,7 +51,7 @@ public class ManagePaymentPage extends AbstractComponent {
         //waitForElementToBeClickable(postToLedgerWait);
         postToLedger.click();
         //Thread.sleep(1000);
-        waitForElementToBeClickable(okButtonWait);
+        waitForElementPresence(okButtonWait);
         okButton.click();
 
     }

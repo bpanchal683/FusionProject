@@ -29,8 +29,8 @@ public class RequisitionsPage extends AbstractComponent {
     By viewMoreWait=By.linkText("View More");
 
         public String getRequsitionId() throws InterruptedException {
-            waitForElement(requisitionsIdWait);
-            Thread.sleep(2000);
+            waitForElementVisible(requisitionsIdWait);
+            //Thread.sleep(2000);
             String Req=requsitionId.getText();
             String[] Req1=Req.split("submitted");
             String[] Req2=Req1[0].split("Requisition");
@@ -43,7 +43,7 @@ public class RequisitionsPage extends AbstractComponent {
 
         public ManageRequisitionsPage clickViewMore()
         {
-            waitForElementToBeClickable(viewMoreWait);
+            waitForElementPresence(viewMoreWait);
             viewMore.click();
             ManageRequisitionsPage manageRequisitionsPage=new ManageRequisitionsPage(driver);
             return manageRequisitionsPage;

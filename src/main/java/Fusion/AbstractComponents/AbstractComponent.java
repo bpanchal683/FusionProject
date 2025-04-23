@@ -29,10 +29,22 @@ public class AbstractComponent {
         driver.get("https://ekwm-test.login.us6.oraclecloud.com/");
     }
 
-    public void waitForElement(By findBy)
+    public void waitForElementPresence(By findBy)
     {
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.presenceOfElementLocated(findBy));
+    }
+
+    public void waitForElementVisible(By findBy)
+    {
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+    }
+
+    public void waitForElementClick(By findBy)
+    {
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(findBy));
     }
 
     public void waitForElementToDisappear(By findBy)
@@ -41,10 +53,10 @@ public class AbstractComponent {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
     }
 
-    public void waitForElementToBeClickable(By findBy)
+    public void clickElement(By findBy)
     {
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement element= wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+        WebElement element= wait.until(ExpectedConditions.presenceOfElementLocated(findBy));
 
         try {
             // Try interacting with the element
@@ -53,7 +65,7 @@ public class AbstractComponent {
             System.out.println("Element is stale, re-locating...");
 
             // Re-locate the element after the exception is thrown
-            element = wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+            element = wait.until(ExpectedConditions.presenceOfElementLocated(findBy));
 
             // Retry interacting with the element
             element.click();
@@ -67,6 +79,20 @@ public class AbstractComponent {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", element);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
+    public void jsClick(By locator) {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.presenceOfElementLocated(locator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
+    public void waitForFieldToBeReady(By fieldLocator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(fieldLocator));
+    }
+
+
 
     public static String fnRandomNum() {
         Random rand = new Random();

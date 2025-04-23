@@ -81,7 +81,7 @@ public class CreatePaymentPage extends AbstractComponent {
         paymentType.click();
         description.sendKeys(desc);
         Thread.sleep(2000);
-        waitForElement(bankAccountWait);
+        waitForElementPresence(bankAccountWait);
         bankAccount.sendKeys(bankAcc);
         bankAccount.sendKeys(Keys.TAB);
         Thread.sleep(2000);
@@ -113,7 +113,7 @@ public class CreatePaymentPage extends AbstractComponent {
 
     public String getPaymentNumber() throws InterruptedException {
         Thread.sleep(3000);
-        waitForElement(paymentNumberWait);
+        waitForElementPresence(paymentNumberWait);
         String paymentNo=paymentNumber.getText();
         String[] text1=paymentNo.split("for");
         String[] pm=text1[0].split(" ");
@@ -128,9 +128,9 @@ public class CreatePaymentPage extends AbstractComponent {
         Thread.sleep(1000);
         clickSearch.click();
         Thread.sleep(1000);
-        waitForElement(standardWait);
+        waitForElementPresence(standardWait);
         standard.click();
-        waitForElementToBeClickable(selectInvoiceWait);
+        waitForElementPresence(selectInvoiceWait);
         selectInvoice.click();
         applyButton.click();
         okButton.click();

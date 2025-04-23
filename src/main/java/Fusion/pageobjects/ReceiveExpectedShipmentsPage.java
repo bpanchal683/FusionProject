@@ -34,13 +34,13 @@ public class ReceiveExpectedShipmentsPage extends AbstractComponent {
 
     public ReceiveLinesPage searchAndGoToReceiveLines(String poNum)
     {
-         waitForElement(purchaseOrderWait);
+         waitForElementPresence(purchaseOrderWait);
          purchaseOrder.sendKeys(poNum);
-         waitForElementToBeClickable(searchWait);
+         waitForElementPresence(searchWait);
          search.click();
-         waitForElementToBeClickable(poLineWait);
+         waitForElementPresence(poLineWait);
          poLine.click();
-         waitForElementToBeClickable(receiveWait);
+         waitForElementPresence(receiveWait);
          receive.click();
         ReceiveLinesPage receiveLinesPage=new ReceiveLinesPage(driver);
         return receiveLinesPage;

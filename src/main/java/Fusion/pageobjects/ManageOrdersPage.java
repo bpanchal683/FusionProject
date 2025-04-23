@@ -32,10 +32,10 @@ public class ManageOrdersPage extends AbstractComponent {
     By expandWait=By.cssSelector(".x1ax.x1tn");
 
     public void verifyAndApprovePO(String poNum) throws InterruptedException {
-        waitForElement(orderWait);
+        waitForElementPresence(orderWait);
         order.sendKeys(poNum);
         search.click();
-        waitForElement(postatusWait);
+        waitForElementPresence(postatusWait);
         String s=poStatus.getText();
         System.out.println(s);
         if (s.equalsIgnoreCase("Open")) {
@@ -46,11 +46,11 @@ public class ManageOrdersPage extends AbstractComponent {
             // Code to execute if condition is false
             while(!s.equalsIgnoreCase("Open"))
             {
-                waitForElement(expandWait);
+                waitForElementPresence(expandWait);
                 expand.click();
                 search.click();
                 System.out.println("refreshing the search");
-                waitForElement(postatusWait);
+                waitForElementPresence(postatusWait);
                 s=poStatus.getText();
 
             }

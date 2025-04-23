@@ -31,7 +31,10 @@ public class ManageRequisitionsPage extends AbstractComponent {
     @FindBy(css = ".x1ax.x1tn")
     WebElement expand;
 
+    By requisitionBUWait=By.xpath("//*[contains(@id,'pt1:r1:0:ap1:r1:0:q1:value00')]");
+
     public  void verifyAndApproveRequisition(String reqNum) throws InterruptedException {
+        waitForElementPresence(requisitionBUWait);
         requsitionBu.click();
         requsitionBuSelect.click();
         requsition.sendKeys(reqNum);

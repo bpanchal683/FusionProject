@@ -28,13 +28,16 @@ public class ReceiveLinesPage extends AbstractComponent {
     WebElement warning;
 
     By quanityWait=By.xpath("//*[contains(@id,'AT1:_ATp:table1:0:Quantityid::content')]");
+    By warningWait=By.xpath("(//tbody/tr[3]/td[2]/table/tbody/tr[1]/td[1]/button)[3]");
 
     public CreateReceiptPage performReceiveLinesOperation(String qty, String subInv)
     {
-        waitForElement(quanityWait);
+        //waitForElementPresence(quanityWait);
+        waitForFieldToBeReady(quanityWait);
         quantity.sendKeys(qty);
         subinventory.sendKeys(subInv);
         submit.click();
+        waitForElementPresence(warningWait);
         warning.click();
         submit.click();
         CreateReceiptPage createReceiptPage=new CreateReceiptPage(driver);

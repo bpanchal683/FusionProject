@@ -2,14 +2,7 @@ package Fusion.tests;
 
 import Fusion.TestComponent.BaseTest;
 import Fusion.pageobjects.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
-
-
 import static Fusion.AbstractComponents.AbstractComponent.fnRandomNum;
 import static Fusion.AbstractComponents.AbstractComponent.getCurrentDateFormatted;
 

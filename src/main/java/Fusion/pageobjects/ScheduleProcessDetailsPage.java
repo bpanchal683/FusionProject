@@ -92,7 +92,7 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
 
     public void setScheduleDetails(String buUnit, String supp, String fromDate, String toDate) throws InterruptedException {
         //Thread.sleep(2000);
-        waitForElement(businessUnitWait);
+        waitForElementPresence(businessUnitWait);
         businessUnit.sendKeys(buUnit);
         businessUnit.sendKeys(Keys.TAB);
         Thread.sleep(1000);
@@ -149,22 +149,22 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
 
     public void setScheduleProcesses(String scheProcessName) throws InterruptedException {
         //Thread.sleep(2000);
-        waitForElementToBeClickable(scheduleProcessesWait);
+        waitForElementPresence(scheduleProcessesWait);
         scheduleProcesses.click();
         Thread.sleep(2000);
         scheduleProcessName.sendKeys(scheProcessName);
         scheduleProcessName.sendKeys(Keys.TAB);
         Thread.sleep(2000);
-        waitForElementToBeClickable(okButtonWait);
+        waitForElementPresence(okButtonWait);
         okButton.click();
     }
 
     public void clickRepbulish() {
-        waitForElementToBeClickable(processNameWait);
+        waitForElementPresence(processNameWait);
         processName.click();
         WebElement webFrame= driver.findElement( By.id ("_FOpt1:_FOr1:0:_FONSr2:0:_FOTsr1:0:pt1:processDetails:processDetails:r61:0:if1"));
         driver.switchTo().frame(webFrame);
-        waitForElementToBeClickable(republishWait);
+        waitForElementPresence(republishWait);
         republish.click();
 
     }

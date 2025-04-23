@@ -25,7 +25,7 @@ public class EditRequisitionPage extends AbstractComponent {
 
     public RequisitionsPage clickSubmit()
     {
-        waitForElementToBeClickable(submitWait);
+        waitForElementPresence(submitWait);
         submit.click();
         RequisitionsPage requisitionsPage=new RequisitionsPage(driver);
         return requisitionsPage;
