@@ -91,6 +91,11 @@ public class CreateInvoicePage extends AbstractComponent {
     By identifyPoWait=By.xpath("//*[contains(@id,'ic1::content')]");
     By confirmationWait=By.xpath("//*[contains(@id, 'ap1:cb43')]");
     By saveAndCloseWait=By.xpath("//*[contains(@id, 'ap1:cb14')]");
+    By invoiceNumberWait=By.xpath("//*[contains(@id, 'MAnt2:1:pm1:r1:0:ap1:r2:0:i2::content')]");
+    By invAmountWait=By.xpath("//*[contains(@id,'ap1:r2:0:i3::content')]");
+    By invDateWait=By.xpath("//*[contains(@id,'ap1:r2:0:id2::content')]");
+    By pymtTermWait=By.xpath("//*[contains(@id,'ap1:r2:0:so3::content')]");
+    By expandLinesWait=By.xpath("//*[contains(@id, 'ap1:sh2::_afrDscl')]");
 
     public void setInvoiceFields(String bUnit,String spl,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate)
     {
@@ -124,22 +129,22 @@ public class CreateInvoicePage extends AbstractComponent {
 
     public void setLineDetails(String lineAmount,String distributionCombination)
     {
+        waitForElementPresence(expandLinesWait);
         expandLines.click();
         linesAmount.sendKeys(lineAmount);
         disbCombination.sendKeys(distributionCombination);
     }
 
     public void invoiceActions() throws InterruptedException {
+        waitForElementPresence(invoiceActionsWait);
          invoiceActions.click();
          validate.click();
         Thread.sleep(4000);
          invoiceActions.click();
          approval.click();
         Thread.sleep(3000);
-         //waitForElementToBeClickable(forceApprovalWait);
          forceApproval.click();
         Thread.sleep(4000);
-        //waitForElementToBeClickable(invoiceActionsWait);
          invoiceActions.click();
          Thread.sleep(2000);
          postToLedger.click();
@@ -157,11 +162,15 @@ public class CreateInvoicePage extends AbstractComponent {
     {
         waitForElementPresence(identifyPoWait);
         identifyingPO.sendKeys(po);
+        waitForFieldToBeReady(invoiceNumberWait);
         invoiceNumber.sendKeys(invoiceNum);
         invoiceNumberKey.sendKeys(Keys.TAB);
+        waitForFieldToBeReady(invAmountWait);
         InvAmount.sendKeys(invAmount);
         desc.sendKeys(description);
+        waitForFieldToBeReady(invDateWait);
         invDate.sendKeys(invoiceDate);
+        waitForFieldToBeReady(pymtTermWait);
         pymtTerms.clear();
         pymtTerms.sendKeys(paymentTerms);
         termDate.sendKeys(termsDate);

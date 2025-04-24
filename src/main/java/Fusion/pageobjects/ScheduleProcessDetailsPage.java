@@ -88,6 +88,9 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     By businessUnitWait=By.xpath("//*[contains(@id,'basicReqBody:paramDynForm_BusinessUnit::content')]");
     By okButtonWait=By.xpath("//*[contains(@id,'FOTsr1:0:pt1:snpokbtnid')]");
     By republishWait=By.cssSelector(".hdDeliveryInfo2 span[class='icon_cell']");
+    By supplierWait=By.xpath("//*[contains(@id,'basicReqBody:paramDynForm_SupplierName::content')]");
+    By fromEnteredDateWait=By.xpath("//*[contains(@id,'Form_FromEnteredDate::content')]");
+    By expandWait=By.xpath("//*[contains(@id, 'pt1:srRssdfl::_afrDscl')]");
 
 
     public void setScheduleDetails(String buUnit, String supp, String fromDate, String toDate) throws InterruptedException {
@@ -95,10 +98,12 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
         waitForElementPresence(businessUnitWait);
         businessUnit.sendKeys(buUnit);
         businessUnit.sendKeys(Keys.TAB);
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
+        waitForFieldToBeReady(supplierWait);
         supplier.sendKeys(supp);
         supplier.sendKeys(Keys.TAB);
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
+        waitForFieldToBeReady(fromEnteredDateWait);
         fromEnteredDate.sendKeys(fromDate);
         toEnteredDate.sendKeys(toDate);
         submit.click();
@@ -121,10 +126,11 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     }
 
     public void searchNumber(String processNum) throws InterruptedException {
+        waitForElementPresence(expandWait);
         expand.click();
         processNumber.sendKeys(processNum);
         searchButton.click();
-        Thread.sleep(8000);
+        Thread.sleep(4000);
 
     }
 
@@ -151,7 +157,8 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
         //Thread.sleep(2000);
         waitForElementPresence(scheduleProcessesWait);
         scheduleProcesses.click();
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
+        waitForFieldToBeReady(scheduleProcessesWait);
         scheduleProcessName.sendKeys(scheProcessName);
         scheduleProcessName.sendKeys(Keys.TAB);
         Thread.sleep(2000);

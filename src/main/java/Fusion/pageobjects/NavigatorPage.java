@@ -50,7 +50,6 @@ public class NavigatorPage extends AbstractComponent {
 
     public InvoicesPage clickInvoice()
     {
-        //waitForElement(inv);
         scrollIntoView(invWait);
         invoices.click();
         InvoicesPage invoicesPage= new InvoicesPage(driver);

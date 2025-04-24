@@ -67,7 +67,7 @@ public class ProcessRequisitionsPage extends AbstractComponent {
         requsitionBuSelect.click();
         requsition.sendKeys(req);
         buyer.clear();
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
         waitForElementPresence(searchWait);
         search.click();
         waitForElementPresence(reqLineWait);

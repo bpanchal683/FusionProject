@@ -68,14 +68,19 @@ public class CreatePaymentPage extends AbstractComponent {
     By standardWait=By.xpath("//*[contains(text(),'Standard')]");
     By selectInvoiceWait=By.xpath("//*[contains(@id,'MAnt2:1:combinedVOCriteriaQueryResultId:_ATp:t1::db')]");
     By paymentNumberWait=By.xpath("//div[@class='x1ph']");
+    By businessUnitWait=By.xpath("//*[contains(@id,'AP1:OrgUiId::content')]");
+    By paymentDateWait=By.xpath("//*[contains(@id,'AP1:checkDate::content')]");
+    By invoiceNumWait=By.xpath("//input[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:coVOId:value00::content']");
+    By clickSearchLoc=By.xpath("//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:coVOId::search']");
 
     public void setPaymentDetails(String bussiUnit, String supp, String pymtDate, String desc, String bankAcc, String pymtMeth, String pymtProfileProc) throws InterruptedException {
+        waitForElementPresence(businessUnitWait);
         businessUnit.sendKeys(bussiUnit);
         businessUnit.sendKeys(Keys.TAB);
         Thread.sleep(2000);
         supplier.sendKeys(supp);
+        waitForFieldToBeReady(paymentDateWait);
         paymentDate.clear();
-        //Thread.sleep(1000);
         paymentDate.sendKeys(pymtDate);
         type.click();
         paymentType.click();
@@ -99,14 +104,15 @@ public class CreatePaymentPage extends AbstractComponent {
 
     public void saveClose() throws InterruptedException
     {
-        Thread.sleep(3000);
-//        waitForElementToBeClickable(saveAndCloseWait);
-        saveAndClose.click();
+        //Thread.sleep(3000);
+        waitForElementToDisappear(clickSearchLoc);
+        clickElement(saveAndCloseWait);
+        //saveAndClose.click();
     }
 
     public void confirmationMsgPopup() throws InterruptedException{
-        Thread.sleep(3000);
-        //waitForElementToBeClickable(confirmationMsgWait);
+        //Thread.sleep(3000);
+        waitForElementVisible(confirmationMsgWait);
         confirmationMsg.click();
     }
 
@@ -123,7 +129,8 @@ public class CreatePaymentPage extends AbstractComponent {
     }
 
     public void enterInvoiceDetails(String invNum) throws InterruptedException {
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
+        waitForFieldToBeReady(invoiceNumWait);
         invoiceNum.sendKeys(invNum);
         Thread.sleep(1000);
         clickSearch.click();

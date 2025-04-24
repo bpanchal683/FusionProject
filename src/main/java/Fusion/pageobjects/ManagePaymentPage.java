@@ -36,13 +36,15 @@ public class ManagePaymentPage extends AbstractComponent {
     By selectPaymentWait=By.xpath("(//td)[352]");
     By postToLedgerWait=By.xpath("//td[contains(text(),'Post to Ledger')]");
     By okButtonWait=By.xpath("//*[contains(@id, 'AP1:AT1:cb2')]");
+    By paymentDateWait=By.xpath("//*[contains(@id,'AP1:q1:value10::content')]");
 
 
     public void setPaymentFields(String pymtDate,String payNumber) throws InterruptedException {
+        waitForFieldToBeReady(paymentDateWait);
         paymentDate.sendKeys(pymtDate);
         paymentNumber.sendKeys(payNumber);
         search.click();
-        //waitForElementPresence(selectPaymentWait);
+        waitForElementVisible(selectPaymentWait);
         clickElement(selectPaymentWait);
         //selectPayment.click();
         Thread.sleep(2000);
