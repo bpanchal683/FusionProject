@@ -35,7 +35,7 @@ public class CreatingManualInvoiceWithPayment extends BaseTest {
         driver.manage().window().maximize();
         //start test
         LandingPage lp=new LandingPage(driver);
-        lp.goTo();
+        //lp.goTo();
         lp.login("mjaime","Welcome@123");
         HomePage homePage=new HomePage(driver);
         homePage.clickNavigator();

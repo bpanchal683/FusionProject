@@ -1,9 +1,7 @@
 package Fusion.AbstractComponents;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.Random;
+import Fusion.AbstractComponents.AbstractComponent;
 
-import static java.lang.Thread.sleep;
 
 public class AbstractComponent {
 
@@ -24,9 +22,9 @@ public class AbstractComponent {
         PageFactory.initElements(driver,this);
     }
 
-    public void goTo()
+    public void goTo(String url)
     {
-        driver.get("https://ekwm-test.login.us6.oraclecloud.com/");
+        driver.get(url);
     }
 
     public void waitForElementPresence(By findBy)
@@ -102,7 +100,7 @@ public class AbstractComponent {
         return "T3INV" + UID;
     }
 
-    public static String getCurrentDateFormatted() {
+    public static  String getCurrentDateFormatted() {
         // Get the current date
         Date currentDate = new Date();
 
@@ -112,4 +110,5 @@ public class AbstractComponent {
         // Return the formatted date as a string
         return sdf.format(currentDate);
     }
+
 }

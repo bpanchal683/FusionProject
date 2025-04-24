@@ -3,13 +3,12 @@ package Fusion.TestComponent;
 import Fusion.resources.ExtentReporterNG;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.testng.internal.annotations.IListeners;
+
 
 import java.io.IOException;
 
@@ -47,16 +46,16 @@ public class Listeners extends BaseTest implements ITestListener {
         }
 
         //Screenshot to Report
-        String filePath=null;
+        //String filePath=null;
         try {
-             filePath=getScreenshot(result.getMethod().getMethodName(),driver);
-             //test.fail(MediaEntityBuilder.createScreenCaptureFromPath(filePath).build());
+             String filePath=getScreenshot(result.getMethod().getMethodName(),driver);
+            test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
         } catch (IOException e) {
 
             e.printStackTrace();
         }
 
-        test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
+        //test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
     }
 
     @Override

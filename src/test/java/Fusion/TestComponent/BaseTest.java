@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -24,14 +25,26 @@ public class BaseTest {
 
     public WebDriver driver;
     public LandingPage lp;
+    public String browserName;
+    public String url;
+    public String userName;
+    public String password;
 
-    public WebDriver initializeDriver() throws IOException {
+
+    public void readConfig() throws IOException {
         Properties prop=new Properties();
         FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"/src/main/java/Fusion/resources/config.properties");
         prop.load(fis);
-        String browserName=prop.getProperty("browser");
+        browserName=prop.getProperty("browser");
+        url=prop.getProperty("url");
+        userName=prop.getProperty("user");
+        password=prop.getProperty("password");
+    }
 
-        if(browserName.contains("chrome"))
+    public WebDriver initializeDriver() throws IOException {
+        readConfig();
+
+        if(browserName.equalsIgnoreCase("chrome"))
         {
             WebDriverManager.chromedriver().setup();
             driver=new ChromeDriver();
@@ -56,7 +69,7 @@ public class BaseTest {
     public LandingPage launchApplication() throws IOException {
         driver=initializeDriver();
         lp=new LandingPage(driver);
-        lp.goTo();
+        lp.goTo(url);
         return lp;
     }
 
@@ -69,10 +82,10 @@ public class BaseTest {
     public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
         TakesScreenshot ts=(TakesScreenshot)driver;
         File source=ts.getScreenshotAs(OutputType.FILE);
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS").format(new Date());
-        File file=new File(System.getProperty("user.dir")+"/reports/"+ testCaseName+timestamp +".png");
+        String timestamp = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
+        String scrPath=System.getProperty("user.dir")+"/reports/"+ testCaseName+timestamp +".png";
+        File file=new File(scrPath);
         FileUtils.copyFile(source,file);
-        //return "reports/"+ testCaseName+ timestamp +".png";
-        return "./reports/"+ testCaseName+timestamp +".png";
+        return scrPath;
     }
 }

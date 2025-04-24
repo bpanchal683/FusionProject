@@ -1,45 +1,51 @@
 package Fusion.tests;
 
 import Fusion.TestComponent.BaseTest;
+import Fusion.TestComponent.ExcelReader;
 import Fusion.pageobjects.*;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import static Fusion.AbstractComponents.AbstractComponent.fnRandomNum;
 import static Fusion.AbstractComponents.AbstractComponent.getCurrentDateFormatted;
 
 public class ProcureToPay extends BaseTest {
 
 
+    @Test(dataProvider = "P2PData")
+    public void ProcureToPay(Map<String, String> data) throws Exception {
 
-    @Test
-    public void ProcureToPay() throws Exception {
-
-        String itemName="TL02";
-        String quantity="2";
-        String price="25";
+        String itemName=data.get("itemName");
+        String quantity=data.get("quantity");
+        String price=data.get("price");
         String deliveryDate=getCurrentDateFormatted();
-        String deliveryLocation="ITC Singapore";
-        String supplier="JOHN LEO MABALA DAAN";
-        String subinventory="RM";
-        String shipment="1234";
-        String waybill="1234";
-        String packingSlip="1234";
-        String billOfLading="1234";
-        String businessUnit="IT Convergence Singapore";
+        String deliveryLocation=data.get("deliveryLocation");
+        String supplier=data.get("supplier");
+        String subinventory=data.get("subinventory");
+        String shipment=data.get("shipment");
+        String waybill=data.get("waybill");
+        String packingSlip=data.get("packingSlip");
+        String billOfLading=data.get("billOfLading");
+        String businessUnit=data.get("businessUnit");
         String invoiceNumber=fnRandomNum();
-        String InvAmount="50";
-        String desc="Invoice";
+        String InvAmount=data.get("InvAmount");
+        String desc=data.get("desc");
         String invDate=getCurrentDateFormatted();
-        String pymtTerms="Net 30";
+        String pymtTerms=data.get("pymtTerms");
         String termDate=getCurrentDateFormatted();
-        String accountingDate=getCurrentDateFormatted();
-        String linesAmount="50";
-        String distributionCombination="11.200.161600.00.306.44000.000000.000000";
+        String linesAmount=data.get("linesAmount");
+        String distributionCombination=data.get("distributionCombination");
         String paymentDate=getCurrentDateFormatted();
-        String description= "Invoice";
-        String bankAccount="PNC SGP-Regular Checking (USD)-582";
-        String paymentMethod="Wire";
-        String paymentProcessProfile="ITC SGP AP Wire Format USD";
-        String scheduleProcessName="Payables Invoice Register";
+        String description=data.get("description");
+        String bankAccount=data.get("bankAccount");
+        String paymentMethod=data.get("paymentMethod");
+        String paymentProcessProfile=data.get("paymentProcessProfile");
+        String scheduleProcessName=data.get("scheduleProcessName");
         String fromEnteredDate=getCurrentDateFormatted();
         String toEnteredDate=getCurrentDateFormatted();
 
@@ -114,4 +120,18 @@ public class ProcureToPay extends BaseTest {
         scheduleProcessDetailsPage.getPdf();
 
     }
+
+    @DataProvider(name = "P2PData")
+    public Iterator<Object[]> getP2PData() throws IOException {
+        String filePath = System.getProperty("user.dir") + "/src/test/java/resources/AP_TestData.xlsx";
+        List<Map<String, String>> testData = ExcelReader.getTestData(filePath, "P2P");
+
+        List<Object[]> dataProvider = new ArrayList<>();
+        for (Map<String, String> row : testData) {
+            dataProvider.add(new Object[]{row});
+        }
+
+        return dataProvider.iterator();
+    }
+
 }
