@@ -2,6 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
 
+    <listeners>
+        <listener class-name="Fusion.TestComponent.Listeners"/>
+    </listeners>
+
     <test name="P2P">
         <classes>
             <class name="Fusion.tests.ProcureToPay">
