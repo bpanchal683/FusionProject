@@ -1,41 +1,44 @@
 package Fusion.tests;
 
 import Fusion.TestComponent.BaseTest;
+import Fusion.TestComponent.ExcelReader;
 import Fusion.pageobjects.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import static Fusion.AbstractComponents.AbstractComponent.fnRandomNum;
 import static Fusion.AbstractComponents.AbstractComponent.getCurrentDateFormatted;
 
 public class CreatingManualInvoiceWithPayment extends BaseTest {
 
-    @Test
-    public void CreateManualInvoiceWithPayment() throws InterruptedException {
+    @Test(dataProvider = "InvoiceWithPayment")
+    public void CreateManualInvoiceWithPayment(Map<String, String> data) throws InterruptedException {
 
-        String businessUnit="IT Convergence USA";
-        String supplier="ADVANZ101 BUSINESS SYSTEMS INC";
+        String businessUnit=data.get("businessUnit");
+        String supplier=data.get("supplier");
         String invoiceNumber=fnRandomNum();
-        String invoiceAmount="56";
-        String desc="Creating Invoice";
+        String invoiceAmount=data.get("invoiceAmount");
+        String desc=data.get("desc");
         String invoiceDate=getCurrentDateFormatted();
-        String paymentTerms="Net 30";
+        String paymentTerms=data.get("paymentTerms");
         String termsDate=fnRandomNum();
         String accountingDate=getCurrentDateFormatted();
-        String liabilityDistribution="01.000.201100.00.000.00000.000000.000000";
-        String linesAmount="56";
-        String distributionCombination="01.000.201100.00.000.00000.000000.000000";
-        String ledger="ITC USA PL";
+        String liabilityDistribution=data.get("liabilityDistribution");
+        String linesAmount=data.get("linesAmount");
+        String distributionCombination=data.get("distributionCombination");
+        String ledger=data.get("ledger");
         String paymentDate=getCurrentDateFormatted();
-        String description="invoice";
-        String bankAccount="Action Capital # ZAITC-90";
-        String paymentMethod="Electronic";
-        String paymentProcessProfile="ANSI X12 820";
-        String category="Payments";
+        String description=data.get("description");
+        String bankAccount=data.get("bankAccount");
+        String paymentMethod=data.get("paymentMethod");
+        String paymentProcessProfile=data.get("paymentProcessProfile");
+        String category=data.get("category");
         //start test
         //create invoice
         HomePage homePage=lp.login("mjaime","Welcome@123");
@@ -76,5 +79,18 @@ public class CreatingManualInvoiceWithPayment extends BaseTest {
         ManageJournalsPage manageJournalsPage=journalsPage.goToManageJournals();
         EditJournalPage editJournalPage=manageJournalsPage.searchPayment(category,invoiceAmount);
         editJournalPage.clickAmount();
+    }
+
+    @DataProvider(name = "InvoiceWithPayment")
+    public Iterator<Object[]> getInvoiceWithPaymentData() throws IOException {
+        String filePath = System.getProperty("user.dir") + "/src/test/java/resources/AP_TestData.xlsx";
+        List<Map<String, String>> testData = ExcelReader.getTestData(filePath, "CreateManualInvoiceWithPayment");
+
+        List<Object[]> dataProvider = new ArrayList<>();
+        for (Map<String, String> row : testData) {
+            dataProvider.add(new Object[]{row});
+        }
+
+        return dataProvider.iterator();
     }
 }

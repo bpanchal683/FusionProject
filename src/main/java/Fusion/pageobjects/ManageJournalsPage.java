@@ -41,7 +41,7 @@ public class ManageJournalsPage extends AbstractComponent {
         waitForElementPresence(categoryWait);
         category.sendKeys(cat);
         search.click();
-        waitForElementPresence(clickEDWait);
+        //waitForElementPresence(clickEDWait);
         clickED.click();
         enterED.sendKeys(amount);
         expand.click();
