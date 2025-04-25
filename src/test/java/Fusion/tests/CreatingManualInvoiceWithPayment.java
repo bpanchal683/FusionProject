@@ -38,11 +38,9 @@ public class CreatingManualInvoiceWithPayment extends BaseTest {
         //lp.goTo();
         lp.login("mjaime","Welcome@123");
         HomePage homePage=new HomePage(driver);
-        homePage.clickNavigator();
-        NavigatorPage navigatorPage=new NavigatorPage(driver);
+        NavigatorPage navigatorPage=homePage.clickNavigator();
         navigatorPage.setShowMore();
-        navigatorPage.clickInvoice();
-        InvoicesPage invoicesPage=new InvoicesPage(driver);
+        InvoicesPage invoicesPage=navigatorPage.clickInvoice();
         invoicesPage.goToCreateInvoice();
         CreateInvoicePage createInvoicePage=new CreateInvoicePage(driver);
         createInvoicePage.setInvoiceFields(businessUnit,supplier,invoiceNumber,invoiceAmount,desc,invoiceDate,paymentTerms,termsDate);

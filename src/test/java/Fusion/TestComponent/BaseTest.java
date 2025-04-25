@@ -7,8 +7,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import java.io.File;
@@ -42,20 +45,35 @@ public class BaseTest {
     public WebDriver initializeDriver() throws IOException {
         readConfig();
 
-        if(browserName.equalsIgnoreCase("chrome"))
+        if(browserName.contains("chrome"))
         {
+            ChromeOptions options=new ChromeOptions();
             WebDriverManager.chromedriver().setup();
-            driver=new ChromeDriver();
+            if(browserName.contains("headless"))
+            {
+                options.addArguments("headless");
+            }
+            driver=new ChromeDriver(options);
         }
         else if (browserName.contains("edge"))
         {
+            EdgeOptions options=new EdgeOptions();
             WebDriverManager.edgedriver().setup();
-            driver=new EdgeDriver();
+            if(browserName.contains("headless"))
+            {
+                options.addArguments("headless");
+            }
+            driver=new EdgeDriver(options);
         }
         else if (browserName.contains("firefox"))
         {
+            FirefoxOptions options=new FirefoxOptions();
             WebDriverManager.firefoxdriver().setup();
-            driver=new FirefoxDriver();
+            if(browserName.contains("headless"))
+            {
+                options.addArguments("headless");
+            }
+            driver=new FirefoxDriver(options);
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
