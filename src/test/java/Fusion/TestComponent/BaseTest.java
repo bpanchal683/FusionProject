@@ -89,11 +89,11 @@ public class BaseTest {
         return lp;
     }
 
-    @AfterMethod
-    public void tearDown()
-    {
-        driver.close();
-    }
+//    @AfterMethod
+//    public void tearDown()
+//    {
+//        driver.close();
+//    }
 
     public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
         TakesScreenshot ts=(TakesScreenshot)driver;

@@ -91,6 +91,7 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     By supplierWait=By.xpath("//*[contains(@id,'basicReqBody:paramDynForm_SupplierName::content')]");
     By fromEnteredDateWait=By.xpath("//*[contains(@id,'Form_FromEnteredDate::content')]");
     By expandWait=By.xpath("//*[contains(@id, 'pt1:srRssdfl::_afrDscl')]");
+    By searchButtonWait=By.xpath("//*[contains(@id,'_FONSr2:0:_FOTsr1:0:pt1:srRssdfl::search')]");
 
 
     public void setScheduleDetails(String buUnit, String supp, String fromDate, String toDate) throws InterruptedException {
@@ -188,7 +189,28 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
         Actions actions = new Actions(driver);
         actions.moveToElement(export).perform();
         getPdf.click();
+    }
 
-
+    public void verifyCreateAccountingStatus(String processId) throws InterruptedException {
+        waitForElementPresence(expandWait);
+        expand.click();
+        processNumber.sendKeys(processId);
+        searchButton.click();
+        String s=status.getText();
+        if(s.equalsIgnoreCase("Warning"))
+        {
+            System.out.println(s);
+        }
+        else
+        {
+            while (!s.equalsIgnoreCase("Warning"))
+            {
+                waitForElementPresence(searchButtonWait);
+                searchButton.click();
+                System.out.println("refreshing the search");
+                Thread.sleep(1000);
+                s=status.getText();
+            }
+        }
     }
 }

@@ -32,6 +32,7 @@ public class InvoicesPage extends AbstractComponent {
     By taskButtonWait=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
     By createInvoiceWait=By.linkText("Create Invoice");
     By createPaymentWait=By.linkText("Create Payment");
+    By createAccountingWait=By.linkText("Create Accounting");
 
     public CreateInvoicePage goToCreateInvoice()
     {
@@ -43,10 +44,14 @@ public class InvoicesPage extends AbstractComponent {
         return createInvoicePage;
     }
 
-    public void goToCreateAccounting()
+    public SubmitRequestPage goToCreateAccounting()
     {
+        waitForElementPresence(taskButtonWait);
         taskButton.click();
+        waitForElementPresence(createAccountingWait);
         createAccounting.click();
+        SubmitRequestPage submitRequestPage=new SubmitRequestPage(driver);
+        return submitRequestPage;
     }
 
     public CreatePaymentPage goToCreatePayment(){

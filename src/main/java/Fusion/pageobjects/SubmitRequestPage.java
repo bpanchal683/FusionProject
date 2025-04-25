@@ -4,7 +4,6 @@ import Fusion.AbstractComponents.AbstractComponent;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 public class SubmitRequestPage extends AbstractComponent {
 
@@ -33,20 +32,20 @@ public class SubmitRequestPage extends AbstractComponent {
     WebElement processMessage;
     @FindBy(xpath = "//*[contains(@id,'confirmationPopup:confirmSubmitDialog::ok')]")
     WebElement processOk;
-
-//    @FindBy(xpath = "(//option[contains(text(),'Yes')])[3]")
-//    WebElement yes;
     @FindBy(xpath = "//*[@id=\"_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:2:ap1:r1:basicReqBody:paramDynForm_ATTRIBUTE12_ATTRIBUTE12::content\"]/option[2]")
     WebElement yes;
-
     @FindBy( css= "span[style='font-weight:normal'] label")
     WebElement procId;
+    @FindBy( css = "path[d=\"M3 7H25M3 14H25M3 21H25\"]")
+    WebElement navigator;
 
     By pilWait=By.xpath("//*[contains(@id,'paramDynForm_ATTRIBUTE12_ATTRIBUTE12::content')]");
     By yesWait=By.xpath("//*[@id=\"_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:2:ap1:r1:basicReqBody:paramDynForm_ATTRIBUTE12_ATTRIBUTE12::content\"]/option[2]");
+    By selectSubledgerWait=By.xpath("//*[contains(@id,'SubledgerApplicationAttr::content')]");
+    By navigatorWait=By.cssSelector("path[d=\"M3 7H25M3 14H25M3 21H25\"]");
 
     public void submitRequest(String ledger) throws InterruptedException {
-
+        waitForElementPresence(selectSubledgerWait);
         selectSubledger.click();
         selectPayables.click();
         selectLedger.sendKeys(ledger);
@@ -55,8 +54,24 @@ public class SubmitRequestPage extends AbstractComponent {
         Thread.sleep(1000);
         yes.click();
         submitBtn.click();
+    }
+
+    public String getProcessId()
+    {
         String s=procId.getText();
         String processId=s.replaceAll("[^0-9]", "");
         System.out.println(processId);
+        return processId;
+    }
+
+    public void clickOK()
+    {
+        processOk.click();
+    }
+
+    public void clickNavigator()
+    {
+        waitForElementPresence(navigatorWait);
+         navigator.click();
     }
 }

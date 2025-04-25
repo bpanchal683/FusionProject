@@ -16,26 +16,29 @@ public class Listeners extends BaseTest implements ITestListener {
 
     ExtentTest test;
     ExtentReports extent=ExtentReporterNG.getExtentReportObject();
+    ThreadLocal<ExtentTest> extentTestThreadLocal=new ThreadLocal<ExtentTest>();
 
 
     @Override
     public void onTestStart(ITestResult result) {
         System.out.println("➡️ Test started: " + result.getMethod().getMethodName());
         test=extent.createTest(result.getMethod().getMethodName());
+        extentTestThreadLocal.set(test);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
 //        System.out.println("✅ Test passed: " + result.getMethod().getMethodName());
-        test.log(Status.PASS,"Test Passed");
+        //test.log(Status.PASS,"Test Passed");
+        extentTestThreadLocal.get().log(Status.PASS,"Test Passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
 //        System.out.println("❌ Test failed: " + result.getMethod().getMethodName());
 //        System.out.println("🔴 Reason: " + result.getThrowable());
-        test.log(Status.FAIL,result.getThrowable());
-
+        //test.log(Status.FAIL,result.getThrowable());
+          extentTestThreadLocal.get().log(Status.FAIL,result.getThrowable());
         //life to driver
         try
         {
@@ -46,16 +49,17 @@ public class Listeners extends BaseTest implements ITestListener {
         }
 
         //Screenshot to Report
-        //String filePath=null;
+        String filePath=null;
         try {
-             String filePath=getScreenshot(result.getMethod().getMethodName(),driver);
-            test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
+             filePath=getScreenshot(result.getMethod().getMethodName(),driver);
+            //test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
         } catch (IOException e) {
 
             e.printStackTrace();
         }
 
         //test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
+        extentTestThreadLocal.get().addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
     }
 
     @Override

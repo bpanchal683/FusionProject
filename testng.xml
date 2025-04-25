@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="All Test Suite" parallel="false" thread-count="1">
 
     <listeners>
         <listener class-name="Fusion.TestComponent.Listeners"/>
     </listeners>
 
-    <test name="P2P">
+<!--    <test name="P2P">-->
+<!--        <classes>-->
+<!--            <class name="Fusion.tests.ProcureToPay">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="CreateManualInvoiceWithPayment">
         <classes>
-            <class name="Fusion.tests.ProcureToPay">
+            <class name="Fusion.tests.CreatingManualInvoiceWithPayment">
             </class>
         </classes>
     </test>

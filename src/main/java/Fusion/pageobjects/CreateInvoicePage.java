@@ -96,21 +96,32 @@ public class CreateInvoicePage extends AbstractComponent {
     By invDateWait=By.xpath("//*[contains(@id,'ap1:r2:0:id2::content')]");
     By pymtTermWait=By.xpath("//*[contains(@id,'ap1:r2:0:so3::content')]");
     By expandLinesWait=By.xpath("//*[contains(@id, 'ap1:sh2::_afrDscl')]");
+    By businessUnitWait=By.xpath("//*[contains(@id,'ic2::content')]");
+    By searchWait=By.xpath("//*[contains(@id,'ap1:r2:0:ic3::_afrLovInternalQueryId::search')]");
+    By accountingWait=By.linkText("Accounting");
+    By accountingDateWait=By.xpath("//*[contains(@id, 'ap1:id4::content')]");
 
-    public void setInvoiceFields(String bUnit,String spl,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate)
-    {
+    public void setInvoiceFields(String bUnit,String spl,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate) throws InterruptedException {
+        waitForFieldToBeReady(businessUnitWait);
         businessUnit.sendKeys(bUnit);
         selectBU.click();
         supplier.sendKeys(spl);
         search.click();
         select.click();
         ok.click();
+        waitForElementToDisappear(searchWait);
         key.sendKeys(Keys.TAB);
+        //waitForElementVisible(invoiceNumberWait);
         invoiceNumber.sendKeys(invoiceNum);
         invoiceNumberKey.sendKeys(Keys.TAB);
+        Thread.sleep(1000);
+        waitForFieldToBeReady(invAmountWait);
         InvAmount.sendKeys(invAmount);
+        InvAmount.sendKeys(Keys.TAB);
         desc.sendKeys(description);
+        waitForFieldToBeReady(invDateWait);
         invDate.sendKeys(invoiceDate);
+        waitForFieldToBeReady(pymtTermWait);
         pymtTerms.clear();
         pymtTerms.sendKeys(paymentTerms);
         termDate.sendKeys(termsDate);
@@ -120,15 +131,17 @@ public class CreateInvoicePage extends AbstractComponent {
     {
         waitForElementPresence(show_more);
         showMore.click();
+        waitForElementPresence(accountingWait);
         accounting.click();
+        waitForFieldToBeReady(accountingDateWait);
         accountingDate.clear();
         accountingDate.sendKeys(accDate);
         liabilityDistribution.clear();
         liabilityDistribution.sendKeys(labilityDistribution);
     }
 
-    public void setLineDetails(String lineAmount,String distributionCombination)
-    {
+    public void setLineDetails(String lineAmount,String distributionCombination) throws InterruptedException {
+        //Thread.sleep(2000);
         waitForElementPresence(expandLinesWait);
         expandLines.click();
         linesAmount.sendKeys(lineAmount);
@@ -148,6 +161,16 @@ public class CreateInvoicePage extends AbstractComponent {
          invoiceActions.click();
          Thread.sleep(3000);
          postToLedger.click();
+    }
+
+    public void validateAndAccountingInvoice() throws InterruptedException {
+        waitForElementPresence(invoiceActionsWait);
+        invoiceActions.click();
+        validate.click();
+        Thread.sleep(4000);
+        invoiceActions.click();
+        Thread.sleep(3000);
+        postToLedger.click();
     }
 
     public void accountingConfirmation()

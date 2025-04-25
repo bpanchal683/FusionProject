@@ -32,6 +32,8 @@ public class NavigatorPage extends AbstractComponent {
     WebElement payments;
     @FindBy(xpath = "//span[contains(text(),'Scheduled Processes')]")
     WebElement scheduledProcesses;
+    @FindBy(xpath = "//*[contains(text(),'Journals')]")
+    WebElement journals;
 
 
     By invWait=By.linkText("Invoices");
@@ -41,6 +43,7 @@ public class NavigatorPage extends AbstractComponent {
     By payWait = By.linkText("Payments");
     By schProcessWait = By.xpath("//span[contains(text(),'Scheduled Processes')]");
     By showMoreWait=By.linkText("Show More");
+    By journalsWait=By.xpath("//*[contains(text(),'Journals')]");
 
     public void setShowMore()
     {
@@ -88,6 +91,14 @@ public class NavigatorPage extends AbstractComponent {
         ScheduleProcessDetailsPage scheduleProcessDetailsPage=new ScheduleProcessDetailsPage(driver);
         return scheduleProcessDetailsPage;
 
+    }
+
+    public JournalsPage clickJournals()
+    {
+        scrollIntoView(journalsWait);
+        journals.click();
+        JournalsPage journalsPage=new JournalsPage(driver);
+        return journalsPage;
     }
 
 
