@@ -85,7 +85,7 @@ public class ProcessRequisitionsPage extends AbstractComponent {
     public String getPurchaseOrderId() throws InterruptedException {
         //waitForElementPresence(poIdWait);
         waitForElementVisible(poIdWait);
-        //Thread.sleep(2000);
+        Thread.sleep(2000);
         String purchase=poId.getText();
         String[] purchase1=purchase.split("was");
         String[] purchase2=purchase1[0].split("(Purchase Order)");

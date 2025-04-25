@@ -146,7 +146,7 @@ public class CreateInvoicePage extends AbstractComponent {
          forceApproval.click();
         Thread.sleep(4000);
          invoiceActions.click();
-         Thread.sleep(2000);
+         Thread.sleep(3000);
          postToLedger.click();
     }
 
