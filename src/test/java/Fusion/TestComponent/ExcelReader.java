@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +21,11 @@ public class ExcelReader {
 
         List<Map<String, String>> dataList = new ArrayList<>();
         Row headerRow = sheet.getRow(0);
-        int rowCount = sheet.getPhysicalNumberOfRows();
         int colCount = headerRow.getLastCellNum();
 
-        for (int i = 1; i < rowCount; i++) {
-            Row row = sheet.getRow(i);
+        // Only read the first data row (row index 1)
+        Row row = sheet.getRow(1);
+        if (row != null) {
             Map<String, String> dataMap = new HashMap<>();
             for (int j = 0; j < colCount; j++) {
                 String key = headerRow.getCell(j).getStringCellValue();
@@ -35,7 +36,7 @@ public class ExcelReader {
                         case STRING -> cell.getStringCellValue();
                         case NUMERIC -> DateUtil.isCellDateFormatted(cell)
                                 ? cell.getDateCellValue().toString()
-                                : String.valueOf(cell.getNumericCellValue());
+                                : BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString();
                         case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
                         default -> "";
                     };
@@ -49,6 +50,7 @@ public class ExcelReader {
         fis.close();
         return dataList;
     }
+
 
     //code for multiple set of data
     public static List<Map<String, String>> getMultiTestData(String filePath, String sheetName) throws IOException {
