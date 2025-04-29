@@ -3,22 +3,12 @@ package Fusion.TestComponent;
 import Fusion.resources.ExtentReporterNG;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import org.apache.poi.util.IOUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 
 public class Listeners extends BaseTest implements ITestListener {
 
@@ -45,7 +35,8 @@ public class Listeners extends BaseTest implements ITestListener {
     public void onTestFailure(ITestResult result) {
 
         //test.log(Status.FAIL,result.getThrowable());
-          extentTestThreadLocal.get().log(Status.FAIL,result.getThrowable());
+        extentTestThreadLocal.get().log(Status.FAIL,result.getMethod().getMethodName());
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         //life to driver
         try
         {
@@ -57,15 +48,18 @@ public class Listeners extends BaseTest implements ITestListener {
 
         //Screenshot to Report
         String base64Image=null;
+        String filePath=null;
         try {
             base64Image = getScreenshotASBase64(driver);
+            filePath=getScreenshot(result.getMethod().getMethodName(),driver);
         } catch (IOException e) {
 
             e.printStackTrace();
         }
 
         //test.addScreenCaptureFromPath(filePath,result.getMethod().getMethodName());
-        extentTestThreadLocal.get().addScreenCaptureFromBase64String(base64Image);
+        //extentTestThreadLocal.get().addScreenCaptureFromBase64String(base64Image);
+        extentTestThreadLocal.get().addScreenCaptureFromPath(filePath);
 
     }
 
@@ -93,13 +87,6 @@ public class Listeners extends BaseTest implements ITestListener {
     public void onFinish(ITestContext context) {
         System.out.println("✅ Suite finished: " + context.getName());
         extent.flush();
-    }
-
-    private String ImageToBase64(String filePath) throws IOException {
-        InputStream is=new FileInputStream(filePath);
-        byte[] ssBytes= IOUtils.toByteArray(is);
-        String base64=Base64.getEncoder().encodeToString(ssBytes);
-        return base64;
     }
 
 }

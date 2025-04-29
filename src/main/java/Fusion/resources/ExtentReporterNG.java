@@ -10,7 +10,7 @@ public class ExtentReporterNG {
 
        public static ExtentReports getExtentReportObject() {
             // Make sure the 'reports' folder exists
-            new File(System.getProperty("user.dir") + "/reports/").mkdirs();
+            //new File(System.getProperty("user.dir") + "/reports/").mkdirs();
 
             String path=System.getProperty("user.dir")+"/reports/extent.html";
             ExtentSparkReporter reporter=new ExtentSparkReporter(path);

@@ -101,8 +101,8 @@ public class BaseTest {
         String timestamp = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
         String scrPath=System.getProperty("user.dir")+"/reports/"+ testCaseName + timestamp +".png";
         File file=new File(scrPath);
-//        String relativePath = "reports/" + testCaseName + timestamp + ".png";
-//        File file = new File(System.getProperty("user.dir") + "/" + relativePath);
+//        String relativePath = "./reports/" + testCaseName + timestamp + ".png";
+//        File file = new File(relativePath);
         FileUtils.copyFile(source,file);
         return scrPath;
     }
