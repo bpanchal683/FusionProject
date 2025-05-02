@@ -36,21 +36,30 @@ public class PoEditLinePage extends AbstractComponent {
     WebElement poOk;
 
     By saveLoc=By.xpath("(//a[@role='button'])[4]");
-    By okWait=By.cssSelector(".x1id .callToActionSubmit");
-    By destinationWait=By.xpath("//*[contains(@id,'LPan:DestinationType::content')]");
+    By okLoc=By.cssSelector(".x1id .callToActionSubmit");
+    By destinationLoc=By.xpath("//*[contains(@id,'LPan:DestinationType::content')]");
+    By matchApprovalLoc=By.xpath("//*[contains(@id,'LPan:MatchApprovalLevel::content')]");
+    By submitLoc=By.cssSelector(".x1id .callToActionSubmit");
+    By poOkLoc=By.xpath("//button[@id='_FOd1::msgDlg::cancel']");
 
     public void poLineOperations() throws InterruptedException {
-        waitForElementPresence(destinationWait);
-        destination.click();
+        waitForElementPresence(destinationLoc);
+        //destination.click();
+        clickElement(destinationLoc);
         destinationSelect.click();
-        matchApproval.click();
+        //matchApproval.click();
+        clickElement(matchApprovalLoc);
         matchApprovalSelect.click();
         Thread.sleep(2000);
-        waitForElementPresence(okWait);
-        ok.click();
-        clickElement(saveLoc);
-        submit.click();
-        poOk.click();
+        waitForElementPresence(okLoc);
+        //ok.click();
+        clickElement(okLoc);
+        clickStaleElement(saveLoc);
+        //submit.click();
+        clickElement(submitLoc);
+        Thread.sleep(2000);
+        //poOk.click();
+        clickElement(poOkLoc);
     }
 
 }

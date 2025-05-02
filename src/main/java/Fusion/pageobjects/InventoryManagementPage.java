@@ -27,19 +27,22 @@ public class InventoryManagementPage extends AbstractComponent {
     @FindBy(linkText = "Receive Expected Shipments")
     WebElement receiveExpectedShipments;
 
-    By taskButtonWait=By.xpath("//*[contains(@id, '_itemNode_InvTasksList::disAcr')]");
-    By showTaskWait=By.xpath("//*[contains(@id,':_FOTRaT:0:soc1::content')]");
-    By receiveExpectedShipmentsWait=By.linkText("Receive Expected Shipments");
+    By taskButtonLoc=By.xpath("//*[contains(@id, '_itemNode_InvTasksList::disAcr')]");
+    By showTaskLoc=By.xpath("//*[contains(@id,':_FOTRaT:0:soc1::content')]");
+    By receiveExpectedShipmentsLoc=By.linkText("Receive Expected Shipments");
 
     public ReceiveExpectedShipmentsPage goToReceiveExpectedShipments()
     {
-        waitForElementPresence(taskButtonWait);
-        taskButton.click();
-        waitForElementPresence(showTaskWait);
-        showTask.click();
+        waitForElementPresence(taskButtonLoc);
+        //taskButton.click();
+        clickElement(taskButtonLoc);
+        waitForElementPresence(showTaskLoc);
+        //showTask.click();
+        clickElement(showTaskLoc);
         selectReceipt.click();
-        waitForElementPresence(receiveExpectedShipmentsWait);
-        receiveExpectedShipments.click();
+        waitForElementPresence(receiveExpectedShipmentsLoc);
+        //receiveExpectedShipments.click();
+        clickElement(receiveExpectedShipmentsLoc);
         ReceiveExpectedShipmentsPage receiveExpectedShipmentsPage=new ReceiveExpectedShipmentsPage(driver);
         return receiveExpectedShipmentsPage;
     }

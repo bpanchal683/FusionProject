@@ -31,14 +31,19 @@ public class ManageRequisitionsPage extends AbstractComponent {
     @FindBy(css = ".x1ax.x1tn")
     WebElement expand;
 
-    By requisitionBUWait=By.xpath("//*[contains(@id,'pt1:r1:0:ap1:r1:0:q1:value00')]");
+    By requisitionBULoc=By.xpath("//*[contains(@id,'pt1:r1:0:ap1:r1:0:q1:value00')]");
+    By requisitionLoc=By.xpath("//*[contains(@id,'ap1:r1:0:q1:value20::content')]");
+    By searchLoc=By.xpath("//*[contains(@id,'pt1:r1:0:ap1:r1:0:q1::search')]");
 
     public  void verifyAndApproveRequisition(String reqNum) throws InterruptedException {
-        waitForElementPresence(requisitionBUWait);
-        requsitionBu.click();
+        waitForElementPresence(requisitionBULoc);
+        //requsitionBu.click();
+        clickElement(requisitionBULoc);
         requsitionBuSelect.click();
-        requsition.sendKeys(reqNum);
-        search.click();
+        //requsition.sendKeys(reqNum);
+        sendKeysToElement(requisitionLoc,reqNum);
+        //search.click();
+        clickElement(searchLoc);
         String s1=requisitionStatus.getText();
         System.out.println(s1);
         if (s1.equalsIgnoreCase("Approved")) {
@@ -50,7 +55,8 @@ public class ManageRequisitionsPage extends AbstractComponent {
             while(!s1.equalsIgnoreCase("Approved"))
             {
                 expand.click();
-                search.click();
+                //search.click();
+                clickElement(searchLoc);
                 System.out.println("refreshing the search");
                 Thread.sleep(1000);
                 s1=requisitionStatus.getText();

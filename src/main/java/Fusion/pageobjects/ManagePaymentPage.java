@@ -45,7 +45,7 @@ public class ManagePaymentPage extends AbstractComponent {
         paymentNumber.sendKeys(payNumber);
         search.click();
         waitForElementVisible(selectPaymentWait);
-        clickElement(selectPaymentWait);
+        clickStaleElement(selectPaymentWait);
         //selectPayment.click();
         Thread.sleep(2000);
         actions.click();

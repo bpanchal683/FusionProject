@@ -95,17 +95,17 @@ public class BaseTest {
         driver.close();
     }
 
-    public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
-        TakesScreenshot ts=(TakesScreenshot)driver;
-        File source=ts.getScreenshotAs(OutputType.FILE);
-        String timestamp = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
-        String scrPath=System.getProperty("user.dir")+"/reports/"+ testCaseName + timestamp +".png";
-        File file=new File(scrPath);
-//        String relativePath = "./reports/" + testCaseName + timestamp + ".png";
-//        File file = new File(relativePath);
-        FileUtils.copyFile(source,file);
-        return scrPath;
-    }
+//    public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
+//        TakesScreenshot ts=(TakesScreenshot)driver;
+//        File source=ts.getScreenshotAs(OutputType.FILE);
+//        String timestamp = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
+//        String scrPath=System.getProperty("user.dir")+"/reports/"+ testCaseName + timestamp +".png";
+//        File file=new File(scrPath);
+////        String relativePath = "./reports/" + testCaseName + timestamp + ".png";
+////        File file = new File(relativePath);
+//        FileUtils.copyFile(source,file);
+//        return scrPath;
+//    }
 
     public String getScreenshotASBase64(WebDriver driver) throws IOException {
         TakesScreenshot ts=(TakesScreenshot)driver;

@@ -24,17 +24,18 @@ public class HomePage extends AbstractComponent {
     WebElement home;
 
     By navigatorLoc=By.id("pt1:_UISmmLink::icon");
-    By homeWait=By.xpath("//*[contains(@id, '_UIShome')]");
+    By homeLoc=By.xpath("//*[contains(@id, '_UIShome')]");
 
     public NavigatorPage clickNavigator() throws InterruptedException {
-        clickElement(navigatorLoc);
+        clickStaleElement(navigatorLoc);
         NavigatorPage navigatorPage=new NavigatorPage(driver);
         return navigatorPage;
     }
 
     public void clickHome()
     {
-        waitForElementPresence(homeWait);
-        home.click();
+        waitForElementPresence(homeLoc);
+        //home.click();
+        clickElement(homeLoc);
     }
 }

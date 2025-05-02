@@ -66,19 +66,22 @@ public class CreatePaymentPage extends AbstractComponent {
     By confirmationMsgWait=By.xpath("//button[@id='_FOd1::msgDlg::cancel']");
     By bankAccountWait=By.xpath("//*[contains(@id,'AP1:bankAccountNameId::content')]");
     By standardWait=By.xpath("//*[contains(text(),'Standard')]");
-    By selectInvoiceWait=By.xpath("//*[contains(@id,'MAnt2:1:combinedVOCriteriaQueryResultId:_ATp:t1::db')]");
+    By selectInvoiceLoc=By.xpath("//*[contains(@id,'MAnt2:1:combinedVOCriteriaQueryResultId:_ATp:t1::db')]");
     By paymentNumberWait=By.xpath("//div[@class='x1ph']");
-    By businessUnitWait=By.xpath("//*[contains(@id,'AP1:OrgUiId::content')]");
+    By businessUnitLoc=By.xpath("//*[contains(@id,'AP1:OrgUiId::content')]");
     By paymentDateWait=By.xpath("//*[contains(@id,'AP1:checkDate::content')]");
     By invoiceNumWait=By.xpath("//input[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:coVOId:value00::content']");
     By clickSearchLoc=By.xpath("//button[@id='_FOpt1:_FOr1:0:_FONSr2:0:MAnt2:1:coVOId::search']");
+    By paymentProfileAutoSuggestionLoc=By.cssSelector(".AFAutoSuggestItemsContainer .AFAutoSuggestItem");
 
     public void setPaymentDetails(String bussiUnit, String supp, String pymtDate, String desc, String bankAcc, String pymtMeth, String pymtProfileProc) throws InterruptedException {
-        waitForElementPresence(businessUnitWait);
-        businessUnit.sendKeys(bussiUnit);
+        waitForElementPresence(businessUnitLoc);
+        //businessUnit.sendKeys(bussiUnit);
+        sendKeysToElement(businessUnitLoc,bussiUnit);
         businessUnit.sendKeys(Keys.TAB);
         Thread.sleep(2000);
         supplier.sendKeys(supp);
+        Thread.sleep(2000);
         waitForFieldToBeReady(paymentDateWait);
         paymentDate.clear();
         paymentDate.sendKeys(pymtDate);
@@ -96,7 +99,8 @@ public class CreatePaymentPage extends AbstractComponent {
         Thread.sleep(2000);
         paymentProfileProcess.sendKeys(pymtProfileProc);
         Thread.sleep(2000);
-        paymentProfileAutoSuggestion.click();
+        //paymentProfileAutoSuggestion.click();
+        clickElement(paymentProfileAutoSuggestionLoc);
         Thread.sleep(2000);
         selectAddButton.click();
 
@@ -106,7 +110,7 @@ public class CreatePaymentPage extends AbstractComponent {
     {
         //Thread.sleep(3000);
         waitForElementToDisappear(clickSearchLoc);
-        clickElement(saveAndCloseWait);
+        clickStaleElement(saveAndCloseWait);
         //saveAndClose.click();
     }
 
@@ -137,8 +141,9 @@ public class CreatePaymentPage extends AbstractComponent {
         Thread.sleep(1000);
         waitForElementPresence(standardWait);
         standard.click();
-        waitForElementPresence(selectInvoiceWait);
-        selectInvoice.click();
+        waitForElementPresence(selectInvoiceLoc);
+        //selectInvoice.click();
+        clickStaleElement(selectInvoiceLoc);
         applyButton.click();
         okButton.click();
     }

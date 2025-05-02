@@ -34,18 +34,20 @@ public class CreateReceiptPage extends AbstractComponent {
     WebElement ok;
 
     By reqIdWait=By.cssSelector(".x1o span[style='white-space:nowrap']");
-    By shipmentWait=By.xpath("//*[contains(@id,'0:MAnt2:3:ap1:it2::content')]");
-    By submitWait=By.xpath("//*[contains(@id,'_FONSr2:0:MAnt2:3:ap1:SPsb2')]");
+    By shipmentLoc=By.xpath("//*[contains(@id,'0:MAnt2:3:ap1:it2::content')]");
+    By submitLoc=By.xpath("//*[contains(@id,'_FONSr2:0:MAnt2:3:ap1:SPsb2')]");
 
     public void createReceiptAndSubmit(String shpt,String wbill,String packSlip,String billlad)
     {
-        waitForElementPresence(shipmentWait);
-        shipment.sendKeys(shpt);
+        waitForElementPresence(shipmentLoc);
+        //shipment.sendKeys(shpt);
+        sendKeysToElement(shipmentLoc,shpt);
         waybill.sendKeys(wbill);
         packingSlip.sendKeys(packSlip);
         billOfLading.sendKeys(billlad);
-        waitForElementPresence(submitWait);
-        submit.click();
+        waitForElementPresence(submitLoc);
+        //submit.click();
+        clickElement(submitLoc);
     }
 
     public String getReceiptId() throws InterruptedException {

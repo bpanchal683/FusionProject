@@ -29,16 +29,17 @@ public class InvoicesPage extends AbstractComponent {
     @FindBy(linkText = "Manage Payments")
     WebElement managePayments;
 
-    By taskButtonWait=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
-    By createInvoiceWait=By.linkText("Create Invoice");
+    By taskButtonLoc=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
+    By createInvoiceLoc=By.linkText("Create Invoice");
     By createPaymentWait=By.linkText("Create Payment");
     By createAccountingWait=By.linkText("Create Accounting");
 
     public CreateInvoicePage goToCreateInvoice()
     {
-        waitForElementPresence(taskButtonWait);
-        taskButton.click();
-        waitForElementPresence(createInvoiceWait);
+        waitForElementPresence(taskButtonLoc);
+        //taskButton.click();
+        clickElement(taskButtonLoc);
+        waitForElementPresence(createInvoiceLoc);
         createInvoice.click();
         CreateInvoicePage createInvoicePage=new CreateInvoicePage(driver);
         return createInvoicePage;
@@ -46,7 +47,7 @@ public class InvoicesPage extends AbstractComponent {
 
     public SubmitRequestPage goToCreateAccounting()
     {
-        waitForElementPresence(taskButtonWait);
+        waitForElementPresence(taskButtonLoc);
         taskButton.click();
         waitForElementPresence(createAccountingWait);
         createAccounting.click();
@@ -55,7 +56,7 @@ public class InvoicesPage extends AbstractComponent {
     }
 
     public CreatePaymentPage goToCreatePayment(){
-        waitForElementPresence(taskButtonWait);
+        waitForElementPresence(taskButtonLoc);
         taskButton.click();
         waitForElementPresence(createPaymentWait);
         createPayment.click();
@@ -64,7 +65,7 @@ public class InvoicesPage extends AbstractComponent {
     }
 
     public ManagePaymentPage goTOManagePayment(){
-        waitForElementPresence(taskButtonWait);
+        waitForElementPresence(taskButtonLoc);
         taskButton.click();
         managePayments.click();
         ManagePaymentPage managePaymentPage=new ManagePaymentPage(driver);

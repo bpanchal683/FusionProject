@@ -1,6 +1,7 @@
 package Fusion.pageobjects;
 
 import Fusion.AbstractComponents.AbstractComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,11 +27,18 @@ public class LandingPage extends AbstractComponent {
     @FindBy(id = "btnActive")
     WebElement button;
 
+    By buttonLoc=By.id("btnActive");
+    By emailLoc=By.id("userid");
+    By passwordLoc=By.id("password");
+
     public HomePage login(String username, String password1)
     {
-        email.sendKeys(username);
-        password.sendKeys(password1);
-        button.click();
+        //email.sendKeys(username);
+        //password.sendKeys(password1);
+        //button.click();
+        sendKeysToElement(emailLoc,username);
+        sendKeysToElement(passwordLoc,password1);
+        clickElement(buttonLoc);
         HomePage homePage=new HomePage(driver);
         return homePage;
     }

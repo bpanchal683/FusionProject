@@ -50,36 +50,44 @@ public class ProcessRequisitionsPage extends AbstractComponent {
     @FindBy(linkText = "Manage Orders")
     WebElement manageOrders;
 
-    By reqLineWait=By.xpath("(//td[@class='xen'])[4]");
-    By documentBuilderWait=By.xpath("(//button[normalize-space()='Add to Document Builder'])[1]");
+    By reqLineLoc=By.xpath("(//td[@class='xen'])[4]");
+    By documentBuilderLoc=By.xpath("(//button[normalize-space()='Add to Document Builder'])[1]");
     By createLoc=By.xpath("//*[contains(@id,'MAt2:0:pt1:DocBF1:0:cb2')]");
     By poIdWait=By.cssSelector(".x1n3 .x1mw");
-    By taskButtonWait=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
-    By searchWait=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1::search')]");
-    By requisitionsBuWait=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1:value00::content')]");
-    By manageOrdersWait=By.linkText("Manage Orders");
-    By supplierWait=By.xpath("//*[contains(@id,'r1:0:AP1:AT5:supplier1Id::content')]");
+    By taskButtonLoc=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
+    By searchLoc=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1::search')]");
+    By requisitionsBuLoc=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1:value00::content')]");
+    By manageOrdersLoc=By.linkText("Manage Orders");
+    By supplierLoc=By.xpath("//*[contains(@id,'r1:0:AP1:AT5:supplier1Id::content')]");
+    By requisitionLoc=By.xpath("//*[contains(@id,'pt1:r1:0:AP1:q1:value10::content')]");
+    By okkLoc=By.xpath("//button[@id='_FOd1::msgDlg::cancel']");
 
 
     public void searchRequisitionAndAddToDocumentBuilder(String req,String supl) throws InterruptedException {
-        waitForElementPresence(requisitionsBuWait);
-        requsitionBu.click();
+        waitForElementPresence(requisitionsBuLoc);
+        //requsitionBu.click();
+        clickElement(requisitionsBuLoc);
         requsitionBuSelect.click();
-        requsition.sendKeys(req);
+        //requsition.sendKeys(req);
+        sendKeysToElement(requisitionLoc,req);
         buyer.clear();
         Thread.sleep(3000);
-        waitForElementPresence(searchWait);
-        search.click();
-        waitForElementPresence(reqLineWait);
-        reqLine.click();
+        waitForElementPresence(searchLoc);
+        //search.click();
+        clickElement(searchLoc);
+        waitForElementPresence(reqLineLoc);
+        //reqLine.click();
+        clickElement(reqLineLoc);
         Thread.sleep(2000);
-        waitForElementVisible(documentBuilderWait);
-        documentBuilder.click();
-        waitForElementPresence(supplierWait);
-        supplier.sendKeys(supl);
+        waitForElementVisible(documentBuilderLoc);
+        //documentBuilder.click();
+        clickElement(documentBuilderLoc);
+        waitForElementPresence(supplierLoc);
+        //supplier.sendKeys(supl);
+        sendKeysToElement(supplierLoc,supl);
         supplierTab.sendKeys(Keys.TAB);
         ok.click();
-        clickElement(createLoc);
+        clickStaleElement(createLoc);
     }
 
     public String getPurchaseOrderId() throws InterruptedException {
@@ -97,17 +105,20 @@ public class ProcessRequisitionsPage extends AbstractComponent {
 
     public EditPurchaseOrderPage clickOk()
     {
-        okk.click();
+        //okk.click();
+        clickElement(okkLoc);
         EditPurchaseOrderPage editPurchaseOrderPage=new EditPurchaseOrderPage(driver);
         return editPurchaseOrderPage;
     }
 
     public ManageOrdersPage goToManageOrders()
     {
-        waitForElementPresence(taskButtonWait);
-        taskButton.click();
-        waitForElementPresence(manageOrdersWait);
-        manageOrders.click();
+        waitForElementPresence(taskButtonLoc);
+        //taskButton.click();
+        clickElement(taskButtonLoc);
+        waitForElementPresence(manageOrdersLoc);
+        //manageOrders.click();
+        clickElement(manageOrdersLoc);
         ManageOrdersPage manageOrdersPage=new ManageOrdersPage(driver);
         return manageOrdersPage;
     }

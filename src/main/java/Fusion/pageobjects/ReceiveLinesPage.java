@@ -27,19 +27,23 @@ public class ReceiveLinesPage extends AbstractComponent {
     @FindBy(xpath = "(//tbody/tr[3]/td[2]/table/tbody/tr[1]/td[1]/button)[3]")
     WebElement warning;
 
-    By quanityWait=By.xpath("//*[contains(@id,'AT1:_ATp:table1:0:Quantityid::content')]");
-    By warningWait=By.xpath("(//tbody/tr[3]/td[2]/table/tbody/tr[1]/td[1]/button)[3]");
+    By quanityLoc=By.xpath("//*[contains(@id,'AT1:_ATp:table1:0:Quantityid::content')]");
+    By warningLoc=By.xpath("(//tbody/tr[3]/td[2]/table/tbody/tr[1]/td[1]/button)[3]");
+    By submitLoc=By.xpath("//*[contains(@id,'_FONSr2:0:MAnt2:2:appPanelid:cb3')]");
 
     public CreateReceiptPage performReceiveLinesOperation(String qty, String subInv)
     {
         //waitForElementPresence(quanityWait);
-        waitForFieldToBeReady(quanityWait);
-        quantity.sendKeys(qty);
+        waitForFieldToBeReady(quanityLoc);
+        //quantity.sendKeys(qty);
+        sendKeysToElement(quanityLoc,qty);
         subinventory.sendKeys(subInv);
         submit.click();
-        waitForElementPresence(warningWait);
-        warning.click();
-        submit.click();
+        waitForElementPresence(warningLoc);
+        //warning.click();
+        clickElement(warningLoc);
+        //submit.click();
+        clickElement(submitLoc);
         CreateReceiptPage createReceiptPage=new CreateReceiptPage(driver);
         return createReceiptPage;
     }

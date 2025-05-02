@@ -27,14 +27,17 @@ public class ManageOrdersPage extends AbstractComponent {
     @FindBy(css = ".x1ax.x1tn")
     WebElement expand;
 
-    By orderWait=By.xpath("//*[contains(@id,'Purch1:0:AP1:r1:0:q1:value40::content')]");
+    By orderLoc=By.xpath("//*[contains(@id,'Purch1:0:AP1:r1:0:q1:value40::content')]");
     By postatusWait=By.xpath("//*[contains(@id,'Purch1:0:AP1:r1:0:AT1:_ATp:table1:0:ot49')]");
     By expandWait=By.cssSelector(".x1ax.x1tn");
+    By searchLoc=By.xpath("//*[contains(@id,'Purch1:0:AP1:r1:0:q1::search')]");
 
     public void verifyAndApprovePO(String poNum) throws InterruptedException {
-        waitForElementPresence(orderWait);
-        order.sendKeys(poNum);
-        search.click();
+        waitForElementPresence(orderLoc);
+        //order.sendKeys(poNum);
+        sendKeysToElement(orderLoc,poNum);
+        //search.click();
+        clickElement(searchLoc);
         waitForElementPresence(postatusWait);
         String s=poStatus.getText();
         System.out.println(s);
@@ -48,7 +51,8 @@ public class ManageOrdersPage extends AbstractComponent {
             {
                 waitForElementPresence(expandWait);
                 expand.click();
-                search.click();
+                //search.click();
+                clickElement(searchLoc);
                 System.out.println("refreshing the search");
                 waitForElementPresence(postatusWait);
                 s=poStatus.getText();

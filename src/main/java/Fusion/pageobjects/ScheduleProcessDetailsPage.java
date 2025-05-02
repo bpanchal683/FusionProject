@@ -83,11 +83,11 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     @FindBy(linkText = "PDF")
     WebElement getPdf;
 
-    By processNameWait=By.xpath("//table[@summary='List of Processes Meeting Search Criteria']");
+    By processNameLoc=By.xpath("//table[@summary='List of Processes Meeting Search Criteria']");
     By scheduleProcessesWait=By.xpath("//*[contains(@id,'pt1:panel:scheduleProcess')]");
     By businessUnitWait=By.xpath("//*[contains(@id,'basicReqBody:paramDynForm_BusinessUnit::content')]");
     By okButtonWait=By.xpath("//*[contains(@id,'FOTsr1:0:pt1:snpokbtnid')]");
-    By republishWait=By.cssSelector(".hdDeliveryInfo2 span[class='icon_cell']");
+    By republishLoc=By.cssSelector(".hdDeliveryInfo2 span[class='icon_cell']");
     By supplierWait=By.xpath("//*[contains(@id,'basicReqBody:paramDynForm_SupplierName::content')]");
     By fromEnteredDateWait=By.xpath("//*[contains(@id,'Form_FromEnteredDate::content')]");
     By expandWait=By.xpath("//*[contains(@id, 'pt1:srRssdfl::_afrDscl')]");
@@ -113,7 +113,7 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
 
 
     public String getProcessId() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         String Process = confirmationmsg.getText();
         String[] Process1 = Process.split("submitted");
         String[] Process2 = Process1[0].split("Process");
@@ -155,7 +155,7 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     }
 
     public void setScheduleProcesses(String scheProcessName) throws InterruptedException {
-        //Thread.sleep(2000);
+        Thread.sleep(2000);
         waitForElementPresence(scheduleProcessesWait);
         scheduleProcesses.click();
         //Thread.sleep(2000);
@@ -168,12 +168,14 @@ public class ScheduleProcessDetailsPage extends AbstractComponent {
     }
 
     public void clickRepbulish() {
-        waitForElementPresence(processNameWait);
-        processName.click();
+        waitForElementPresence(processNameLoc);
+        //processName.click();
+        clickElement(processNameLoc);
         WebElement webFrame= driver.findElement( By.id ("_FOpt1:_FOr1:0:_FONSr2:0:_FOTsr1:0:pt1:processDetails:processDetails:r61:0:if1"));
         driver.switchTo().frame(webFrame);
-        waitForElementPresence(republishWait);
-        republish.click();
+        waitForElementPresence(republishLoc);
+        //republish.click();
+        clickElement(republishLoc);
 
     }
 

@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-All_Test_Suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-All_Test_Suite" title="Fusion.tests.CreatingManualInvoiceWithPayment" class="method navigator-link" hash-for-method="CreateManualInvoiceWithPayment({ledger=ITC USA PL, bankAccount=Action Capital # ZAITC-90, businessUnit=IT Convergence USA, distribu...)">CreateManualInvoiceWithPayment({ledger=ITC USA PL, bankAccount=Action Capital # ZAITC-90, businessUnit=IT Convergence USA, distribu...)</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-All_Test_Suite" title="Fusion.tests.ProcureToPay" class="method navigator-link" hash-for-method="ProcureToPay({businessUnit=IT Convergence Singapore, distributionCombination=11.200.161600.00.306.44000.000000.00...)">ProcureToPay({businessUnit=IT Convergence Singapore, distributionCombination=11.200.161600.00.306.44000.000000.00...)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-All_Test_Suite -->
@@ -121,24 +121,31 @@
           <div class="suite-All_Test_Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">Fusion.tests.CreatingManualInvoiceWithPayment</span>
+              <span class="class-name">Fusion.tests.ProcureToPay</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="CreateManualInvoiceWithPayment({ledger=ITC USA PL, bankAccount=Action Capital # ZAITC-90, businessUnit=IT Convergence USA, distribu...)">
-                  </a> <!-- CreateManualInvoiceWithPayment({ledger=ITC USA PL, bankAccount=Action Capital # ZAITC-90, businessUnit=IT Convergence USA, distribu...) -->
-                  <span class="method-name">CreateManualInvoiceWithPayment</span>
-                  <span class="parameters">({ledger=ITC USA PL, bankAccount=Action Capital # ZAITC-90, businessUnit=IT Convergence USA, distributionCombination=01.000.201100.00.000.00000.000000.000000, paymentProcessProfile=ANSI X12 820, description=invoice, invoiceAmount=56.0, linesAmount=56.0, liabilityDistribution=01.000.201100.00.000.00000.000000.000000, supplier=ADVANZ101 BUSINESS SYSTEMS INC, paymentMethod=Electronic, category=Payments, paymentTerms=Net 30, desc=invoice})</span>
-                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;.x1hx span[id*=&quot;_column18&quot;]&quot;}
-  (Session info: chrome=135.0.7049.115)
+                  <a name="ProcureToPay({businessUnit=IT Convergence Singapore, distributionCombination=11.200.161600.00.306.44000.000000.00...)">
+                  </a> <!-- ProcureToPay({businessUnit=IT Convergence Singapore, distributionCombination=11.200.161600.00.306.44000.000000.00...) -->
+                  <span class="method-name">ProcureToPay</span>
+                  <span class="parameters">({businessUnit=IT Convergence Singapore, distributionCombination=11.200.161600.00.306.44000.000000.000000, billOfLading=1234.0, description=invoice, InvAmount=50.0, fromEnteredDate=, pymtTerms=Net 30, itemName=TL02, linesAmount=50.0, waybill=1234.0, price=25.0, supplier=JOHN LEO MABALA DAAN, deliveryDate=, subinventory=RM, bankAccount=PNC SGP-Regular Checking (USD)-582, quantity=2.0, shipment=1234.0, deliveryLocation=ITC Singapore, packingSlip=1234.0, paymentProcessProfile=ITC SGP AP Wire Format USD, scheduleProcessName=Payables Invoice Register, toEnteredDate=, paymentMethod=Wire, termDate=, paymentDate=, invDate=, desc=invoice})</span>
+                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //*[contains(@id,&apos;0:MAnt2:3:ap1:it2::content&apos;)] (tried for 30 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at Fusion.AbstractComponents.AbstractComponent.waitForElementPresence(AbstractComponent.java:38)
+	at Fusion.pageobjects.CreateReceiptPage.createReceiptAndSubmit(CreateReceiptPage.java:42)
+	at Fusion.tests.ProcureToPay.ProcureToPay(ProcureToPay.java:85)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//*[contains(@id,&apos;0:MAnt2:3:ap1:it2::content&apos;)]&quot;}
+  (Session info: chrome=136.0.7103.48)
 For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
 Build info: version: &apos;4.31.0&apos;, revision: &apos;1ef9f18787*&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.6&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [e5a1c0727b67375ecee7e99e777c5db2, findElement {value=.x1hx span[id*=&quot;_column18&quot;], using=css selector}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 135.0.7049.115, chrome: {chromedriverVersion: 135.0.7049.114 (63fd8a7d9d0..., userDataDir: C:\Users\bpanchal\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52001}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52001/devtoo..., se:cdpVersion: 135.0.7049.115, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: e5a1c0727b67375ecee7e99e777c5db2
+Command: [b7ee4ea6858148522fdd47366686d18a, findElement {value=//*[contains(@id,&apos;0:MAnt2:3:ap1:it2::content&apos;)], using=xpath}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 136.0.7103.48, chrome: {chromedriverVersion: 136.0.7103.49 (031848bc6ad0..., userDataDir: C:\Users\bpanchal\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52076}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52076/devtoo..., se:cdpVersion: 136.0.7103.48, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b7ee4ea6858148522fdd47366686d18a
 	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
@@ -150,12 +157,10 @@ Session ID: e5a1c0727b67375ecee7e99e777c5db2
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:368)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:362)
-	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-	at jdk.proxy2/jdk.proxy2.$Proxy15.click(Unknown Source)
-	at Fusion.pageobjects.ManageJournalsPage.searchPayment(ManageJournalsPage.java:45)
-	at Fusion.tests.CreatingManualInvoiceWithPayment.CreateManualInvoiceWithPayment(CreatingManualInvoiceWithPayment.java:80)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	... 29 more
 ... Removed 28 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
@@ -175,11 +180,11 @@ Session ID: e5a1c0727b67375ecee7e99e777c5db2
   &lt;listeners&gt;
     &lt;listener class-name=&quot;Fusion.TestComponent.Listeners&quot;/&gt;
   &lt;/listeners&gt;
-  &lt;test thread-count=&quot;1&quot; name=&quot;CreateManualInvoiceWithPayment&quot;&gt;
+  &lt;test thread-count=&quot;1&quot; name=&quot;P2P&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Fusion.tests.CreatingManualInvoiceWithPayment&quot;/&gt;
+      &lt;class name=&quot;Fusion.tests.ProcureToPay&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- CreateManualInvoiceWithPayment --&gt;
+  &lt;/test&gt; &lt;!-- P2P --&gt;
 &lt;/suite&gt; &lt;!-- All Test Suite --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -191,7 +196,7 @@ Session ID: e5a1c0727b67375ecee7e99e777c5db2
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">CreateManualInvoiceWithPayment (1 class)</span>
+                <span class="test-name">P2P (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -219,9 +224,9 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'CreateManualInvoiceWithPayment')
-data.setCell(0, 2, 'Fusion.tests.CreatingManualInvoiceWithPayment')
-data.setCell(0, 3, 164740);
+data.setCell(0, 1, 'ProcureToPay')
+data.setCell(0, 2, 'Fusion.tests.ProcureToPay')
+data.setCell(0, 3, 156653);
 window.suiteTableData['All_Test_Suite']= { tableData: data, tableDiv: 'times-div-All_Test_Suite'}
 return data;
 }
@@ -252,7 +257,7 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Fusion.tests.CreatingManualInvoiceWithPayment</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">Fusion.tests.ProcureToPay</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">launchApplication</span>
                 <span class="method-start">0 ms</span>
@@ -260,12 +265,12 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">CreateManualInvoiceWithPayment({ledger=ITC USA PL, bankAccount=Action Capital # ZAITC-90, businessUnit=IT Convergence USA, distribu...)</span>
-                <span class="method-start">7765 ms</span>
+                <span class="method-name">ProcureToPay({businessUnit=IT Convergence Singapore, distributionCombination=11.200.161600.00.306.44000.000000.00...)</span>
+                <span class="method-start">8867 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">172997 ms</span>
+                <span class="method-start">165791 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

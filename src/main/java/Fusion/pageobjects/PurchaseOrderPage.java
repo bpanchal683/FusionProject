@@ -23,15 +23,17 @@ public class PurchaseOrderPage extends AbstractComponent {
     @FindBy(linkText = "Process Requisitions")
     WebElement processRequsition;
 
-    By taskButtonWait=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
-    By processRequisitionWait=By.linkText("Process Requisitions");
+    By taskButtonLoc=By.xpath("//*[contains(@id, 'FndTasksList::icon')]");
+    By processRequisitionLoc=By.linkText("Process Requisitions");
 
     public ProcessRequisitionsPage goToProcessRequsition()
     {
-        waitForElementPresence(taskButtonWait);
-        taskButton.click();
-        waitForElementPresence(processRequisitionWait);
-        processRequsition.click();
+        waitForElementPresence(taskButtonLoc);
+        //taskButton.click();
+        clickElement(taskButtonLoc);
+        waitForElementPresence(processRequisitionLoc);
+        //processRequsition.click();
+        clickElement(processRequisitionLoc);
         ProcessRequisitionsPage processRequisitionsPage=new ProcessRequisitionsPage(driver);
         return processRequisitionsPage;
     }

@@ -36,46 +36,52 @@ public class NavigatorPage extends AbstractComponent {
     WebElement journals;
 
 
-    By invWait=By.linkText("Invoices");
+    By invLoc=By.xpath("//a[@id='pt1:_UISnvr:0:nv_itemNode_payables_payables_invoices']//span");
     By purchase=By.linkText("Purchase Requisitions");
-    By poWait=By.linkText("Purchase Orders");
-    By iMWait=By.linkText("Inventory Management");
+    By poLoc=By.linkText("Purchase Orders");
+    By iMLoc=By.linkText("Inventory Management");
     By payWait = By.linkText("Payments");
     By schProcessWait = By.xpath("//span[contains(text(),'Scheduled Processes')]");
     By showMoreWait=By.linkText("Show More");
     By journalsWait=By.xpath("//*[contains(text(),'Journals')]");
+    By purchaseRequisitionLoc=By.linkText("Purchase Requisitions");
 
     public void setShowMore()
     {
         waitForElementClick(showMoreWait);
-        showMore.click();
+        //showMore.click();
+        clickElement(showMoreWait);
     }
 
     public InvoicesPage clickInvoice()
     {
-        scrollIntoView(invWait);
-        invoices.click();
+        scrollIntoView(invLoc);
+        //invoices.click();
+        clickElement(invLoc);
         InvoicesPage invoicesPage= new InvoicesPage(driver);
         return invoicesPage;
     }
 
     public RequsitionPage clickPurchaseRequisition() {
         scrollIntoView(purchase);
-        purchaseRequisition.click();
+        //purchaseRequisition.click();
+        clickElement(purchaseRequisitionLoc);
         RequsitionPage requsitionPage=new RequsitionPage(driver);
         return requsitionPage;
     }
 
     public PurchaseOrderPage clickPO() throws InterruptedException {
-        scrollIntoView(poWait);
-        purchaseOrder.click();
+        scrollIntoView(poLoc);
+        //purchaseOrder.click();
+        clickElement(poLoc);
         PurchaseOrderPage purchaseOrderPage=new PurchaseOrderPage(driver);
         return purchaseOrderPage;
     }
 
     public InventoryManagementPage clickInventoryManagement() throws InterruptedException {
-        scrollIntoView(iMWait);
-        inventoryManagement.click();
+        scrollIntoView(iMLoc);
+        //inventoryManagement.click();
+        clickElement(iMLoc);
         InventoryManagementPage inventoryManagementPage=new InventoryManagementPage(driver);
         return inventoryManagementPage;
     }

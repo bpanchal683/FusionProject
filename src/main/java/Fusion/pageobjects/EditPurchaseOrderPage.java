@@ -21,12 +21,13 @@ public class EditPurchaseOrderPage extends AbstractComponent {
     @FindBy(xpath = "//*[contains(@id,'MAt3:0:AP1:AT1:_ATp:edit::icon')]")
     WebElement edit;
 
-    By editWait=By.xpath("//*[contains(@id,'MAt3:0:AP1:AT1:_ATp:edit::icon')]");
+    By editLoc=By.xpath("//*[contains(@id,'MAt3:0:AP1:AT1:_ATp:edit::icon')]");
 
     public PoEditLinePage clickEdit()
     {
-        waitForElementPresence(editWait);
-        edit.click();
+        waitForElementPresence(editLoc);
+        //edit.click();
+        clickElement(editLoc);
         PoEditLinePage poEditLinePage=new PoEditLinePage(driver);
         return poEditLinePage;
     }

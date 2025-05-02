@@ -43,26 +43,37 @@ public class EnterRequisitionPage extends AbstractComponent {
     By deloc=By.xpath("//*[contains(@id,'Deliv1:0:deliverToLocationId::su0')]");
     By itemNameWait=By.xpath("//*[contains(@id,'itemNumberId::content')]");
     By deliveryLocWait=By.xpath("//*[contains(@id,'Deliv1:0:deliverToLocationId::content')]");
+    By quantityLoc=By.xpath("//*[contains(@id,'ItemI1:0:quantity::content')]");
+    By priceLoc=By.xpath("//*[contains(@id,'currUnitPriceItemRN::content')]");
+    By deliverDateLoc=By.xpath("//*[contains(@id,'Deliv1:0:inputDate1::content')]");
+    By addToCartLoc=By.xpath("//*[contains(@id,'_FOTsr1:1:pt1:AP1:ctb2')]");
+    By cartLoc=By.xpath("//*[contains(@id,'FOTsr1:1:pt1:AP1:s6:cl2')]");
+    By reviewCartLoc=By.xpath("//*[contains(@id,'FOTsr1:1:pt1:AP1:s6:cb2')]");
 
     public EditRequisitionPage addItemsToCart(String item, String qty, String prc, String delDate, String delLoc) throws InterruptedException {
         waitForFieldToBeReady(itemNameWait);
-        itemName.sendKeys(item);
+        //itemName.sendKeys(item);
+        sendKeysToElement(itemNameWait,item);
         itemNameKey.sendKeys(Keys.TAB);
         quantity.clear();
-        quantity.sendKeys(qty);
-        price.sendKeys(prc);
+        //quantity.sendKeys(qty);
+        sendKeysToElement(quantityLoc,qty);
+        //price.sendKeys(prc);
+        sendKeysToElement(priceLoc,prc);
         deliveryDate.clear();
-        deliveryDate.sendKeys(delDate);
+        //deliveryDate.sendKeys(delDate);
+        sendKeysToElement(deliverDateLoc,delDate);
         Thread.sleep(3000);
         deliveryLocation.clear();
-        deliveryLocation.sendKeys(delLoc);
-        //Thread.sleep(1000);
-        //waitForElementPresence(deliveryLocWait);
-        //selectLoc.click();
+        //deliveryLocation.sendKeys(delLoc);
+        sendKeysToElement(deliveryLocWait,delLoc);
         jsClick(deliveryLocWait);
-        addToCart.click();
-        cart.click();
-        reviewCart.click();
+        //addToCart.click();
+        clickElement(addToCartLoc);
+        //cart.click();
+        clickElement(cartLoc);
+        //reviewCart.click();
+        clickElement(reviewCartLoc);
         EditRequisitionPage editRequisitionPage=new EditRequisitionPage(driver);
         return editRequisitionPage;
     }

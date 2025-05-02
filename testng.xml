@@ -6,17 +6,17 @@
         <listener class-name="Fusion.TestComponent.Listeners"/>
     </listeners>
 
-<!--    <test name="P2P">-->
-<!--        <classes>-->
-<!--            <class name="Fusion.tests.ProcureToPay">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
-
-    <test name="CreateManualInvoiceWithPayment">
+    <test name="P2P">
         <classes>
-            <class name="Fusion.tests.CreatingManualInvoiceWithPayment">
+            <class name="Fusion.tests.ProcureToPay">
             </class>
         </classes>
     </test>
+
+<!--    <test name="CreateManualInvoiceWithPayment">-->
+<!--        <classes>-->
+<!--            <class name="Fusion.tests.CreatingManualInvoiceWithPayment">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

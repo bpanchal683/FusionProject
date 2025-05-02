@@ -4,15 +4,15 @@
   <listeners>
     <listener class-name="Fusion.TestComponent.Listeners"/>
   </listeners>
-  <test thread-count="1" name="CreateManualInvoiceWithPayment(failed)">
+  <test thread-count="1" name="P2P(failed)">
     <classes>
-      <class name="Fusion.tests.CreatingManualInvoiceWithPayment">
+      <class name="Fusion.tests.ProcureToPay">
         <methods>
           <include name="tearDown"/>
           <include name="launchApplication"/>
-          <include name="CreateManualInvoiceWithPayment" invocation-numbers="0"/>
+          <include name="ProcureToPay" invocation-numbers="0"/>
         </methods>
-      </class> <!-- Fusion.tests.CreatingManualInvoiceWithPayment -->
+      </class> <!-- Fusion.tests.ProcureToPay -->
     </classes>
-  </test> <!-- CreateManualInvoiceWithPayment(failed) -->
+  </test> <!-- P2P(failed) -->
 </suite> <!-- Failed suite [All Test Suite] -->

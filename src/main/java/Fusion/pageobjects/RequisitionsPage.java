@@ -26,7 +26,7 @@ public class RequisitionsPage extends AbstractComponent {
     WebElement viewMore;
 
     By requisitionsIdWait=By.xpath("//div[@id='_FOpt1:_FOr1:0:_FONSr2:0:_FOTsr1:0:SP4:panelGroupLayout2']");
-    By viewMoreWait=By.linkText("View More");
+    By viewMoreLoc=By.linkText("View More");
 
         public String getRequsitionId() throws InterruptedException {
             waitForElementVisible(requisitionsIdWait);
@@ -43,8 +43,9 @@ public class RequisitionsPage extends AbstractComponent {
 
         public ManageRequisitionsPage clickViewMore()
         {
-            waitForElementPresence(viewMoreWait);
-            viewMore.click();
+            waitForElementPresence(viewMoreLoc);
+            //viewMore.click();
+            clickElement(viewMoreLoc);
             ManageRequisitionsPage manageRequisitionsPage=new ManageRequisitionsPage(driver);
             return manageRequisitionsPage;
         }

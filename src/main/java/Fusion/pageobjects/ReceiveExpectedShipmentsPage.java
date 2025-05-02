@@ -27,21 +27,25 @@ public class ReceiveExpectedShipmentsPage extends AbstractComponent {
     @FindBy(xpath = "//*[contains(@id,'1:pt1:ap1:AT1:_ATp:receive')]")
     WebElement receive;
 
-    By purchaseOrderWait=By.xpath("//*[contains(@id,'pt1:ap1:rcvQry:value00::content')]");
-    By searchWait=By.xpath("//*[contains(@id,'1:pt1:ap1:rcvQry::search')]");
-    By poLineWait=By.cssSelector(".xen:first-child");
-    By receiveWait=By.xpath("//*[contains(@id,'1:pt1:ap1:AT1:_ATp:receive')]");
+    By purchaseOrderLoc=By.xpath("//*[contains(@id,'pt1:ap1:rcvQry:value00::content')]");
+    By searchLoc=By.xpath("//*[contains(@id,'1:pt1:ap1:rcvQry::search')]");
+    By poLineLoc=By.cssSelector(".xen:first-child");
+    By receiveLoc=By.xpath("//*[contains(@id,'1:pt1:ap1:AT1:_ATp:receive')]");
 
     public ReceiveLinesPage searchAndGoToReceiveLines(String poNum)
     {
-         waitForElementPresence(purchaseOrderWait);
-         purchaseOrder.sendKeys(poNum);
-         waitForElementPresence(searchWait);
-         search.click();
-         waitForElementPresence(poLineWait);
-         poLine.click();
-         waitForElementPresence(receiveWait);
-         receive.click();
+         waitForElementPresence(purchaseOrderLoc);
+         //purchaseOrder.sendKeys(poNum);
+        sendKeysToElement(purchaseOrderLoc,poNum);
+         waitForElementPresence(searchLoc);
+         //search.click();
+        clickElement(searchLoc);
+         waitForElementPresence(poLineLoc);
+         //poLine.click();
+        clickElement(poLineLoc);
+         waitForElementPresence(receiveLoc);
+         //receive.click();
+        clickElement(receiveLoc);
         ReceiveLinesPage receiveLinesPage=new ReceiveLinesPage(driver);
         return receiveLinesPage;
     }

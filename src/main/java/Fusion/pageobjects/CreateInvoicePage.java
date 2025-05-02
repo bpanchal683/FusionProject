@@ -87,19 +87,21 @@ public class CreateInvoicePage extends AbstractComponent {
     By show_more=By.linkText("Show More");
     By liabDist=By.xpath("//*[contains(@id, 'ap1:kf2CS::content')]");
     By forceApprovalWait=By.xpath("//tr[contains(@id,'MAnt2:1:pm1:r1:0:ap1:cm11')]");
-    By invoiceActionsWait=By.xpath("//a[contains(text(),'Invoice Actions')]");
-    By identifyPoWait=By.xpath("//*[contains(@id,'ic1::content')]");
+    By invoiceActionsLoc=By.xpath("//a[contains(text(),'Invoice Actions')]");
+    By identifyPoLoc=By.xpath("//*[contains(@id,'ic1::content')]");
     By confirmationWait=By.xpath("//*[contains(@id, 'ap1:cb43')]");
     By saveAndCloseWait=By.xpath("//*[contains(@id, 'ap1:cb14')]");
     By invoiceNumberWait=By.xpath("//*[contains(@id, 'MAnt2:1:pm1:r1:0:ap1:r2:0:i2::content')]");
     By invAmountWait=By.xpath("//*[contains(@id,'ap1:r2:0:i3::content')]");
     By invDateWait=By.xpath("//*[contains(@id,'ap1:r2:0:id2::content')]");
-    By pymtTermWait=By.xpath("//*[contains(@id,'ap1:r2:0:so3::content')]");
+    By pymtTermLoc=By.xpath("//*[contains(@id,'ap1:r2:0:so3::content')]");
     By expandLinesWait=By.xpath("//*[contains(@id, 'ap1:sh2::_afrDscl')]");
     By businessUnitWait=By.xpath("//*[contains(@id,'ic2::content')]");
     By searchWait=By.xpath("//*[contains(@id,'ap1:r2:0:ic3::_afrLovInternalQueryId::search')]");
     By accountingWait=By.linkText("Accounting");
     By accountingDateWait=By.xpath("//*[contains(@id, 'ap1:id4::content')]");
+    By linesAmountLoc=By.xpath("//*[contains(@id, 'ATp:ta2:0:i26::content')]");
+    By approvalLoc=By.xpath("//tr[contains(@id,'MAnt2:1:pm1:r1:0:ap1:me2')]");
 
     public void setInvoiceFields(String bUnit,String spl,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate) throws InterruptedException {
         waitForFieldToBeReady(businessUnitWait);
@@ -121,7 +123,7 @@ public class CreateInvoicePage extends AbstractComponent {
         desc.sendKeys(description);
         waitForFieldToBeReady(invDateWait);
         invDate.sendKeys(invoiceDate);
-        waitForFieldToBeReady(pymtTermWait);
+        waitForFieldToBeReady(pymtTermLoc);
         pymtTerms.clear();
         pymtTerms.sendKeys(paymentTerms);
         termDate.sendKeys(termsDate);
@@ -144,17 +146,20 @@ public class CreateInvoicePage extends AbstractComponent {
         //Thread.sleep(2000);
         waitForElementPresence(expandLinesWait);
         expandLines.click();
-        linesAmount.sendKeys(lineAmount);
+        //linesAmount.sendKeys(lineAmount);
+        sendKeysToElement(linesAmountLoc,lineAmount);
         disbCombination.sendKeys(distributionCombination);
     }
 
     public void invoiceActions() throws InterruptedException {
-        waitForElementPresence(invoiceActionsWait);
-         invoiceActions.click();
+        waitForElementPresence(invoiceActionsLoc);
+         //invoiceActions.click();
+        clickElement(invoiceActionsLoc);
          validate.click();
         Thread.sleep(4000);
          invoiceActions.click();
-         approval.click();
+         //approval.click();
+        clickElement(approvalLoc);
         Thread.sleep(3000);
          forceApproval.click();
         Thread.sleep(4000);
@@ -164,7 +169,7 @@ public class CreateInvoicePage extends AbstractComponent {
     }
 
     public void validateAndAccountingInvoice() throws InterruptedException {
-        waitForElementPresence(invoiceActionsWait);
+        waitForElementPresence(invoiceActionsLoc);
         invoiceActions.click();
         validate.click();
         Thread.sleep(4000);
@@ -183,8 +188,9 @@ public class CreateInvoicePage extends AbstractComponent {
 
     public void setInvoiceFieldsWithPO(String po,String invoiceNum,String invAmount,String description,String invoiceDate,String paymentTerms,String termsDate)
     {
-        waitForElementPresence(identifyPoWait);
-        identifyingPO.sendKeys(po);
+        waitForElementPresence(identifyPoLoc);
+        //identifyingPO.sendKeys(po);
+        sendKeysToElement(identifyPoLoc,po);
         waitForFieldToBeReady(invoiceNumberWait);
         invoiceNumber.sendKeys(invoiceNum);
         invoiceNumberKey.sendKeys(Keys.TAB);
@@ -193,9 +199,10 @@ public class CreateInvoicePage extends AbstractComponent {
         desc.sendKeys(description);
         waitForFieldToBeReady(invDateWait);
         invDate.sendKeys(invoiceDate);
-        waitForFieldToBeReady(pymtTermWait);
+        waitForFieldToBeReady(pymtTermLoc);
         pymtTerms.clear();
-        pymtTerms.sendKeys(paymentTerms);
+        //pymtTerms.sendKeys(paymentTerms);
+        sendKeysToElement(pymtTermLoc,paymentTerms);
         termDate.sendKeys(termsDate);
     }
 

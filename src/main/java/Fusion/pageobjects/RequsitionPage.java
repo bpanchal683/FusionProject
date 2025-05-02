@@ -30,7 +30,8 @@ public class RequsitionPage extends AbstractComponent {
     public EnterRequisitionPage clickRequsition() throws InterruptedException {
         //Thread.sleep(2000);
         waitForElementPresence(moreTaskWait);
-        moreTask.click();
+        //moreTask.click();
+        clickElement(moreTaskWait);
         //Thread.sleep(1000);
         jsClick(enterRequisitionLoc);
         //enterRequisition.click();
