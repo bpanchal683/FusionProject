@@ -208,11 +208,12 @@ public class AbstractComponent {
         //String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS").format(new Date());
         String uniqueId = UUID.randomUUID().toString();
         String scrPath = System.getProperty("user.dir") + "/reports/" + "SS_" + uniqueId + ".png";
+        String fileName = "SS_" + uniqueId + ".png";
         File file=new File(scrPath);
 //        String relativePath = "./reports/" + testCaseName + timestamp + ".png";
 //        File file = new File(relativePath);
         FileUtils.copyFile(source,file);
-        return scrPath;
+        return fileName;
     }
 
 
