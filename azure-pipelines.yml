@@ -4,15 +4,29 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- master
+- main
 
-pool: MuComputerAgent
+pool:
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'test -PProcureToPay'
+    goals: 'clean test -PRegression'
+
+- task: CopyFiles@2
+  inputs:
+    contents: 'reports/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/reports'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/reports'
+    artifactName: 'ExtentReport'
+
+- task: PublishHtmlReport@1
+  inputs:
+    reportDirectory: '$(Build.ArtifactStagingDirectory)/reports'
+    reportFiles: '**/extent.html'
+    reportName: 'Extent Report'
