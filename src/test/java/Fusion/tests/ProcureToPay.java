@@ -124,7 +124,7 @@ public class ProcureToPay extends BaseTest {
     @DataProvider(name = "P2PData")
     public Iterator<Object[]> getP2PData() throws IOException {
         String filePath = System.getProperty("user.dir") + "/src/test/java/resources/AP_TestData.xlsx";
-        List<Map<String, String>> testData = ExcelReader.getTestData(filePath, "P2P");
+        List<Map<String, String>> testData = ExcelReader.getMultiTestData(filePath, "P2P");
 
         List<Object[]> dataProvider = new ArrayList<>();
         for (Map<String, String> row : testData) {
