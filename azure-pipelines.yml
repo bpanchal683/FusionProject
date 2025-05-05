@@ -14,18 +14,6 @@ steps:
     mavenPomFile: 'pom.xml'
     goals: 'clean test -PProcureToPay'
 
-- task: CopyFiles@2
-  inputs:
-    contents: 'reports/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/reports'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/reports'
-    artifactName: 'ExtentReport'
 
-- task: PublishHtmlReport@1
-  inputs:
-    reportDirectory: '$(Build.ArtifactStagingDirectory)/reports'
-    reportFiles: '**/extent.html'
-    reportName: 'Extent Report'
+
