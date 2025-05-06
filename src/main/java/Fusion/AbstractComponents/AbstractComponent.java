@@ -61,7 +61,6 @@ public class AbstractComponent {
         wait.until(ExpectedConditions.elementToBeClickable(fieldLocator));
     }
 
-
     public void clickStaleElement(By findBy)
     {
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));

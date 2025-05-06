@@ -40,6 +40,13 @@ public class Listeners extends BaseTest implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
 
+        ExtentTest test = getExtentTest();
+
+        if (test == null) {
+            System.err.println("❌ ExtentTest is null in onTestFailure for: " + result.getMethod().getMethodName());
+            return; // Avoid NullPointerException
+        }
+
         //test.log(Status.FAIL,result.getThrowable());
         //extentTestThreadLocal.get().log(Status.FAIL,result.getMethod().getMethodName());
         getExtentTest().log(Status.FAIL,result.getMethod().getMethodName());

@@ -33,9 +33,6 @@ public class LandingPage extends AbstractComponent {
 
     public HomePage login(String username, String password1)
     {
-        //email.sendKeys(username);
-        //password.sendKeys(password1);
-        //button.click();
         sendKeysToElement(emailLoc,username);
         sendKeysToElement(passwordLoc,password1);
         clickElement(buttonLoc);

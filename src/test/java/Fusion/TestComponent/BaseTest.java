@@ -1,8 +1,8 @@
 package Fusion.TestComponent;
 
 import Fusion.pageobjects.LandingPage;
+import Fusion.pageobjects.MsdSignInPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -12,14 +12,11 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
 import java.util.Properties;
 
 public class BaseTest {
@@ -30,6 +27,7 @@ public class BaseTest {
     public String url;
     public String userName;
     public String password;
+    public MsdSignInPage msdSignInPage;
 
 
     public void readConfig() throws IOException {
@@ -81,7 +79,7 @@ public class BaseTest {
         return driver;
     }
 
-    @BeforeMethod
+
     public LandingPage launchApplication() throws IOException {
         driver=initializeDriver();
         lp=new LandingPage(driver);
@@ -89,23 +87,19 @@ public class BaseTest {
         return lp;
     }
 
-    @AfterMethod
-    public void tearDown()
-    {
-        driver.close();
-    }
-
-//    public String getScreenshot(String testCaseName,WebDriver driver) throws IOException {
-//        TakesScreenshot ts=(TakesScreenshot)driver;
-//        File source=ts.getScreenshotAs(OutputType.FILE);
-//        String timestamp = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
-//        String scrPath=System.getProperty("user.dir")+"/reports/"+ testCaseName + timestamp +".png";
-//        File file=new File(scrPath);
-////        String relativePath = "./reports/" + testCaseName + timestamp + ".png";
-////        File file = new File(relativePath);
-//        FileUtils.copyFile(source,file);
-//        return scrPath;
+//    @AfterMethod
+//    public void tearDown()
+//    {
+//        driver.close();
 //    }
+
+    @BeforeMethod
+    public MsdSignInPage launchMsdApplication() throws IOException {
+        driver=initializeDriver();
+        msdSignInPage=new MsdSignInPage(driver);
+        msdSignInPage.goTo(url);
+        return msdSignInPage;
+    }
 
     public String getScreenshotASBase64(WebDriver driver) throws IOException {
         TakesScreenshot ts=(TakesScreenshot)driver;
