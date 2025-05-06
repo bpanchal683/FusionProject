@@ -6,7 +6,7 @@
 trigger:
 - master
 
-pool: MuComputerAgent
+pool: MyAgentPool
 
 steps:
 - task: Maven@3
