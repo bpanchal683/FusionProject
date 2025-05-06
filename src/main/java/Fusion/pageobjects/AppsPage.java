@@ -18,14 +18,16 @@ public class AppsPage extends AbstractComponent {
         PageFactory.initElements(driver,this);
     }
 
-    @FindBy(xpath = "//div[@title='Field Service']")
+    @FindBy(xpath = "//a[contains(@href, 'msdyn_FieldService')]")
     WebElement fieldService;
 
-    By fieldServiceLoc=By.xpath("//div[@title='Field Service']");
+
+    By fieldServiceLoc=By.xpath("//a[contains(@href, 'msdyn_FieldService')]");
 
     public void clickFieldService()
     {
-        waitForElementClick(fieldServiceLoc);
+        driver.switchTo().frame("AppLandingPage");
+        waitForElementVisible(fieldServiceLoc);
         clickElement(fieldServiceLoc);
     }
 }
