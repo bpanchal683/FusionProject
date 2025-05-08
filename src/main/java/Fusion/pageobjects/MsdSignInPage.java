@@ -61,8 +61,8 @@ public class MsdSignInPage extends AbstractComponent {
 
     public void staySignIn()
     {
-        waitForElementClick(signInCheckboxLoc);
-        clickElement(signInCheckboxLoc);
+        waitForElementClick(yesLoc);
+        //clickElement(signInCheckboxLoc);
         yes.click();
     }
 

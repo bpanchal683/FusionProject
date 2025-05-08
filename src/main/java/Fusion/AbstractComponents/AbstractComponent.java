@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
@@ -215,6 +216,49 @@ public class AbstractComponent {
 
         // Return the formatted date as a string
         return sdf.format(currentDate);
+    }
+
+    public static  String getCurrentDateYearFormatted() {
+        // Get the current date
+        Date currentDate = new Date();
+
+        // Define the desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+        // Return the formatted date as a string
+        return sdf.format(currentDate);
+    }
+
+    public static String getNextDayFormatted() {
+        // Create a Calendar instance and set it to the current date
+        Calendar calendar = Calendar.getInstance();
+
+        // Add one day to the current date
+        calendar.add(Calendar.DATE, 1);
+
+        // Format the new date
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        return sdf.format(calendar.getTime());
+    }
+
+    public static String getNextDayYearFormatted() {
+        // Create a Calendar instance and set it to the current date
+        Calendar calendar = Calendar.getInstance();
+
+        // Add one day to the current date
+        calendar.add(Calendar.DATE, 1);
+
+        // Format the new date
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return sdf.format(calendar.getTime());
+    }
+
+    public static String getFixedTime730AM() {
+        return "07:30 AM";
+    }
+
+    public static String getFixedTime1030AM() {
+        return "10:30 AM";
     }
 
     public static String getScreenshot(WebDriver driver) throws IOException {

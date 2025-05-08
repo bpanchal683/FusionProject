@@ -4,6 +4,8 @@ import Fusion.TestComponent.BaseTest;
 import Fusion.pageobjects.*;
 import org.testng.annotations.Test;
 
+import static Fusion.AbstractComponents.AbstractComponent.*;
+
 public class MSD extends BaseTest {
 
     @Test
@@ -12,8 +14,13 @@ public class MSD extends BaseTest {
         String customer="Alpine Ski House";
         String contact="Cacilia Viera";
         String product="Radius Belt";
-        String incidentType="";
-        String functionalLocation="";
+        String incidentType="Replace Peripheral Part";
+        String functionalLocation="NW Main Building";
+        String promisedTimeFrom=getCurrentDateYearFormatted();
+        String promisedTimeTo=getNextDayYearFormatted();
+        String requirement="Allison Dickson";
+        String startTime=getFixedTime730AM();
+        String endTime=getFixedTime1030AM();
         //Create New Case
         MsdSignInPage msdSignInPage=new MsdSignInPage(driver);
         msdSignInPage.enterMail("AlexW@w53j6.onmicrosoft.com");
@@ -32,7 +39,20 @@ public class MSD extends BaseTest {
         caseDetailsPage.clickFieldService();
         FieldServicePage fieldServicePage=new FieldServicePage(driver);
         fieldServicePage.addFieldServiceDetails(incidentType,functionalLocation);
+        fieldServicePage.clickSave();
+        fieldServicePage.clickConvertToWorkOrder();
+        fieldServicePage.clickOk();
+        WorkOrderNumberPage workOrderNumberPage=new WorkOrderNumberPage(driver);
+        String workOrderNum=workOrderNumberPage.getWorkOrderNumber();
+        workOrderNumberPage.clickSettings();
+        workOrderNumberPage.EnterPromisedTimeDetails(promisedTimeFrom,promisedTimeTo);
+        workOrderNumberPage.clickSaveAndClose();
         //Schedule board
+        fieldServicePage.clickScheduleBoard();
+        fieldServicePage.clickContinueAnyway();
+        ScheduleBoardPage scheduleBoardPage=new ScheduleBoardPage(driver);
+        scheduleBoardPage.clickBook();
+        scheduleBoardPage.enterCreateBookingDeatails(workOrderNum,requirement,startTime,endTime);
 
         //Resolver case
     }

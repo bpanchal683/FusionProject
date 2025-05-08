@@ -89,7 +89,7 @@ public class CaseDetailsPage extends AbstractComponent {
 
     public String getCaseId() throws InterruptedException {
         waitForElementClick(idLoc);
-        Thread.sleep(6000);
+        Thread.sleep(8000);
         String caseId=id.getDomAttribute("title");
         System.out.println("Id is:" + caseId);
         return caseId;
