@@ -35,6 +35,7 @@ public class FieldServicePage extends AbstractComponent {
 
 
 
+
     public void addFieldServiceDetails(String inc,String funcLoc) throws InterruptedException {
         Actions actions=new Actions(driver);
         waitForFieldToBeReady(incidentTypeLoc);
@@ -80,5 +81,7 @@ public class FieldServicePage extends AbstractComponent {
         waitForElementClick(continueAnywayLoc);
         clickElement(continueAnywayLoc);
     }
+
+
 
 }

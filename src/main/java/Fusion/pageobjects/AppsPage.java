@@ -18,11 +18,8 @@ public class AppsPage extends AbstractComponent {
         PageFactory.initElements(driver,this);
     }
 
-//    @FindBy(xpath = "//a[contains(@href, 'msdyn_FieldService')]")
-//    WebElement fieldService;
     @FindBy(id = "AppDetailsSec_1_Item_14")
     WebElement fieldService;
-
 
 
     By fieldServiceLoc=By.id("AppDetailsSec_1_Item_14");
@@ -33,5 +30,6 @@ public class AppsPage extends AbstractComponent {
         driver.switchTo().frame(webFrame);
         waitForElementVisible(fieldServiceLoc);
         clickElement(fieldServiceLoc);
+        driver.switchTo().defaultContent();
     }
 }

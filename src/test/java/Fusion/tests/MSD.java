@@ -21,6 +21,9 @@ public class MSD extends BaseTest {
         String requirement="Allison Dickson";
         String startTime=getFixedTime730AM();
         String endTime=getFixedTime1030AM();
+        String bookingStatus="Completed";
+        String title="Service Completed";
+        String resolution="Resolved";
         //Create New Case
         MsdSignInPage msdSignInPage=new MsdSignInPage(driver);
         msdSignInPage.enterMail("AlexW@w53j6.onmicrosoft.com");
@@ -53,7 +56,24 @@ public class MSD extends BaseTest {
         ScheduleBoardPage scheduleBoardPage=new ScheduleBoardPage(driver);
         scheduleBoardPage.clickBook();
         scheduleBoardPage.enterCreateBookingDeatails(workOrderNum,requirement,startTime,endTime);
-
+        scheduleBoardPage.bookOrder();
+        scheduleBoardPage.clickWorkOrder();
+        ActiveWorkOrdersPage activeWorkOrdersPage=new ActiveWorkOrdersPage(driver);
+        activeWorkOrdersPage.clickWorkOrderNumber();
+        WorkOrderPage workOrderPage=new WorkOrderPage(driver);
+        workOrderPage.clickOrderNumber();
+        workOrderPage.changeBookingStatus(bookingStatus);
+        workOrderPage.clickSave();
+        workOrderPage.clickBack();
+        workOrderPage.addTitleAndClose(title);
+        fieldServicesPage.clickCases();
+        MyActiveCasesPage myActiveCasesPage=new MyActiveCasesPage(driver);
+        myActiveCasesPage.filterCaseByKeyword(caseId);
+        myActiveCasesPage.clickCaseTitle();
+        myActiveCasesPage.enterNoteTitleAndClose(title);
         //Resolver case
+        myActiveCasesPage.clickResolveCase();
+        myActiveCasesPage.resolveCase(resolution);
+        myActiveCasesPage.logOut();
     }
 }

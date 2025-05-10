@@ -34,7 +34,7 @@ public class FieldServicesPage extends AbstractComponent {
         //waitForElementPresence(closeTabLoc);
         //clickElement(closeTabLoc);
         // Somewhere in your test after the dialog opens
-        forceClickCloseButtonUsingJS();
+//        forceClickCloseButtonUsingJS();
 
     }
 

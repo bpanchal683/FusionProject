@@ -182,22 +182,6 @@ public class AbstractComponent {
         }
     }
 
-    public void forceClickCloseButtonUsingJS() {
-        String script = """
-        const buttons = document.querySelectorAll('button');
-        for (let btn of buttons) {
-            const aria = btn.getAttribute('aria-label') || '';
-            const title = btn.getAttribute('title') || '';
-            if (aria.includes('Close') || title.includes('Close')) {
-                btn.click();
-                break;
-            }
-        }
-    """;
-        ((JavascriptExecutor) driver).executeScript(script);
-    }
-
-
 
     public static String fnRandomNum() {
         Random rand = new Random();
