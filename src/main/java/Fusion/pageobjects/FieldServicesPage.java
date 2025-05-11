@@ -42,6 +42,7 @@ public class FieldServicesPage extends AbstractComponent {
     {
         waitForElementClick(casesLoc);
         clickElement(casesLoc);
+        //jsClick(casesLoc);
     }
 
     public void createNewCase()

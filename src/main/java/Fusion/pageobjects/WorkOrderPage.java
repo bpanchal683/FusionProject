@@ -25,8 +25,9 @@ public class WorkOrderPage extends AbstractComponent {
     @FindBy(xpath = "//div[@aria-label='Scheduled']")
     WebElement bookingStatus;
 
-    By workOrderNumberLoc=By.xpath("(//div[@class='mainContent-494']//span[@class='headerText-499']//div[contains(@class, 'ms-TooltipHost')])[1]");
+    By workOrderNumberLoc=By.xpath("(//div[starts-with(@class, 'detailsContainer-')])[2]");
     By bookingStatusLoc=By.xpath("//div[@aria-label='Scheduled']");
+    By deleteScheduleLoc=By.xpath("//div[@aria-label='Delete Scheduled']");
     By saveLoc=By.xpath("//button[@aria-label='Save (CTRL+S)']");
     By goBackLoc=By.xpath("//button[@aria-label='Press Enter to go back.']");
     By titleLoc=By.xpath("//div[@aria-label='Create a Note title']");
@@ -44,8 +45,7 @@ public class WorkOrderPage extends AbstractComponent {
     public void changeBookingStatus(String status)
     {
         Actions actions=new Actions(driver);
-        waitForFieldToBeReady(bookingStatusLoc);
-        bookingStatus.clear();
+        clickElement(deleteScheduleLoc);
         sendKeysToElement(bookingStatusLoc,status);
         actions.sendKeys(Keys.ARROW_DOWN)
                 .sendKeys(Keys.ENTER).build().perform();

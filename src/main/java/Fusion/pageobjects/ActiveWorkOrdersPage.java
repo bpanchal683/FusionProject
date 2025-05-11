@@ -21,7 +21,7 @@ public class ActiveWorkOrdersPage extends AbstractComponent {
     @FindBy(xpath = "(//div[@class='ms-Stack root-417']//a[@role='link'])[1]")
     WebElement workOrderNumber;
 
-    By workOrderNumberLoc= By.xpath("(//div[@class='ms-Stack root-417']//a[@role='link'])[1]\n");
+    By workOrderNumberLoc= By.xpath("(//div[@col-id='msdyn_name']//a)[1]");
 
     public void clickWorkOrderNumber()
     {

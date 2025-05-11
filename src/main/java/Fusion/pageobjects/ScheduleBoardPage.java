@@ -33,7 +33,7 @@ public class ScheduleBoardPage extends AbstractComponent {
     By resourceLoc=By.xpath("//input[@aria-label='Resource']");
     By startTimeLoc=By.xpath("//label[text()='Start Time']/following::input[1]");
     By endTimeLoc=By.xpath("//label[text()='End Time']/following::input[1]");
-    By bookOrderLoc= By.cssSelector("button[class='ms-Button ms-Button--primary root-675'] span[class='ms-Button-flexContainer flexContainer-272']");
+    By bookOrderLoc= By.xpath("(//button[.//span[text()='Book']])[2]");
     By workOrderLoc=By.xpath("//li[@aria-label='Work Orders']");
 
 
@@ -54,29 +54,28 @@ public class ScheduleBoardPage extends AbstractComponent {
                 .sendKeys(Keys.ENTER).build().perform();
         Thread.sleep(2000);
         sendKeysToElement(resourceLoc,req);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         actions.sendKeys(Keys.ARROW_DOWN)
                 .sendKeys(Keys.ENTER).build().perform();
         Thread.sleep(2000);
         clickElement(startTimeLoc);
-        startTime.clear();
         Thread.sleep(1000);
         sendKeysToElement(startTimeLoc,sttime);
         Thread.sleep(2000);
         clickElement(endTimeLoc);
-        endTime.clear();
         Thread.sleep(1000);
         sendKeysToElement(endTimeLoc,etime);
     }
 
-    public void bookOrder()
-    {
+    public void bookOrder() throws InterruptedException {
+         Thread.sleep(2000);
          waitForElementClick(bookOrderLoc);
          clickElement(bookOrderLoc);
+         driver.switchTo().defaultContent();
     }
 
-    public void clickWorkOrder()
-    {
+    public void clickWorkOrder() throws InterruptedException {
+        Thread.sleep(5000);
         waitForElementClick(workOrderLoc);
         clickElement(workOrderLoc);
     }
