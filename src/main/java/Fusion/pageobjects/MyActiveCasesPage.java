@@ -25,11 +25,11 @@ public class MyActiveCasesPage extends AbstractComponent {
 
     By filterByKeywordLoc=By.xpath("//input[@aria-label='Case Filter by keyword']");
     By caseLinkLoc=By.xpath("(//div[@role='gridcell' and @col-id='title']//a[@role='link'])[1]");
-    By enterNoteLoc=By.xpath("//input[@aria-label='Enter a note...']");
+    By enterNoteLoc=By.xpath("//button[.//span[text()='Enter a note...']]");
     By enterNoteTitleLoc=By.xpath("//input[@aria-label='Create a Note title']");
     By addNoteAndCloseLoc=By.xpath("//button[@id='splitsave-button']");
     By resolveCaseLoc=By.xpath("//button[@aria-label='Resolve Case']");
-    By resolutionLoc=By.cssSelector(".pa-sa .___1xu2kux .fui-Input");
+    By resolutionLoc=By.xpath("//input[@aria-label='Resolution']");
     By enterResolutionLoc=By.xpath("//input[@aria-label='Resolution']");
     By resolveLoc=By.xpath("//button[@id='id-602fcc01-dd62-4886-8f07-042ed67ae299-8']");
     By profileLoc=By.xpath("//div[@id='mectrl_headerPicture']");
@@ -61,8 +61,8 @@ public class MyActiveCasesPage extends AbstractComponent {
 
     public void enterNoteTitleAndClose(String title)
     {
-        waitForElementClick(enterNoteTitleLoc);
-        clickElement(enterNoteTitleLoc);
+        waitForElementClick(enterNoteLoc);
+        clickElement(enterNoteLoc);
         sendKeysToElement(enterNoteTitleLoc,title);
         clickElement(addNoteAndCloseLoc);
     }
@@ -81,9 +81,9 @@ public class MyActiveCasesPage extends AbstractComponent {
         clickElement(resolveLoc);
     }
 
-    public void logOut()
-    {
+    public void logOut() throws InterruptedException {
         waitForElementClick(profileLoc);
+        Thread.sleep(5000);
         clickElement(profileLoc);
         waitForElementClick(signOutLoc);
         clickElement(signOutLoc);

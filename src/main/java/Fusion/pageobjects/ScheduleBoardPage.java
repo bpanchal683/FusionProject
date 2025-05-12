@@ -57,20 +57,21 @@ public class ScheduleBoardPage extends AbstractComponent {
         Thread.sleep(3000);
         actions.sendKeys(Keys.ARROW_DOWN)
                 .sendKeys(Keys.ENTER).build().perform();
-        Thread.sleep(2000);
-        clickElement(startTimeLoc);
-        Thread.sleep(1000);
-        sendKeysToElement(startTimeLoc,sttime);
-        Thread.sleep(2000);
-        clickElement(endTimeLoc);
-        Thread.sleep(1000);
-        sendKeysToElement(endTimeLoc,etime);
+//        Thread.sleep(2000);
+//        clickElement(startTimeLoc);
+//        Thread.sleep(1000);
+//        sendKeysToElement(startTimeLoc,sttime);
+//        Thread.sleep(2000);
+//        clickElement(endTimeLoc);
+//        Thread.sleep(1000);
+//        sendKeysToElement(endTimeLoc,etime);
     }
 
     public void bookOrder() throws InterruptedException {
          Thread.sleep(2000);
          waitForElementClick(bookOrderLoc);
          clickElement(bookOrderLoc);
+        clickElement(bookOrderLoc);
          driver.switchTo().defaultContent();
     }
 

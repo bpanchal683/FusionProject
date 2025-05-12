@@ -238,11 +238,11 @@ public class AbstractComponent {
     }
 
     public static String getFixedTime730AM() {
-        return "07:30 AM";
+        return "08:30 AM";
     }
 
     public static String getFixedTime1030AM() {
-        return "10:30 AM";
+        return "11:30 AM";
     }
 
     public static String getScreenshot(WebDriver driver) throws IOException {

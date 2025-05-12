@@ -25,7 +25,7 @@ public class FieldServicesPage extends AbstractComponent {
 
 
     By casesLoc=By.xpath("//*[contains(text(),'Cases')]");
-    By closeTabLoc=By.xpath("//button[@aria-label='Close' and @title='Close']");
+    By closeTabLoc=By.xpath("//div[contains(@class, '___174bz0o')]//button[text()='Dismiss']");
     By dismissLoc=By.cssSelector(".fui-FluentProvider.___174bz0o");
     By newCaseLoc=By.xpath("//span[contains(text(),'New Case')]");
 
@@ -33,16 +33,13 @@ public class FieldServicesPage extends AbstractComponent {
         Thread.sleep(10000);
         //waitForElementPresence(closeTabLoc);
         //clickElement(closeTabLoc);
-        // Somewhere in your test after the dialog opens
-//        forceClickCloseButtonUsingJS();
-
+        //jsClick(closeTabLoc);
     }
 
     public void clickCases()
     {
         waitForElementClick(casesLoc);
         clickElement(casesLoc);
-        //jsClick(casesLoc);
     }
 
     public void createNewCase()

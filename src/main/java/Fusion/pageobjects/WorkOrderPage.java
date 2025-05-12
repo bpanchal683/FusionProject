@@ -26,12 +26,14 @@ public class WorkOrderPage extends AbstractComponent {
     WebElement bookingStatus;
 
     By workOrderNumberLoc=By.xpath("(//div[starts-with(@class, 'detailsContainer-')])[2]");
-    By bookingStatusLoc=By.xpath("//div[@aria-label='Scheduled']");
-    By deleteScheduleLoc=By.xpath("//div[@aria-label='Delete Scheduled']");
+    By bookingStatusLoc=By.xpath("//input[@aria-label='Booking Status, Lookup']");
+    By deleteScheduleLoc=By.xpath("//span[@data-id='bookingstatus.fieldControl-LookupResultsDropdown_bookingstatus_microsoftIcon_cancelButton']");
     By saveLoc=By.xpath("//button[@aria-label='Save (CTRL+S)']");
     By goBackLoc=By.xpath("//button[@aria-label='Press Enter to go back.']");
-    By titleLoc=By.xpath("//div[@aria-label='Create a Note title']");
+    By enterNoteLoc=By.xpath("//button[.//span[text()='Enter a note...']]");
+    By titleLoc=By.xpath("//input[@aria-label='Create a Note title']");
     By addNoteAndCloseLoc=By.xpath("//button[@id='splitsave-button']");
+
 
 
 
@@ -42,11 +44,12 @@ public class WorkOrderPage extends AbstractComponent {
         clickElement(workOrderNumberLoc);
     }
 
-    public void changeBookingStatus(String status)
-    {
+    public void changeBookingStatus(String status) throws InterruptedException {
         Actions actions=new Actions(driver);
         clickElement(deleteScheduleLoc);
+        Thread.sleep(2000);
         sendKeysToElement(bookingStatusLoc,status);
+        Thread.sleep(2000);
         actions.sendKeys(Keys.ARROW_DOWN)
                 .sendKeys(Keys.ENTER).build().perform();
     }
@@ -57,15 +60,16 @@ public class WorkOrderPage extends AbstractComponent {
         clickElement(saveLoc);
     }
 
-    public void clickBack()
-    {
+    public void clickBack() throws InterruptedException {
         waitForElementClick(goBackLoc);
+        Thread.sleep(1000);
         clickElement(goBackLoc);
     }
 
-    public void addTitleAndClose(String title)
-    {
-        waitForFieldToBeReady(titleLoc);
+    public void addTitleAndClose(String title) throws InterruptedException {
+        waitForFieldToBeReady(enterNoteLoc);
+        clickElement(enterNoteLoc);
+        Thread.sleep(2000);
         sendKeysToElement(titleLoc,title);
         clickElement(addNoteAndCloseLoc);
     }
