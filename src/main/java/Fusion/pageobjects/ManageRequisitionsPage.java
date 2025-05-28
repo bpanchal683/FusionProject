@@ -54,8 +54,9 @@ public class ManageRequisitionsPage extends AbstractComponent {
             // Code to execute if condition is false
             while(!s1.equalsIgnoreCase("Approved"))
             {
+                Thread.sleep(1000);
                 expand.click();
-                //search.click();
+                Thread.sleep(1000);
                 clickElement(searchLoc);
                 System.out.println("refreshing the search");
                 Thread.sleep(1000);

@@ -1,4 +1,5 @@
 package Fusion.tests;
+
 import Fusion.TestComponent.BaseTest;
 import Fusion.TestComponent.ExcelReader;
 import Fusion.pageobjects.*;
@@ -10,10 +11,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import static Fusion.AbstractComponents.AbstractComponent.fnRandomNum;
 import static Fusion.AbstractComponents.AbstractComponent.getCurrentDateFormatted;
 
-public class ProcureToPay extends BaseTest {
+public class ProcureToPay_Appium extends BaseTest {
 
 
     @Test(dataProvider = "P2PData")

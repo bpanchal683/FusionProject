@@ -122,7 +122,7 @@ public class CreatePaymentPage extends AbstractComponent {
 
 
     public String getPaymentNumber() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         waitForElementPresence(paymentNumberWait);
         String paymentNo=paymentNumber.getText();
         String[] text1=paymentNo.split("for");

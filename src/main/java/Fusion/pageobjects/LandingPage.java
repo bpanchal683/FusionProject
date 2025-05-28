@@ -31,10 +31,10 @@ public class LandingPage extends AbstractComponent {
     By emailLoc=By.id("userid");
     By passwordLoc=By.id("password");
 
-    public HomePage login(String username, String password1)
-    {
+    public HomePage login(String username, String password1) throws InterruptedException {
         sendKeysToElement(emailLoc,username);
         sendKeysToElement(passwordLoc,password1);
+        clickElement(buttonLoc);
         clickElement(buttonLoc);
         HomePage homePage=new HomePage(driver);
         return homePage;

@@ -2,6 +2,7 @@ package Fusion.TestComponent;
 
 import Fusion.pageobjects.LandingPage;
 import Fusion.pageobjects.MsdSignInPage;
+import io.appium.java_client.android.AndroidDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -12,10 +13,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -40,34 +44,39 @@ public class BaseTest {
         password=prop.getProperty("password");
     }
 
-    public WebDriver initializeDriver() throws IOException {
+    public WebDriver initializeDriver(String browser) throws IOException {
         readConfig();
 
-        if(browserName.contains("chrome"))
+        if(browser==null || browser.isEmpty())
+        {
+            browser=browserName;
+        }
+
+        if(browser.contains("chrome"))
         {
             ChromeOptions options=new ChromeOptions();
             WebDriverManager.chromedriver().setup();
-            if(browserName.contains("headless"))
+            if(browser.contains("headless"))
             {
                 options.addArguments("headless");
             }
             driver=new ChromeDriver(options);
         }
-        else if (browserName.contains("edge"))
+        else if (browser.contains("edge"))
         {
             EdgeOptions options=new EdgeOptions();
             WebDriverManager.edgedriver().setup();
-            if(browserName.contains("headless"))
+            if(browser.contains("headless"))
             {
                 options.addArguments("headless");
             }
             driver=new EdgeDriver(options);
         }
-        else if (browserName.contains("firefox"))
+        else if (browser.contains("firefox"))
         {
             FirefoxOptions options=new FirefoxOptions();
             WebDriverManager.firefoxdriver().setup();
-            if(browserName.contains("headless"))
+            if(browser.contains("headless"))
             {
                 options.addArguments("headless");
             }
@@ -79,31 +88,50 @@ public class BaseTest {
         return driver;
     }
 
-
-    public LandingPage launchApplication() throws IOException {
-        driver=initializeDriver();
-        lp=new LandingPage(driver);
-        lp.goTo(url);
-        return lp;
-    }
-
+//    @Parameters("browser")
+//    @BeforeMethod
+//    public LandingPage launchApplication(@Optional("") String browser) throws IOException {
+//        driver=initializeDriver(browser);
+//        lp=new LandingPage(driver);
+//        lp.goTo(url);
+//        return lp;
+//    }
+//
 //    @AfterMethod
 //    public void tearDown()
 //    {
 //        driver.close();
 //    }
 
-    @BeforeMethod
-    public MsdSignInPage launchMsdApplication() throws IOException {
-        driver=initializeDriver();
-        msdSignInPage=new MsdSignInPage(driver);
-        msdSignInPage.goTo(url);
-        return msdSignInPage;
-    }
+//    @BeforeMethod
+//    public MsdSignInPage launchMsdApplication() throws IOException {
+//        driver=initializeDriver();
+//        msdSignInPage=new MsdSignInPage(driver);
+//        msdSignInPage.goTo(url);
+//        return msdSignInPage;
+//    }
 
-    public String getScreenshotASBase64(WebDriver driver) throws IOException {
-        TakesScreenshot ts=(TakesScreenshot)driver;
-        String base64Screenshot=ts.getScreenshotAs(OutputType.BASE64);
-        return base64Screenshot;
+//    public String getScreenshotASBase64(WebDriver driver) throws IOException {
+//        TakesScreenshot ts=(TakesScreenshot)driver;
+//        String base64Screenshot=ts.getScreenshotAs(OutputType.BASE64);
+//        return base64Screenshot;
+//    }
+
+    @BeforeTest
+    public void setUp() throws IOException {
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        desiredCapabilities.setCapability("appium:platformName", "Android");
+        desiredCapabilities.setCapability("appium:deviceName", "IN_Note 1");
+        desiredCapabilities.setCapability("appium:udid", "RWUCIRQ8R8CEZPIJ");
+        desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
+        desiredCapabilities.setCapability("appium:browserName", "Chrome");
+        desiredCapabilities.setCapability("appium:chromedriverExecutable", "C:\\Users\\bpanchal\\Downloads\\chromedriver-win64 (2)\\chromedriver-win64\\chromedriver.exe");
+//        desiredCapabilities.setCapability("appPackage","com.android.chrome");
+//        desiredCapabilities.setCapability("appActivity","com.google.android.apps.chrome.Main");
+
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), desiredCapabilities);
+        readConfig();
+        lp=new LandingPage(driver);
+        lp.goTo(url);
     }
 }

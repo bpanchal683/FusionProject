@@ -6,6 +6,13 @@
         <listener class-name="Fusion.TestComponent.Listeners"/>
     </listeners>
 
+    <test name="P2P">
+        <classes>
+            <class name="Fusion.tests.ProcureToPay_Appium">
+            </class>
+        </classes>
+    </test>
+
 <!--    <test name="P2P">-->
 <!--        <classes>-->
 <!--            <class name="Fusion.tests.ProcureToPay">-->
@@ -14,16 +21,17 @@
 <!--    </test>-->
 
 <!--    <test name="CreateManualInvoiceWithPayment">-->
+<!--        <parameter name="browser" value="chrome"/>-->
 <!--        <classes>-->
 <!--            <class name="Fusion.tests.CreatingManualInvoiceWithPayment">-->
 <!--            </class>-->
 <!--        </classes>-->
 <!--    </test>-->
 
-    <test name="Msd">
-        <classes>
-            <class name="Fusion.tests.MSD">
-            </class>
-        </classes>
-    </test>
+<!--    <test name="Msd">-->
+<!--        <classes>-->
+<!--            <class name="Fusion.tests.MSD">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

@@ -64,7 +64,7 @@ public class Listeners extends BaseTest implements ITestListener {
         String base64Image=null;
         String filePath=null;
         try {
-            base64Image = getScreenshotASBase64(driver);
+            //base64Image = getScreenshotASBase64(driver);
             filePath=AbstractComponent.getScreenshot(driver);
         } catch (IOException e) {
 
