@@ -71,14 +71,19 @@ public class EnterRequisitionPage extends AbstractComponent {
 //        Thread.sleep(2000);
 //        jsClick(deliveryLocWait);
         //addToCart.click();
-        Thread.sleep(2000);
+        //scrollIntoView(addToCartLoc);
+
+        Thread.sleep(3000);
         clickElement(addToCartLoc);
+        //jsClick(addToCartLoc);
         //cart.click();
         Thread.sleep(3000);
         clickElement(cartLoc);
+        //jsClick(cartLoc);
         //reviewCart.click();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         clickElement(reviewCartLoc);
+        //jsClick(reviewCartLoc);
         EditRequisitionPage editRequisitionPage=new EditRequisitionPage(driver);
         return editRequisitionPage;
     }

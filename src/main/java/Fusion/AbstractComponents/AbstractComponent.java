@@ -25,6 +25,8 @@ public class AbstractComponent {
     {
         this.driver=driver;
         PageFactory.initElements(driver,this);
+        // Set zoom to 100% for better visibility on mobile
+        ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='20%';");
     }
 
     public void goTo(String url)

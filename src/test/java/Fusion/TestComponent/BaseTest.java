@@ -4,9 +4,7 @@ import Fusion.pageobjects.LandingPage;
 import Fusion.pageobjects.MsdSignInPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -130,6 +128,7 @@ public class BaseTest {
 //        desiredCapabilities.setCapability("appActivity","com.google.android.apps.chrome.Main");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), desiredCapabilities);
+        driver.manage().window().setSize(new Dimension(1280, 720));
         readConfig();
         lp=new LandingPage(driver);
         lp.goTo(url);

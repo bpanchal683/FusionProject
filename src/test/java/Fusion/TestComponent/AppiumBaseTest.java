@@ -1,16 +1,23 @@
 package Fusion.TestComponent;
 
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import java.net.MalformedURLException;
+//import io.appium.java_client.MobileElement;
 import java.net.URL;
+import java.time.Duration;
+
 
 public class AppiumBaseTest {
 
     public AndroidDriver driver;
+
 
     @BeforeTest
     public void setUp() throws MalformedURLException {
@@ -19,19 +26,114 @@ public class AppiumBaseTest {
         desiredCapabilities.setCapability("appium:deviceName", "IN_Note 1");
         desiredCapabilities.setCapability("appium:udid", "RWUCIRQ8R8CEZPIJ");
         desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
-        desiredCapabilities.setCapability("appium:browserName", "Chrome");
-        desiredCapabilities.setCapability("appium:chromedriverExecutable", "C:\\Users\\bpanchal\\Downloads\\chromedriver-win64 (2)\\chromedriver-win64\\chromedriver.exe");
-//        desiredCapabilities.setCapability("appPackage","com.android.chrome");
-//        desiredCapabilities.setCapability("appActivity","com.google.android.apps.chrome.Main");
-
+        desiredCapabilities.setCapability("appium:appPackage", "com.makemytrip");
+        desiredCapabilities.setCapability("appium:appActivity","com.mmt.travel.app.home.ui.SplashActivity");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), desiredCapabilities);
     }
 
     @Test
-    public void test()
-    {
-        driver.get("https://ekwm-test.login.us6.oraclecloud.com/");
+    public void test() throws InterruptedException {
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+
+         System.out.println("Application Started");
+         Thread.sleep(7000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/skipTextView']")).click();
+        Thread.sleep(1000);
+//        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/inputFieldChild']")).sendKeys("6375187830");
+//        Thread.sleep(1000);
+//        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/btn_continue']")).click();
+//        Thread.sleep(1000);
+//        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/pwd_option']")).click();
+//        Thread.sleep(10000);
+//        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/iv_close']")).click();
+//        Thread.sleep(1000);
+//        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/container']")).click();
+        //driver.findElement(By.xpath("//*[@id='til_password']")).click();
+        //Thread.sleep(000);
+//        driver.findElement(By.xpath("(//*[@index='3'])[1]")).sendKeys("MakeMyTrip@123");
+//        Thread.sleep(1000);
+//        driver.findElement(By.xpath("//*[@text='Submit']"));
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/iv_socialButton']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("(//*[@index='1'])[3]")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/iv_close']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/container']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/search_button_flat']")).click();
+        Thread.sleep(7000);
+        //driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/snack_bar_footer_left']")).click();
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/snack_bar_footer_middle']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("(//*[@resource-id='com.makemytrip:id/top_area'])[2]")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("(//*[@resource-id='com.makemytrip:id/btnBookNow'])[1]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/fare_family_cont']")).click();
+        Thread.sleep(12000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@text='Add new adult']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@text='MALE']")).click();
+        driver.findElement(By.xpath("//*[@text='First & Middle Name']")).sendKeys("BK");
+        driver.findElement(By.xpath("//*[@text='Last Name']")).sendKeys("Panchal");
+        //driver.findElement(By.xpath("//*[@text='Mobile No(Optional)']")).sendKeys("6375187830");
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/confirm_button']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("//*[@text='Mobile No']")).sendKeys("6375187830");
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@text='CONFIRM']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@text='Travel Unsecured']")).click();
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/snack_bar_footer_right']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/review_tv']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@text='Confirm & continue']")).click();
+        Thread.sleep(5000);
+        //driver.findElement(By.xpath("//*[@resource-id='com.makemytrip:id/snack_bar_footer_right']")).click();
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("(//*[@index='8'])[1]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@text='CARD NUMBER']")).sendKeys("9848123697845231");
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@text='MM/YY']")).sendKeys("0931");
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@text='CVV']")).sendKeys("688");
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@resource-id='test_pay_name_on_card']")).sendKeys("Manoj");
+        driver.findElement(By.xpath("//*[@resource-id='test_state']")).sendKeys("UP");
+        driver.findElement(By.xpath("//*[@resource-id='test_city']")).sendKeys("Noida");
+        driver.findElement(By.xpath("//*[@resource-id='test_pincode']")).sendKeys("321309");
+        driver.findElement(By.xpath("//*[@resource-id='test_address']")).sendKeys("Noida");
+        driver.findElement(By.xpath("//*[@text='SAVE CARD & PAY']")).click();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 //    @AfterTest
