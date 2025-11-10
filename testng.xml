@@ -6,19 +6,19 @@
         <listener class-name="Fusion.TestComponent.Listeners"/>
     </listeners>
 
-    <test name="P2P">
-        <classes>
-            <class name="Fusion.tests.ProcureToPay_Appium">
-            </class>
-        </classes>
-    </test>
-
 <!--    <test name="P2P">-->
 <!--        <classes>-->
-<!--            <class name="Fusion.tests.ProcureToPay">-->
+<!--            <class name="Fusion.tests.ProcureToPay_Appium">-->
 <!--            </class>-->
 <!--        </classes>-->
 <!--    </test>-->
+
+    <test name="P2P">
+        <classes>
+            <class name="Fusion.tests.ProcureToPay">
+            </class>
+        </classes>
+    </test>
 
 <!--    <test name="CreateManualInvoiceWithPayment">-->
 <!--        <parameter name="browser" value="chrome"/>-->
