@@ -1,5 +1,6 @@
+//package Fusion.AbstractComponents;
 package Fusion.AbstractComponents;
-
+import static Fusion.AbstractComponents.ExtentTestManager.getExtentTest;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import org.apache.commons.io.FileUtils;
@@ -15,6 +16,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+
+import static Fusion.AbstractComponents.ExtentTestManager.getExtentTest;
 
 
 public class AbstractComponent {
@@ -79,7 +82,7 @@ public class AbstractComponent {
         }
 
         // Get current test instance from ExtentTestManager
-        ExtentTest test = ExtentTestManager.getExtentTest();
+        ExtentTest test = getExtentTest();
 
         try {
             String screenshotPath = AbstractComponent.getScreenshot(driver); // or your method name
@@ -104,7 +107,7 @@ public class AbstractComponent {
         }
 
         // Logging with ExtentReports
-        ExtentTest test = ExtentTestManager.getExtentTest();
+        ExtentTest test = getExtentTest();
 
         try {
             String screenshotPath = AbstractComponent.getScreenshot(driver);
@@ -116,7 +119,7 @@ public class AbstractComponent {
     }
 
     public void sendKeysToElement(By findBy, String value) {
-        ExtentTest test = ExtentTestManager.getExtentTest();
+        ExtentTest test = getExtentTest();
 
         try {
             WebElement element = driver.findElement(findBy);
@@ -144,12 +147,12 @@ public class AbstractComponent {
             text = element.getText();
 
             // Log to ExtentReports with screenshot
-            ExtentTest test = ExtentTestManager.getExtentTest();
+            ExtentTest test = getExtentTest();
             String screenshotPath = AbstractComponent.getScreenshot(driver);
             test.pass("Fetched text from element: \"" + text + "\"",
                     MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
         } catch (Exception e) {
-            ExtentTestManager.getExtentTest().fail("Failed to get text: " + e.getMessage());
+            getExtentTest().fail("Failed to get text: " + e.getMessage());
         }
         return text;
     }
@@ -170,7 +173,7 @@ public class AbstractComponent {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         // Logging with ExtentReports
-        ExtentTest test = ExtentTestManager.getExtentTest();
+        ExtentTest test = getExtentTest();
 
         try {
             String screenshotPath = AbstractComponent.getScreenshot(driver);

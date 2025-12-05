@@ -6,32 +6,47 @@
         <listener class-name="Fusion.TestComponent.Listeners"/>
     </listeners>
 
-    <test name="P2P">
+    <test name="CreateUserTest">
         <classes>
-            <class name="Fusion.tests.ProcureToPay_Appium">
+            <class name="Fusion.tests.AddUsersInOracleFusion">
             </class>
         </classes>
     </test>
 
-<!--    <test name="P2P">-->
-<!--        <classes>-->
-<!--            <class name="Fusion.tests.ProcureToPay">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="OICTest">
+        <classes>
+            <class name="Fusion.tests.ScheduleServicesInOracleFusion">
+            </class>
+        </classes>
+    </test>
 
-<!--    <test name="CreateManualInvoiceWithPayment">-->
-<!--        <parameter name="browser" value="chrome"/>-->
-<!--        <classes>-->
-<!--            <class name="Fusion.tests.CreatingManualInvoiceWithPayment">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+        <test name="ActiveUserInServiceNow">
+            <classes>
+                <class name="Fusion.tests.ServiceNowTestActiveUser">
+                </class>
+            </classes>
+        </test>
 
-<!--    <test name="Msd">-->
-<!--        <classes>-->
-<!--            <class name="Fusion.tests.MSD">-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="DeleteUserTest">
+        <classes>
+            <class name="Fusion.tests.deleteUsersInOracleFusion">
+            </class>
+        </classes>
+    </test>
+
+        <test name="OICTest2">
+            <classes>
+                <class name="Fusion.tests.ScheduleServicesInOracleFusion">
+                </class>
+            </classes>
+        </test>
+
+
+    <test name="DeactivateUserInServiceNow">
+        <classes>
+            <class name="Fusion.tests.ServiceNowTestInactiveUser">
+            </class>
+        </classes>
+    </test>
+
 </suite>
