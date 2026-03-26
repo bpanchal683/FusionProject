@@ -50,7 +50,7 @@ public class ProcureToPay extends BaseTest {
 
         //Start Testhn
         //Creating Requsitions
-        HomePage homePage=lp.login("Llongxi","Welcome@123");
+        HomePage homePage=lp.login(userName,password);
         NavigatorPage navigatorPage=homePage.clickNavigator();
         navigatorPage.setShowMore();
         RequsitionPage requsitionPage=navigatorPage.clickPurchaseRequisition();

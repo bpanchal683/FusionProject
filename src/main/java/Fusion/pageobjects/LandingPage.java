@@ -35,7 +35,7 @@ public class LandingPage extends AbstractComponent {
         sendKeysToElement(emailLoc,username);
         sendKeysToElement(passwordLoc,password1);
         clickElement(buttonLoc);
-        clickElement(buttonLoc);
+        //clickElement(buttonLoc);
         HomePage homePage=new HomePage(driver);
         return homePage;
     }

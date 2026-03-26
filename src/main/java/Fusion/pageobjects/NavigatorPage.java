@@ -46,10 +46,10 @@ public class NavigatorPage extends AbstractComponent {
     By journalsWait=By.xpath("//*[contains(text(),'Journals')]");
     By purchaseRequisitionLoc=By.linkText("Purchase Requisitions");
 
-    public void setShowMore()
-    {
+    public void setShowMore() throws InterruptedException {
         waitForElementClick(showMoreWait);
         //showMore.click();
+        Thread.sleep(2000);
         clickElement(showMoreWait);
     }
 
