@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "mvn clean install -DskipTests"
+                bat "mvn clean install -DskipTests"
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
                 expression { return !params.CROSSBROWSER }
             }
             steps {
-                sh "mvn test -Dbrowser=${params.BROWSER}${params.HEADLESS ? 'headless' : ''}"
+                bat "mvn test -Dbrowser=${params.BROWSER}${params.HEADLESS ? 'headless' : ''}"
             }
         }
 
@@ -36,12 +36,12 @@ pipeline {
             parallel {
                 stage('Chrome') {
                     steps {
-                        sh "mvn test -Dbrowser=chrome${params.HEADLESS ? 'headless' : ''}"
+                        bat "mvn test -Dbrowser=chrome${params.HEADLESS ? 'headless' : ''}"
                     }
                 }
                 stage('Edge') {
                     steps {
-                        sh "mvn test -Dbrowser=edge${params.HEADLESS ? 'headless' : ''}"
+                        bat "mvn test -Dbrowser=edge${params.HEADLESS ? 'headless' : ''}"
                     }
                 }
             }
