@@ -16,9 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
-                    sh "mvn clean install -DskipTests"
-                }
+                sh "mvn clean install -DskipTests"
             }
         }
 
@@ -27,9 +25,7 @@ pipeline {
                 expression { return !params.CROSSBROWSER }
             }
             steps {
-                withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
-                    sh "mvn test -Dbrowser=${params.BROWSER}${params.HEADLESS ? 'headless' : ''}"
-                }
+                sh "mvn test -Dbrowser=${params.BROWSER}${params.HEADLESS ? 'headless' : ''}"
             }
         }
 
@@ -40,16 +36,12 @@ pipeline {
             parallel {
                 stage('Chrome') {
                     steps {
-                        withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
-                            sh "mvn test -Dbrowser=chrome${params.HEADLESS ? 'headless' : ''}"
-                        }
+                        sh "mvn test -Dbrowser=chrome${params.HEADLESS ? 'headless' : ''}"
                     }
                 }
                 stage('Edge') {
                     steps {
-                        withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
-                            sh "mvn test -Dbrowser=edge${params.HEADLESS ? 'headless' : ''}"
-                        }
+                        sh "mvn test -Dbrowser=edge${params.HEADLESS ? 'headless' : ''}"
                     }
                 }
             }
