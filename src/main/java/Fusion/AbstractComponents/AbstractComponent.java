@@ -5,6 +5,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +19,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import static Fusion.AbstractComponents.ExtentTestManager.getExtentTest;
+import static java.sql.DriverManager.getDriver;
 
 
 public class AbstractComponent {
@@ -101,10 +103,12 @@ public class AbstractComponent {
 
         try {
             element = driver.findElement(findBy);
+            highlightElement(element);
             element.click();
         } catch (StaleElementReferenceException e) {
             System.out.println("Element is stale, re-locating and retrying...");
             element = driver.findElement(findBy); // Retry without wait
+            highlightElement(element);
             element.click();
         }
 
@@ -125,6 +129,7 @@ public class AbstractComponent {
 
         try {
             WebElement element = driver.findElement(findBy);
+            highlightElement(element);
             //element.clear();
             element.sendKeys(value);
 
@@ -228,6 +233,15 @@ public class AbstractComponent {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         return sdf.format(calendar.getTime());
     }
+    public WebElement findWithHealing(By primary, By fallback) {
+        try {
+            System.out.println("Trying primary locator: " + primary);
+            return driver.findElement(primary);
+        } catch (NoSuchElementException e) {
+            System.out.println("Primary locator failed, trying fallback: " + fallback);
+            return driver.findElement(fallback);
+        }
+    }
 
     public static String getNextDayYearFormatted() {
         // Create a Calendar instance and set it to the current date
@@ -263,6 +277,122 @@ public class AbstractComponent {
         return fileName;
     }
 
+    public void sendKeysUsingAction(By findBy, String value) {
+        ExtentTest test = getExtentTest();
+
+        try {
+            WebElement element = driver.findElement(findBy);
+            highlightElement(element);
+            Actions actions = new Actions(driver);
+            actions.click(element).pause(100).sendKeys(value).perform();
+            //element.clear();
+            //element.sendKeys(value);
+
+            try {
+                String screenshotPath = AbstractComponent.getScreenshot(driver);
+                test.pass("Entered value into element: " + findBy.toString(),
+                        MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
+            } catch (IOException io) {
+                test.pass("Entered value into element: " + findBy.toString() + ", but screenshot could not be attached.");
+            }
+
+        } catch (Exception e) {
+            test.fail("Failed to send keys to element: " + findBy.toString() + " - " + e.getMessage());
+        }
+    }
+
+    public void moveToElement(By findBy) {
+        ExtentTest test = getExtentTest();
+
+        try {
+            WebElement element = driver.findElement(findBy);
+            highlightElement(element);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element).perform();
+            //element.clear();
+            //element.sendKeys(value);
+
+
+
+        } catch (Exception e) {
+            //test.fail("Failed to send keys to element: " + findBy.toString() + " - " + e.getMessage());
+        }
+    }
+
+    public void highlightElement(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript(
+                "arguments[0].style.border='3px solid red';" +
+                        "arguments[0].style.boxShadow='0 0 10px red';",
+                element
+        );
+
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {}
+
+        js.executeScript(
+                "arguments[0].style.border='';" +
+                        "arguments[0].style.boxShadow='';",
+                element
+        );
+    }
+
+    public void waitForPageReady() {
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        wait.until(webDriver ->
+                js.executeScript("return document.readyState").equals("complete")
+        );
+
+        // Wait until no active ADF requests
+        wait.until(webDriver ->
+                js.executeScript("return (window.requestCount === 0 || !window.requestCount)").equals(true)
+        );
+    }
+
+    public void safeClick(By locator) {
+        waitForOverlayToDisappear();
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+        try {
+            el.click();
+        } catch (Exception e) {
+            // fallback: use JavaScript
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
+        }
+
+        waitForOverlayToDisappear(); // before next interaction
+    }
+    public void waitForOverlayToDisappear() {
+
+        try {
+            WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+            w.until(ExpectedConditions.invisibilityOfElementLocated(
+                    By.cssSelector("div[id*='busy'], div[id*='overlay'], div.af_dialog_overlay, div.af_panelBusy, div.af_fe_pbusypopup")
+            ));
+        } catch (Exception ignored) {}
+    }
+
+    public void keyAction(String action, By findBy) {
+        if (action.equalsIgnoreCase("enter")){
+            //WebElement element = driver.findElement(findBy);
+            //highlightElement(element);
+            Actions actions = new Actions(driver);
+            actions.sendKeys(Keys.ENTER).perform();
+        }
+    }
+
+    public void waitForPageResults() {
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.cssSelector("div.af_panelBusy, div.af_dialog_overlay")
+        ));
+    }
 
 
 }

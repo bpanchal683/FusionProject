@@ -1,52 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="false" thread-count="1">
 
-    <listeners>
+<suite name="CombinedSuite" parallel="false" thread-count="1">
+
+    <!-- =========================
+         Single Browser Suite
+         Uses browser from config.properties
+         Example: browser=chromeheadless, crossbrowser=false
+         ========================= -->
+
+
+    <!-- =========================
+         Cross Browser Suite
+         Requires crossbrowser=true in config.properties
+         Browsers passed via parameters below
+         ========================= -->
+    <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="Fusion.tests.AddUsersInOracleFusion"/>
+        </classes>
+    </test>
+
+    <test name="EdgeTest">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="Fusion.tests.AddUsersInOracleFusion"/>
+        </classes>
+    </test>
+
+
+    <!-- =========================
+         Other tests you want to keep
+         ========================= -->
+
+<listeners>
         <listener class-name="Fusion.TestComponent.Listeners"/>
     </listeners>
 
-    <test name="CreateUserTest">
+    <!--<test name="CreateUserTest">
         <classes>
             <class name="Fusion.tests.AddUsersInOracleFusion">
             </class>
         </classes>
-    </test>
+    </test>-->
 
-    <test name="OICTest">
-        <classes>
-            <class name="Fusion.tests.ScheduleServicesInOracleFusion">
-            </class>
-        </classes>
-    </test>
+<!--    <test name="OICTest">-->
+<!--        <classes>-->
+<!--            <class name="Fusion.tests.ScheduleServicesInOracleFusion">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-        <test name="ActiveUserInServiceNow">
+        <!--<test name="ActiveUser_In_ServiceNow">
             <classes>
                 <class name="Fusion.tests.ServiceNowTestActiveUser">
                 </class>
             </classes>
-        </test>
+        </test>-->
 
-    <test name="DeleteUserTest">
+    <test name="Deactivate_The_User">
         <classes>
             <class name="Fusion.tests.deleteUsersInOracleFusion">
             </class>
         </classes>
     </test>
 
-        <test name="OICTest2">
-            <classes>
-                <class name="Fusion.tests.ScheduleServicesInOracleFusion">
-                </class>
-            </classes>
-        </test>
+<!--        <test name="OICTest2">-->
+<!--            <classes>-->
+<!--                <class name="Fusion.tests.ScheduleServicesInOracleFusion">-->
+<!--                </class>-->
+<!--            </classes>-->
+<!--        </test>-->
 
 
-    <test name="DeactivateUserInServiceNow">
-        <classes>
-            <class name="Fusion.tests.ServiceNowTestInactiveUser">
-            </class>
-        </classes>
-    </test>
+<!--    <test name="DeactivateUserInServiceNow">-->
+<!--        <classes>-->
+<!--            <class name="Fusion.tests.ServiceNowTestInactiveUser">-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 </suite>

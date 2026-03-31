@@ -1,9 +1,11 @@
 package Fusion.pageobjects;
+import Fusion.AbstractComponents.AbstractComponent;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
 
-public class PersonManagement {
+public class PersonManagement extends AbstractComponent {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -28,41 +30,52 @@ public class PersonManagement {
     By doneButton = By.xpath("//button[@title='Done']");
 
     public PersonManagement(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
+        this.driver=driver;
+        PageFactory.initElements(driver,this);
     }
 
-    public String searchByName() throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(homeButton)).click();
+    public String searchByName(String namevalue) throws InterruptedException {
+        clickElement(homeButton);
+        //wait.until(ExpectedConditions.elementToBeClickable(homeButton)).click();
         Thread.sleep(2000);
-        wait.until(ExpectedConditions.elementToBeClickable(clientGroupButton)).click();
+        clickElement(clientGroupButton);
+        //wait.until(ExpectedConditions.elementToBeClickable(clientGroupButton)).click();
         Thread.sleep(2000);
-        wait.until(ExpectedConditions.elementToBeClickable(personManage)).click();
+        clickElement(personManage);
+        //wait.until(ExpectedConditions.elementToBeClickable(personManage)).click();
         Thread.sleep(2000);
-        WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(name));
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        js.executeScript(
-                "arguments[0].value = arguments[1];" +
-                        "arguments[0].dispatchEvent(new Event('input')); " +
-                        "arguments[0].dispatchEvent(new Event('change')); " +
-                        "arguments[0].dispatchEvent(new Event('blur'));",
-                nameInput, "dummy71"
-        );
+        sendKeysToElement(name,namevalue);
+//        WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(name));
+//
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//        js.executeScript(
+//                "arguments[0].value = arguments[1];" +
+//                        "arguments[0].dispatchEvent(new Event('input')); " +
+//                        "arguments[0].dispatchEvent(new Event('change')); " +
+//                        "arguments[0].dispatchEvent(new Event('blur'));",
+//                nameInput, "dummy22"
+//        );
         Thread.sleep(2000);
-        wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
+        clickElement(searchButton);
+        //wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
         Thread.sleep(5000);
-        wait.until(ExpectedConditions.elementToBeClickable(firstRecord)).click();
+        clickElement(firstRecord);
+        //wait.until(ExpectedConditions.elementToBeClickable(firstRecord)).click();
         Thread.sleep(4000);
-        wait.until(ExpectedConditions.elementToBeClickable(tasksButton)).click();
+        clickElement(tasksButton);
+        //wait.until(ExpectedConditions.elementToBeClickable(tasksButton)).click();
         Thread.sleep(4000);
-        wait.until(ExpectedConditions.elementToBeClickable(userAccount)).click();
+        clickElement(userAccount);
+        //wait.until(ExpectedConditions.elementToBeClickable(userAccount)).click();
         Thread.sleep(10000);
-        WebElement userEl = wait.until(ExpectedConditions.visibilityOfElementLocated(username));
-        String usernameValue = userEl.getAttribute("title").trim();
 
-        wait.until(ExpectedConditions.elementToBeClickable(closeBtn)).click();
+        String usernameValue = getTextFromElement(username);
+        //WebElement userEl = wait.until(ExpectedConditions.visibilityOfElementLocated(username));
+        //String usernameValue = userEl.getAttribute("title").trim();
+        clickElement(closeBtn);
+        //wait.until(ExpectedConditions.elementToBeClickable(closeBtn)).click();
         Thread.sleep(5000);
         return usernameValue;
 
@@ -70,20 +83,21 @@ public class PersonManagement {
 
     public void searchUserInUserAccounts(String usernameValue) throws InterruptedException {
 
-        //By userSearchInput = By.xpath("//input[contains(@placeholder,'3 or more characters')]");
+        By userSearchInput = By.xpath("//input[contains(@placeholder,'3 or more characters')]");
         By userSearchButton = By.xpath("//span[@title='Search']/parent::a");
-
-        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(userSearchInput));
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        js.executeScript(
-                "arguments[0].value = arguments[1];" +
-                        "arguments[0].dispatchEvent(new Event('input')); " +
-                        "arguments[0].dispatchEvent(new Event('change')); " +
-                        "arguments[0].dispatchEvent(new Event('blur'));",
-                searchInput, usernameValue
-        );
+        sendKeysToElement(userSearchInput,usernameValue);
+        keyAction("Enter",userSearchButton);
+//        WebElement searchInput = wait.until(ExpectedConditions.visibilityOfElementLocated(userSearchInput));
+//
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//        js.executeScript(
+//                "arguments[0].value = arguments[1];" +
+//                        "arguments[0].dispatchEvent(new Event('input')); " +
+//                        "arguments[0].dispatchEvent(new Event('change')); " +
+//                        "arguments[0].dispatchEvent(new Event('blur'));",
+//                searchInput, usernameValue
+//        );
 
         Thread.sleep(1500);
 
@@ -94,7 +108,7 @@ public class PersonManagement {
 //        waitForPageResults();
 //       //wait.until(ExpectedConditions.elementToBeClickable(getSearchButton)).click();
 //        searchUser();
-        searchInput.sendKeys(Keys.ENTER);
+        //searchInput.sendKeys(Keys.ENTER);
 
         waitForPageReady();
         waitForPageResults();
@@ -106,53 +120,17 @@ public class PersonManagement {
         public void searchUser() throws InterruptedException {
         //wait.until(ExpectedConditions.elementToBeClickable(getSearchButton)).click();
         Thread.sleep(1500);
-        wait.until(ExpectedConditions.elementToBeClickable(userLink)).click();
+        clickElement(userLink);
+        //wait.until(ExpectedConditions.elementToBeClickable(userLink)).click();
         Thread.sleep(10000);
-        wait.until(ExpectedConditions.elementToBeClickable(doneButton)).click();
+            clickElement(doneButton);
+        //wait.until(ExpectedConditions.elementToBeClickable(doneButton)).click();
         Thread.sleep(2500);
 
     }
-    public void waitForPageReady() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        wait.until(webDriver ->
-                js.executeScript("return document.readyState").equals("complete")
-        );
 
-        // Wait until no active ADF requests
-        wait.until(webDriver ->
-                js.executeScript("return (window.requestCount === 0 || !window.requestCount)").equals(true)
-        );
+
+
     }
 
-    public void safeClick(By locator) {
-        waitForOverlayToDisappear();
-
-        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(locator));
-
-        try {
-            el.click();
-        } catch (Exception e) {
-            // fallback: use JavaScript
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
-        }
-
-        waitForOverlayToDisappear(); // before next interaction
-    }
-    public void waitForOverlayToDisappear() {
-        try {
-            WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(30));
-
-            w.until(ExpectedConditions.invisibilityOfElementLocated(
-                    By.cssSelector("div[id*='busy'], div[id*='overlay'], div.af_dialog_overlay, div.af_panelBusy, div.af_fe_pbusypopup")
-            ));
-        } catch (Exception ignored) {}
-    }
-
-    public void waitForPageResults() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(
-                By.cssSelector("div.af_panelBusy, div.af_dialog_overlay")
-        ));
-    }
-
-}

@@ -1,4 +1,6 @@
 package Fusion.tests;
+import Fusion.AbstractComponents.AbstractComponent;
+import Fusion.TestComponent.BaseTest;
 import Fusion.pageobjects.DeleteUser;
 import Fusion.pageobjects.LoginPage;
 import Fusion.pageobjects.SecurityConsolePage;
@@ -8,51 +10,48 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.time.Duration;
 
 
-public class deleteUsersInOracleFusion {
+public class deleteUsersInOracleFusion extends BaseTest {
 
 
-        WebDriver driver;
-        LoginPage loginPage;
-        DeleteUser editUser;
 
-        @BeforeClass
+    LoginPage loginPage;
+    DeleteUser editUser;
 
-        public void setup() {
-            // ------------------ WebDriver Setup ----------------------
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-            // ------------------ Page Object Initialization -----------
-            loginPage = new LoginPage(driver);
-            editUser = new DeleteUser(driver);
-        }
-        @Test
-        public void deleteFusionUser() throws InterruptedException {
-            // ------------------ STEP 1 : Open Oracle Fusion --------
-            driver.get("https://ekwm-dev1.login.us6.oraclecloud.com/");
-
-            // ------------------ STEP 2 : Login ---------------------
-            loginPage.login("JD", "Fusion@123");
-
-            // ------------------ STEP 3 : Open Security Console -----
-            editUser.openSecurityConsole("dummy");
-
-            // ------------------ STEP 4 : Click Users ----------------
-            editUser.deactivateUser();
-
-            editUser.verifyUserIsDeactivated("dummy");
+    @BeforeClass
+    public void setup() throws IOException {
 
 
-        }
 
-        @AfterClass
-        public void tearDown() {
-            driver.quit();
-        }
+        // Page Object Initialization
+        loginPage = new LoginPage(getDriver());
+        editUser = new DeleteUser(getDriver());
+    }
+
+    @Test
+    public void deleteFusionUser() throws InterruptedException {
+        System.out.println("STEP 1: Opening Oracle Fusion login page");
+        getDriver().get("https://ekwm-dev1.login.us6.oraclecloud.com/");
+
+        System.out.println("STEP 2: Logging in as JD");
+        loginPage.login("JD", "Fusion@123");
+
+        System.out.println("STEP 3: Opening Security Console");
+        editUser.openSecurityConsole("dummy222");
+
+        System.out.println("STEP 4: Deactivating user");
+        editUser.deactivateUser();
+
+        System.out.println("STEP 5: Verifying user deactivation");
+        editUser.verifyUserIsDeactivated("dummy222");
+
+        System.out.println("✅ Test completed successfully");
+    }
+
+
     }
 
 

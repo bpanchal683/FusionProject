@@ -3,29 +3,29 @@ package Fusion.TestComponent;
 import Fusion.pageobjects.LandingPage;
 import Fusion.pageobjects.MsdSignInPage;
 
-import io.appium.java_client.android.AndroidDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
-
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
 import org.testng.annotations.*;
 
+import java.awt.*;
+import java.awt.Dimension;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 
 public class BaseTest {
 
-    public WebDriver driver;
+    // ThreadLocal driver ensures each thread has its own instance
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
     public LandingPage lp;
     public MsdSignInPage msdSignInPage;
 
@@ -33,8 +33,16 @@ public class BaseTest {
     public String url;
     public String userName;
     public String password;
+    public boolean isCrossBrowserEnabled;
 
-    // ---------------------- READ CONFIG ----------------------
+    public WebDriver getDriver() {
+        return driver.get();
+    }
+
+    public void setDriver(WebDriver driverInstance) {
+        driver.set(driverInstance);
+    }
+
     public void readConfig() throws IOException {
         Properties prop = new Properties();
         FileInputStream fis = new FileInputStream(
@@ -46,9 +54,9 @@ public class BaseTest {
         url = prop.getProperty("url");
         userName = prop.getProperty("user");
         password = prop.getProperty("password");
+        isCrossBrowserEnabled = Boolean.parseBoolean(prop.getProperty("crossbrowser", "false"));
     }
 
-    // ---------------------- WEB DRIVER INIT ----------------------
     public WebDriver initializeDriver(String browser) throws IOException {
         readConfig();
 
@@ -56,75 +64,86 @@ public class BaseTest {
             browser = browserName;
         }
 
+        WebDriver localDriver = null;
+
         if (browser.toLowerCase().contains("chrome")) {
             ChromeOptions options = new ChromeOptions();
             WebDriverManager.chromedriver().setup();
             if (browser.contains("headless")) {
-                options.addArguments("headless");
+                options.addArguments("--headless=new");
             }
-            driver = new ChromeDriver(options);
-        }
-        else if (browser.toLowerCase().contains("edge")) {
+            localDriver = new ChromeDriver(options);
+
+        } else if (browser.toLowerCase().contains("edge")) {
             EdgeOptions options = new EdgeOptions();
-            WebDriverManager.edgedriver().setup();
+            try {
+                // Try WebDriverManager first
+                WebDriverManager.edgedriver().setup();
+            } catch (Exception e) {
+                // Fallback to local driver if download fails
+                System.setProperty("webdriver.edge.driver", "C:\\drivers\\msedgedriver.exe");
+            }
             if (browser.contains("headless")) {
                 options.addArguments("headless");
             }
-            driver = new EdgeDriver(options);
-        }
-        else if (browser.toLowerCase().contains("firefox")) {
+            localDriver = new EdgeDriver(options);
+
+        } else if (browser.toLowerCase().contains("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             WebDriverManager.firefoxdriver().setup();
             if (browser.contains("headless")) {
-                options.addArguments("headless");
+                options.addArguments("-headless");
             }
-            driver = new FirefoxDriver(options);
+            localDriver = new FirefoxDriver(options);
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
+        localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        return driver;
+        // ✅ Dynamic split screen setup for parallel runs
+        try {
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenWidth = (int) screenSize.getWidth();
+            int screenHeight = (int) screenSize.getHeight();
+            int halfWidth = screenWidth / 2;
+
+            localDriver.manage().window().setSize(new org.openqa.selenium.Dimension(halfWidth, screenHeight));
+
+            if (Thread.currentThread().getId() % 2 == 0) {
+                localDriver.manage().window().setPosition(new Point(0, 0)); // left half
+            } else {
+                localDriver.manage().window().setPosition(new Point(halfWidth, 0)); // right half
+            }
+        } catch (Exception e) {
+            System.out.println("Could not set window position: " + e.getMessage());
+        }
+
+        return localDriver;
     }
 
-    // ---------------------- MOBILE (APPIUM) INIT ----------------------
-    @BeforeTest
-    public void setUp() throws IOException {
+    @BeforeMethod(alwaysRun = true)
+    @Parameters("browser")
+    public void setUp(@Optional String browser) throws IOException {
+        readConfig();
+        WebDriver localDriver;
 
-        // If running Mobile-Appium Test
-        if (browserName != null && browserName.equalsIgnoreCase("mobile")) {
-
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("appium:platformName", "Android");
-            capabilities.setCapability("appium:deviceName", "SM-A325F");
-            capabilities.setCapability("appium:udid", "RZ8TA0SENMP");
-            capabilities.setCapability("appium:automationName", "UiAutomator2");
-            capabilities.setCapability("appium:browserName", "Chrome");
-
-            capabilities.setCapability("appium:chromedriverExecutable",
-                    "C:\\Users\\jitesh\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
-
-            driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), capabilities);
+        if (isCrossBrowserEnabled && browser != null) {
+            // Cross-browser mode: browser passed from TestNG XML or Jenkins pipeline
+            localDriver = initializeDriver(browser);
         } else {
-
-            // If running normal Web Test
-            driver = initializeDriver(browserName);
+            // Single-browser mode: use config.properties value
+            localDriver = initializeDriver(browserName);
         }
 
-        readConfig();
-
-        // Launch application
-        lp = new LandingPage(driver);
+        setDriver(localDriver);
+        lp = new LandingPage(getDriver());
         lp.goTo(url);
     }
 
-    // ---------------------- CLEANUP ----------------------
-    @AfterTest
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        if (driver != null) {
-            try {
-                driver.quit();
-            } catch (Exception ignored) {}
+        if (getDriver() != null) {
+            getDriver().quit();
+            driver.remove(); // ✅ clean up thread-local
         }
     }
 }

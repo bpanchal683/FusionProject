@@ -18,7 +18,7 @@ public class ServiceNowTestInactiveUser {
 
     public WebDriver driver;
     WebDriverWait wait;
-    String usernameValue = "dummy71 test71";
+    String usernameValue = "dummy22 test22";
 
     @BeforeClass
     public void setup() {
@@ -30,10 +30,11 @@ public class ServiceNowTestInactiveUser {
 
     @Test
     public void verifyInactiveUserStatus() throws Exception {
+        System.out.println("STEP 1: Opening ServiceNow login page");
 
         driver.get("https://itconvergencedev.service-now.com/");
         wait.until(ExpectedConditions.visibilityOfElementLocated( By.id ("user_name")));
-
+        System.out.println("STEP 2: Logging into ServiceNow");
         ServiceNowPage sn = new ServiceNowPage(driver);
         sn.login("JD", "Jitesh@123");
 
@@ -41,15 +42,18 @@ public class ServiceNowTestInactiveUser {
 
         // Extract Last Name
         String lastName = usernameValue.split(" ")[1];
+        System.out.println("STEP 3: Navigating to user list for " + usernameValue);
 
         // Open SNOW Users Page
         driver.get("https://itconvergencedev.service-now.com/nav_to.do?uri=sys_user_list.do?sysparm_query=nameLIKE"
                 + lastName);
 
         wait.until(ExpectedConditions.urlContains("sys_user_list.do"));
+        System.out.println("STEP 4: Navigated to Users Page UI");
         System.out.println("Navigated to Users Page UI");
 
         // API Call
+        System.out.println("STEP 5: Making API call to fetch user status");
         RestAssured.baseURI = "https://itconvergencedev.service-now.com";
         String query = "nameLIKE" + lastName;
 
@@ -60,8 +64,8 @@ public class ServiceNowTestInactiveUser {
                 .queryParam("sysparm_limit", "1")
                 .get("/api/now/table/sys_user")
                 .then().extract().response();
+        System.out.println("STEP 6: API Response: " + response.asString());
 
-        System.out.println("API Response: " + response.asString());
         JsonPath json = response.jsonPath();
 
         // Case 1: User Deleted → PASS
@@ -75,6 +79,7 @@ public class ServiceNowTestInactiveUser {
         // Case 2: User Exists
         String fullName = json.getString("result[0].name");
         boolean isActive = json.getBoolean("result[0].active");
+        System.out.println("STEP 7: API Verified → " + fullName + " : Active = " + isActive);
 
         System.out.println("API Verified → " + fullName + " : Active = " + isActive);
 

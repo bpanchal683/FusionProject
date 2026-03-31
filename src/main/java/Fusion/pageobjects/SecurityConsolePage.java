@@ -1,13 +1,15 @@
 package Fusion.pageobjects;
 
+import Fusion.AbstractComponents.AbstractComponent;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 import java.util.List;
 
-public class SecurityConsolePage {
+public class SecurityConsolePage extends AbstractComponent {
     WebDriver driver;
     WebDriverWait wait;
 
@@ -42,29 +44,37 @@ public class SecurityConsolePage {
     By saveBtn = By.xpath("//button[@title='Save and Close']");
 
     public SecurityConsolePage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
+        this.driver=driver;
+        PageFactory.initElements(driver,this);
     }
 
     public void openSecurityConsole() throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(navigator)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(Tools)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(securityConsole)).click();
+        clickElement(navigator);
+        //wait.until(ExpectedConditions.elementToBeClickable(navigator)).click();
+        clickElement(Tools);
+        //wait.until(ExpectedConditions.elementToBeClickable(Tools)).click();
+        clickElement(securityConsole);
+        //wait.until(ExpectedConditions.elementToBeClickable(securityConsole)).click();
         Thread.sleep(5000);
-        wait.until(ExpectedConditions.elementToBeClickable(usersTab)).click();
+        clickElement(usersTab);
+        //wait.until(ExpectedConditions.elementToBeClickable(usersTab)).click();
         Thread.sleep(5000);
         //handleWarningPopup();
 
     }
 
     public void clickCreateUser() {
-
-        wait.until(ExpectedConditions.elementToBeClickable(AddUserButton)).click();
+        clickElement(AddUserButton);
+        //wait.until(ExpectedConditions.elementToBeClickable(AddUserButton)).click();
     }
 
     public void enterUserDetails(String fname, String lname, String mail, String ph, String pwd, String cpwd) {
-        wait.until(ExpectedConditions.elementToBeClickable(ClickCombo)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(AssociatedPerson)).click();
+        clickElement(ClickCombo);
+        //wait.until(ExpectedConditions.elementToBeClickable(ClickCombo)).click();
+        clickElement(AssociatedPerson);
+        //wait.until(ExpectedConditions.elementToBeClickable(AssociatedPerson)).click();
+        //sendKeysToElement();
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys(fname);
         driver.findElement(lastName).sendKeys(lname);
         driver.findElement(emailId).sendKeys(mail);
