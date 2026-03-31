@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        MAVEN_HOME = tool 'Maven_3.8.6'   // Maven configured in Jenkins tools
-        JAVA_HOME  = tool 'JDK17'         // JDK configured in Jenkins tools
-    }
-
     parameters {
         string(name: 'BROWSER', defaultValue: 'chrome', description: 'Browser to run tests on (chrome/edge)')
         booleanParam(name: 'CROSSBROWSER', defaultValue: false, description: 'Enable cross-browser execution')
@@ -21,7 +16,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "${MAVEN_HOME}/bin/mvn clean install -DskipTests"
+                withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
+                    sh "mvn clean install -DskipTests"
+                }
             }
         }
 
@@ -30,7 +27,9 @@ pipeline {
                 expression { return !params.CROSSBROWSER }
             }
             steps {
-                sh "${MAVEN_HOME}/bin/mvn test -Dbrowser=${params.BROWSER}${params.HEADLESS ? 'headless' : ''}"
+                withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
+                    sh "mvn test -Dbrowser=${params.BROWSER}${params.HEADLESS ? 'headless' : ''}"
+                }
             }
         }
 
@@ -41,12 +40,16 @@ pipeline {
             parallel {
                 stage('Chrome') {
                     steps {
-                        sh "${MAVEN_HOME}/bin/mvn test -Dbrowser=chrome${params.HEADLESS ? 'headless' : ''}"
+                        withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
+                            sh "mvn test -Dbrowser=chrome${params.HEADLESS ? 'headless' : ''}"
+                        }
                     }
                 }
                 stage('Edge') {
                     steps {
-                        sh "${MAVEN_HOME}/bin/mvn test -Dbrowser=edge${params.HEADLESS ? 'headless' : ''}"
+                        withEnv(["PATH+MAVEN=${tool 'Maven_3.8.6'}/bin", "JAVA_HOME=${tool 'JDK17'}"]) {
+                            sh "mvn test -Dbrowser=edge${params.HEADLESS ? 'headless' : ''}"
+                        }
                     }
                 }
             }
