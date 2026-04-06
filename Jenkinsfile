@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+            maven 'Maven_3.9.9'   // Name must match what you configured in Global Tool Configuration
+            jdk 'JDK_21'
+        }
 
     parameters {
         string(name: 'BROWSER', defaultValue: 'chrome', description: 'Browser to run tests on (chrome/edge)')
